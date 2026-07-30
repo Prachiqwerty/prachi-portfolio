@@ -1,0 +1,32 @@
+.DS_Store
+.impeccable/
+
+# Alternate prototype; index.html is the production portfolio.
+prachi-firecrawl-portfolio.html
+
+# Unreferenced source exports; production pages use the optimized assets.
+assets/figma-components-block-library.png
+assets/figma-components-body-list.png
+assets/figma-components-seo-forms.png
+assets/figma-components-storyblok-space.png
+assets/figma-home-page.png
+assets/figma-lead-capture-forms.png
+assets/figma-payment-admissions.png
+assets/figma-payment-flow.webp
+assets/figma-program-page-designs.webp
+assets/figma-program-page-detail-flow.webp
+assets/figma-program-page.png
+assets/figma-reusable-design-system-blocks.webp
+assets/google-antigravity.png
+assets/pathmaker-weekly-calendar-view.webp
+assets/scaler-ai-lms-inside-class.png
+assets/scaler-ai-lms-path-maker.png
+assets/scaler-ai-lms-problem-solving.png
+assets/step-1-understand-page-story.png
+assets/step-2-design-storyblok-screen.png
+assets/step-3-codify-back.png
+assets/step-3-codify-front.png
+assets/varsity-home-overview-screenshot.png
+assets/varsity-iit-delhi-page-screenshot.png
+assets/varsity-overview-responsive-screens-v2.png
+assets/varsity-overview-responsive-screens.png

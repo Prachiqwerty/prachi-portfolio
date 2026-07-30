@@ -1,0 +1,2921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building landing pages in hours, not days: One repeatable Storyblok system</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Geist:wght@400;450;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page: #fdfdfc;
+      --ink: #2a2438;
+      --text: #505054;
+      --muted: #9da1aa;
+      --line: #eee8e2;
+      --soft: #fff4ed;
+      --soft-2: #fffaf6;
+      --accent: #df4b13;
+      --blue: #0032f0;
+      --panel: #ffffff;
+      --shadow: 0 30px 90px rgba(42, 36, 56, 0.08);
+      --sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: "Cormorant Garamond", Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: var(--sans);
+      letter-spacing: 0;
+    }
+
+    .reading-progress {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    p,
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      width: min(100%, 1500px);
+      margin: 0 auto;
+      min-height: 100dvh;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      height: 100dvh;
+      padding: 54px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--line);
+      background: rgba(253, 253, 252, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      color: #8f939b;
+      font-size: 14px;
+      font-weight: 450;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+
+    .back-link:hover {
+      color: var(--ink);
+      transform: translateX(-2px);
+    }
+
+    .toc {
+      display: grid;
+      gap: 11px;
+      margin-top: 56px;
+    }
+
+    .toc a {
+      position: relative;
+      color: #929296;
+      font-size: 13px;
+      line-height: 1.25;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+
+    .toc a::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -15px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      transform: translateY(-50%) scale(0.5);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .toc a:hover,
+    .toc a.active {
+      color: #303036;
+      transform: translateX(2px);
+    }
+
+    .toc a.active::before {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .side-note {
+      color: #a5a8af;
+      font-size: 12px;
+      line-height: 1.5;
+      max-width: 150px;
+    }
+
+    .content {
+      width: min(100%, 1160px);
+      margin: 0 auto;
+      padding: 54px 56px 80px;
+    }
+
+    .hero {
+      text-align: left;
+    }
+
+    .project-kicker {
+      color: #a3a8b2;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin: 18px 0 30px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .hero-title {
+      max-width: 860px;
+      margin: 0;
+      font-family: var(--serif);
+      color: var(--ink);
+      font-size: clamp(30px, 3vw, 42px);
+      line-height: 1.07;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .hero-title .accent-title {
+      display: block;
+      margin-top: 3px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: #4f4f56;
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .hero-media {
+      margin-top: 38px;
+      padding: 32px 32px 0;
+      background: var(--soft);
+      box-shadow: inset 0 0 0 1px rgba(223, 75, 19, 0.06);
+      text-align: left;
+    }
+
+    .system-visual {
+      position: relative;
+      min-height: 480px;
+      padding: 28px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(223, 75, 19, 0.12), transparent 28%),
+        radial-gradient(circle at 82% 64%, rgba(0, 50, 240, 0.08), transparent 32%),
+        #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .system-visual.has-screenshot {
+      height: 480px;
+      min-height: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    .hero-screenshot {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .section-image-frame {
+      margin: 38px 0 0;
+      background: var(--soft);
+      border: 1px solid rgba(223, 75, 19, 0.14);
+      box-shadow: 0 28px 80px rgba(223, 75, 19, 0.08);
+    }
+
+    .section-image-window {
+      aspect-ratio: 2972 / 1418;
+      height: auto;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .section-image-window img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .visual-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .visual-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #302f36;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .visual-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: #fff0e7;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 23px;
+      line-height: 1;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 32px;
+      padding: 0 13px;
+      border: 1px solid #e3dce6;
+      border-radius: 999px;
+      color: #75737b;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .status-chip::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .visual-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.35fr;
+      gap: 28px;
+      padding-top: 28px;
+    }
+
+    .flow-panel,
+    .cms-panel {
+      min-height: 340px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+    }
+
+    .flow-panel {
+      padding: 26px;
+      display: grid;
+      align-content: start;
+      gap: 16px;
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      background: #fbfafc;
+      border: 1px solid #f0edf2;
+    }
+
+    .flow-index {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      background: #fff0e7;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .flow-step strong {
+      display: block;
+      color: #34313a;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    .flow-step span {
+      display: block;
+      margin-top: 5px;
+      color: #8a8890;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .cms-panel {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+    }
+
+    .cms-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cms-tabs span {
+      padding: 15px 12px;
+      color: #8a8791;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid var(--line);
+    }
+
+    .cms-tabs span:last-child {
+      border-right: 0;
+    }
+
+    .cms-body {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      min-height: 100%;
+    }
+
+    .blok-list {
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      background: #fbfafc;
+    }
+
+    .blok-list span {
+      display: block;
+      margin-bottom: 12px;
+      padding: 9px 10px;
+      color: #76727c;
+      font-size: 12px;
+      border: 1px solid #ede8ef;
+      background: #ffffff;
+    }
+
+    .story-preview {
+      padding: 20px;
+    }
+
+    .preview-hero {
+      min-height: 120px;
+      padding: 18px;
+      background: linear-gradient(135deg, #fff7ed, #f7effa 54%, #eef3ff);
+      border: 1px solid #eee8f1;
+    }
+
+    .preview-line {
+      height: 12px;
+      margin-bottom: 10px;
+      background: rgba(42, 36, 56, 0.14);
+    }
+
+    .preview-line.short {
+      width: 56%;
+    }
+
+    .preview-line.medium {
+      width: 74%;
+    }
+
+    .preview-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .preview-card {
+      min-height: 86px;
+      padding: 12px;
+      background: #fff;
+      border: 1px solid #f0e7e0;
+    }
+
+    .preview-card::before,
+    .preview-card::after {
+      content: "";
+      display: block;
+      height: 10px;
+      background: rgba(223, 75, 19, 0.14);
+    }
+
+    .preview-card::after {
+      width: 68%;
+      margin-top: 10px;
+      background: rgba(42, 36, 56, 0.1);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr 2.4fr 1.35fr 1.45fr;
+      gap: 30px;
+      margin-top: 38px;
+      padding: 20px 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .meta-label {
+      display: block;
+      margin-bottom: 9px;
+      color: #a1a5ae;
+      font-size: 11px;
+      font-weight: 450;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .meta-grid p {
+      color: #55535c;
+      font-size: 14px;
+      line-height: 1.48;
+      font-weight: 400;
+    }
+
+    .impact-snapshot {
+      display: grid;
+      grid-template-columns: minmax(190px, 1.25fr) repeat(4, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
+      margin-top: 46px;
+      padding: 24px 4px 22px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .impact-stat {
+      padding-top: 1px;
+    }
+
+    .impact-intro .meta-label {
+      margin-bottom: 8px;
+    }
+
+    .impact-intro {
+      padding-right: 22px;
+      border-right: 1px solid var(--line);
+    }
+
+    .impact-intro p {
+      color: #68666d;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .impact-link {
+      display: inline-flex;
+      margin-top: 10px;
+      color: var(--accent);
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 550;
+    }
+
+    .impact-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .impact-stat strong {
+      display: block;
+      color: var(--accent);
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .impact-stat span {
+      display: block;
+      margin-top: 9px;
+      color: #5d5a63;
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+
+    .case-section {
+      display: block;
+      padding: 96px 0;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .case-section > * {
+      min-width: 0;
+    }
+
+    .case-section:first-of-type {
+      margin-top: 76px;
+    }
+
+    .section-kicker {
+      margin: 0 0 16px;
+      color: #a1a5ae;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    .section-title {
+      max-width: 820px;
+      margin: 0;
+      font-family: var(--serif);
+      color: var(--ink);
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-align: left;
+    }
+
+    .section-copy {
+      max-width: 740px;
+      margin: 20px 0 0;
+      color: #4f4f56;
+      font-size: 15px;
+      line-height: 1.52;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    .quiet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 42px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .quiet-card {
+      min-height: 190px;
+      padding: 26px;
+      background: #fff;
+    }
+
+    .quiet-card h3 {
+      color: #37343d;
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .quiet-card p {
+      margin-top: 14px;
+      color: #68666d;
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    .quiet-card p strong {
+      color: #37343d;
+      font-weight: 600;
+    }
+
+    .problem-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 42px;
+      border: 1px solid #e0d7d0;
+      background: #fff;
+      text-align: center;
+    }
+
+    .problem-metric-card {
+      min-height: 170px;
+      border-right: 1px solid #e0d7d0;
+    }
+
+    .problem-metric-card:last-child {
+      border-right: 0;
+    }
+
+    .problem-metric-card h3 {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e0d7d0;
+      color: #3b3741;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .problem-metric-card p {
+      margin: 0;
+      padding: 28px 24px 30px;
+      color: #5f5d64;
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    .problem-metric-card p strong {
+      color: #2f2c34;
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .timeline {
+      margin-top: 44px;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 42px;
+      padding: 26px 0;
+      border-bottom: 1px dashed #e3dbd4;
+    }
+
+    .timeline-row strong {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .timeline-row p {
+      color: #57545d;
+      font-size: 15px;
+      line-height: 1.48;
+      font-weight: 400;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 40px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .skill-card {
+      position: relative;
+      min-height: 210px;
+      padding: 26px 28px;
+      border-right: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .skill-card:last-child {
+      border-right: 0;
+    }
+
+    .skill-card:not(:last-child)::after {
+      content: "\2192";
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      right: -13px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--page);
+      font-size: 14px;
+      transform: translateY(-50%);
+    }
+
+    .skill-stage {
+      display: block;
+      margin-bottom: 16px;
+      color: #8a8790;
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 550;
+      text-transform: uppercase;
+    }
+
+    .skill-card h3 {
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-size: 18px;
+      line-height: 1.18;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .skill-card p {
+      color: #5f5c65;
+      font-size: 14.5px;
+      line-height: 1.58;
+      font-weight: 300;
+    }
+
+    .page-architecture {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .architecture-stage {
+      position: relative;
+      min-height: 230px;
+      padding: 26px 24px;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .architecture-stage:last-child {
+      border-right: 0;
+    }
+
+    .architecture-stage:not(:last-child)::after {
+      content: "\2192";
+      position: absolute;
+      z-index: 1;
+      top: 35px;
+      right: -13px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--page);
+      font-size: 14px;
+    }
+
+    .architecture-count {
+      display: block;
+      color: var(--accent);
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .architecture-stage h3 {
+      margin-top: 18px;
+      color: #37343d;
+      font-size: 17px;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .architecture-stage p {
+      margin-top: 10px;
+      color: #68666d;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .architecture-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 18px;
+    }
+
+    .architecture-tags span {
+      padding: 6px 8px;
+      border: 1px solid #eaded7;
+      color: #706d76;
+      background: var(--soft-2);
+      font-size: 10.5px;
+      line-height: 1;
+    }
+
+    .schema-details {
+      margin-top: 24px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .schema-details summary {
+      position: relative;
+      padding: 19px 42px 19px 0;
+      color: #3b3741;
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .schema-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .schema-details summary::after {
+      content: "+";
+      position: absolute;
+      top: 50%;
+      right: 4px;
+      color: var(--accent);
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 400;
+      transform: translateY(-50%);
+    }
+
+    .schema-details[open] summary::after {
+      content: "\2212";
+    }
+
+    .schema-details summary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .schema-details .data-table {
+      margin-top: 0;
+    }
+
+    .ownership-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .ownership-stage {
+      position: relative;
+      min-height: 220px;
+      padding: 26px 28px;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .ownership-stage:last-child {
+      border-right: 0;
+    }
+
+    .ownership-stage:not(:last-child)::after {
+      content: "\2192";
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      right: -13px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--page);
+      font-size: 14px;
+      transform: translateY(-50%);
+    }
+
+    .ownership-label {
+      display: block;
+      color: var(--accent);
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .ownership-stage h3 {
+      margin-top: 22px;
+      color: #37343d;
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .ownership-stage p {
+      margin-top: 12px;
+      color: #5f5c65;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+
+    .comparison-list {
+      margin-top: 44px;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .comparison-head,
+    .comparison-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    .comparison-head {
+      padding: 14px 20px;
+      color: #8a8790;
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .comparison-row {
+      min-height: 82px;
+      padding: 16px 20px;
+      border-top: 1px dashed #e3dbd4;
+    }
+
+    .comparison-row:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .comparison-row p {
+      color: #5d5a63;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .comparison-row p:last-child {
+      color: #37343d;
+      font-weight: 550;
+    }
+
+    .comparison-arrow {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      justify-self: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--page);
+      font-size: 13px;
+    }
+
+    .result-summary {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 32px;
+      margin-top: 30px;
+      padding: 22px 24px;
+      border: 1px solid rgba(223, 75, 19, 0.16);
+      background: var(--soft-2);
+      text-align: left;
+    }
+
+    .result-summary strong {
+      color: var(--accent);
+      font-size: 12px;
+      line-height: 1.3;
+      font-weight: 650;
+      text-transform: uppercase;
+    }
+
+    .result-summary p {
+      color: #57545d;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+
+    .learning-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .learning-principle {
+      min-height: 210px;
+      padding: 28px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .principle-tag {
+      color: var(--accent);
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .learning-principle h3 {
+      margin-top: 20px;
+      color: #37343d;
+      font-size: 19px;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .learning-principle p {
+      margin-top: 12px;
+      color: #5f5c65;
+      font-size: 13.5px;
+      line-height: 1.58;
+    }
+
+    .screen-slot-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1px;
+      margin-top: 42px;
+      border: 1px solid var(--line);
+      background: var(--line);
+      text-align: left;
+    }
+
+    .screen-slot {
+      min-height: 238px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fff;
+    }
+
+    .screen-slot.is-wide {
+      grid-column: auto;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 36px;
+    }
+
+    .screen-slot.is-wide > div {
+      position: static;
+      max-width: 720px;
+      padding: 0;
+    }
+
+    .screen-slot.is-wide .screen-image-frame {
+      margin-top: 28px;
+    }
+
+    .screen-slot span {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .screen-slot h3 {
+      margin-top: 18px;
+      color: #2f273c;
+      font-family: var(--serif);
+      font-size: 30px;
+      line-height: 1.08;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .screen-slot p {
+      margin-top: 14px;
+      max-width: 560px;
+      color: #5f5c65;
+      font-size: 14.5px;
+      line-height: 1.58;
+      font-weight: 300;
+    }
+
+    .screen-drop-zone {
+      min-height: 118px;
+      margin-top: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed #e2d8d0;
+      background: linear-gradient(100deg, rgba(255, 244, 237, 0.78), rgba(255, 250, 246, 0.92));
+      color: #9fa1aa;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .screen-image-frame {
+      margin-top: 28px;
+      border: 1px solid #eaded7;
+      background: linear-gradient(135deg, #fff3ec 0%, #fff9f4 100%);
+      max-height: min(760px, 72vh);
+      overflow: auto;
+      overscroll-behavior: contain;
+    }
+
+    .screen-image-frame.is-scrollable,
+    .screen-image-frame.is-panorama {
+      height: min(760px, 72vh);
+    }
+
+    .screen-image-frame.is-panorama {
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 18px;
+    }
+
+    .screen-image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .screen-image-frame.is-panorama img {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .process-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: 48px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .process-card {
+      min-height: 360px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fff;
+    }
+
+    .process-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 12px;
+      color: #222126;
+      background: #f2f1f2;
+      font-size: 16px;
+      font-weight: 450;
+    }
+
+    .process-card h3 {
+      margin-top: 28px;
+      color: var(--blue);
+      font-size: 23px;
+      line-height: 1.08;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .process-card p {
+      margin-top: 20px;
+      color: #535158;
+      font-size: 14.5px;
+      line-height: 1.52;
+      font-weight: 400;
+    }
+
+    .process-art {
+      height: 110px;
+      margin-top: 34px;
+      display: grid;
+      place-items: center;
+      color: #8296ff;
+      font-family: var(--serif);
+      font-size: 76px;
+      line-height: 1;
+      opacity: 0.92;
+    }
+
+    .workflow-stack {
+      display: grid;
+      gap: 34px;
+      margin-top: 44px;
+      text-align: left;
+    }
+
+    .workflow-step {
+      border: 1px solid #e0d6cf;
+      background: #fff;
+    }
+
+    .workflow-step-copy {
+      padding: 24px 28px 22px;
+    }
+
+    .workflow-step-copy h3 {
+      color: #2f2c34;
+      font-size: 17px;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .workflow-step-copy p {
+      max-width: 900px;
+      margin-top: 8px;
+      color: #4f4d55;
+      font-size: 15px;
+      line-height: 1.48;
+      font-weight: 400;
+    }
+
+    .workflow-action-list {
+      display: grid;
+      gap: 10px;
+      max-width: 920px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .workflow-action-list li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed #e3dbd4;
+    }
+
+    .workflow-action-list span {
+      color: #5c5962;
+      font-size: 15px;
+      line-height: 1.48;
+      font-weight: 400;
+    }
+
+    .workflow-action-list a {
+      color: var(--accent);
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .workflow-visual {
+      min-height: 250px;
+      padding: 34px;
+      display: grid;
+      place-items: center;
+      border-top: 1px solid #f1e7de;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(223, 75, 19, 0.08), transparent 32%),
+        linear-gradient(100deg, #fff2e9 0%, #fff7ef 100%);
+    }
+
+    .workflow-visual.image-only {
+      min-height: 0;
+      padding: 34px;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(223, 75, 19, 0.08), transparent 32%),
+        linear-gradient(100deg, #fff2e9 0%, #fff7ef 100%);
+    }
+
+    .workflow-visual.flush-bottom {
+      padding-bottom: 0;
+    }
+
+    .workflow-step-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .workflow-screen-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      width: 100%;
+      background: transparent;
+    }
+
+    .workflow-screen-crop {
+      position: relative;
+      min-width: 0;
+      aspect-ratio: 1.84 / 1;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .workflow-screen-crop img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: auto;
+      max-width: none;
+      height: 227%;
+    }
+
+    .workflow-screen-crop:nth-child(1) img {
+      transform: translate(-1.074%, -2.909%);
+    }
+
+    .workflow-screen-crop:nth-child(2) img {
+      transform: translate(-51.074%, -2.909%);
+    }
+
+    .workflow-screen-crop:nth-child(3) img {
+      transform: translate(-1.074%, -52.868%);
+    }
+
+    .workflow-screen-crop:nth-child(4) img {
+      transform: translate(-51.074%, -52.868%);
+    }
+
+    .workflow-collage {
+      position: relative;
+      width: min(100%, 980px);
+      aspect-ratio: 16 / 9.3;
+    }
+
+    .workflow-collage img {
+      position: absolute;
+      display: block;
+      height: auto;
+      border: 1px solid rgba(42, 36, 56, 0.18);
+      background: #141313;
+      box-shadow: 0 22px 54px rgba(42, 36, 56, 0.2);
+    }
+
+    .workflow-collage-back {
+      top: 0;
+      right: 0;
+      width: 78%;
+      opacity: 0.82;
+      transform: translateY(10px);
+    }
+
+    .workflow-collage-front {
+      top: 58px;
+      left: 0;
+      z-index: 2;
+      width: 76%;
+    }
+
+    .workflow-window {
+      width: min(100%, 760px);
+      padding: 22px;
+      border: 1px solid #f0e7e0;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 18px 42px rgba(42, 36, 56, 0.08);
+    }
+
+    .workflow-window.small {
+      width: min(100%, 540px);
+    }
+
+    .workflow-line {
+      height: 10px;
+      margin-bottom: 10px;
+      border-radius: 999px;
+      background: #eee2da;
+    }
+
+    .workflow-line.long {
+      width: 92%;
+    }
+
+    .workflow-line.medium {
+      width: 70%;
+    }
+
+    .workflow-line.short {
+      width: 46%;
+    }
+
+    .workflow-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .workflow-chip {
+      padding: 8px 12px;
+      border: 1px solid #e3dbd4;
+      border-radius: 8px;
+      color: #4a4650;
+      background: #fff;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .workflow-send {
+      margin-left: auto;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--ink);
+      font-size: 18px;
+    }
+
+    .workflow-wireframe {
+      width: min(100%, 740px);
+      padding: 18px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 12px 30px rgba(42, 36, 56, 0.07);
+    }
+
+    .workflow-topbar {
+      height: 24px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eeeaf0;
+    }
+
+    .workflow-columns {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 22px;
+    }
+
+    .workflow-side-rail,
+    .workflow-main-panel {
+      min-height: 180px;
+      border: 1px solid #f0e7e0;
+      border-radius: 10px;
+      background: #fbfafc;
+    }
+
+    .workflow-main-panel {
+      padding: 20px;
+    }
+
+    .workflow-module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .workflow-module {
+      height: 58px;
+      border: 1px solid #f0e5dd;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .funnel-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .funnel-detail-header + .funnel-metric-grid {
+      margin-top: 16px;
+    }
+
+    .delivery-metric-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+      margin-top: 16px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .delivery-metric {
+      min-height: 190px;
+      padding: 26px 28px;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .delivery-metric:last-child {
+      border-right: 0;
+    }
+
+    .delivery-label {
+      display: block;
+      color: #77757d;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 550;
+      text-transform: uppercase;
+    }
+
+    .delivery-comparison {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      margin-top: 22px;
+    }
+
+    .delivery-time strong,
+    .delivery-single-value {
+      display: block;
+      color: var(--accent);
+      font-size: clamp(28px, 2.4vw, 34px);
+      line-height: 1;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .delivery-time.is-before strong {
+      color: #5d5a63;
+    }
+
+    .delivery-time span,
+    .delivery-metric p {
+      display: block;
+      margin-top: 10px;
+      color: #77757d;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .delivery-arrow {
+      color: var(--accent);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .delivery-single-value {
+      margin-top: 22px;
+    }
+
+    .funnel-metric-card {
+      position: relative;
+      min-height: 178px;
+      padding: 26px 22px 24px;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .funnel-metric-card:first-child {
+      padding-left: 18px;
+    }
+
+    .funnel-metric-card:last-child {
+      padding-right: 18px;
+      border-right: 0;
+    }
+
+    .funnel-metric-card:not(:last-child)::after {
+      content: "\2192";
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      right: -13px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--page);
+      font-size: 14px;
+      line-height: 1;
+      transform: translateY(-50%);
+    }
+
+    .funnel-stage {
+      display: block;
+      color: #77757d;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 550;
+      text-transform: uppercase;
+    }
+
+    .funnel-metric-card strong {
+      display: block;
+      margin-top: 18px;
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: clamp(30px, 3vw, 38px);
+      line-height: 0.95;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .funnel-rate {
+      display: block;
+      margin-top: 16px;
+      color: #4d4a53;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 550;
+    }
+
+    .funnel-rate span {
+      color: #85828b;
+      font-weight: 400;
+    }
+
+    .funnel-detail-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 40px;
+      text-align: left;
+    }
+
+    .funnel-detail-header h3 {
+      color: #34313a;
+      font-size: 17px;
+      line-height: 1.3;
+      font-weight: 550;
+    }
+
+    .funnel-detail-header p {
+      max-width: 390px;
+      color: #77757d;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .quote-block {
+      max-width: 840px;
+      margin: 44px auto 0;
+      padding-left: 28px;
+      border-left: 2px solid var(--accent);
+      font-family: var(--serif);
+      color: var(--ink);
+      font-size: clamp(25px, 2.6vw, 36px);
+      line-height: 1.14;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-align: left;
+    }
+
+    .data-table {
+      width: 100%;
+      margin-top: 38px;
+      border-collapse: collapse;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .funnel-detail-header + .data-table {
+      margin-top: 16px;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 16px 18px;
+      border-bottom: 1px dashed #e3dbd4;
+      vertical-align: top;
+      color: #57545d;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 400;
+      overflow-wrap: anywhere;
+    }
+
+    .data-table th {
+      color: #9a9ea7;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-weight: 500;
+    }
+
+    .funnel-table {
+      table-layout: fixed;
+    }
+
+    .funnel-table th,
+    .funnel-table td {
+      padding-right: 8px;
+      padding-left: 8px;
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+
+    .funnel-table th {
+      font-size: 11px;
+    }
+
+    .funnel-table th:nth-child(4),
+    .funnel-table td:nth-child(4) {
+      white-space: nowrap;
+    }
+
+    .funnel-table th:nth-child(1),
+    .funnel-table td:nth-child(1) { width: 34%; }
+
+    .funnel-table th:nth-child(2),
+    .funnel-table td:nth-child(2) { width: 10%; }
+
+    .funnel-table th:nth-child(3),
+    .funnel-table td:nth-child(3) { width: 10%; }
+
+    .funnel-table th:nth-child(4),
+    .funnel-table td:nth-child(4) { width: 24%; }
+
+    .funnel-table th:nth-child(5),
+    .funnel-table td:nth-child(5) { width: 11%; }
+
+    .funnel-table th:nth-child(6),
+    .funnel-table td:nth-child(6) { width: 11%; }
+
+    .funnel-total-row td {
+      color: #37343d;
+      background: var(--soft-2);
+      font-weight: 600;
+    }
+
+    .note-box {
+      margin-top: 34px;
+      padding: 24px;
+      background: var(--soft-2);
+      border: 1px solid var(--line);
+      color: #5b5861;
+      font-size: 14px;
+      line-height: 1.62;
+      text-align: left;
+    }
+
+    .note-box strong {
+      color: #33303a;
+      font-weight: 500;
+    }
+
+    .footer {
+      padding-top: 70px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      color: #8f939b;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: translateY(12px);
+      transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .reading-progress {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1020px) {
+      .page {
+        display: block;
+      }
+
+      .side-nav {
+        position: static;
+        height: auto;
+        padding: 24px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .toc,
+      .side-note {
+        display: none;
+      }
+
+      .content {
+        padding: 36px 24px 64px;
+      }
+
+      .hero-title {
+        font-size: clamp(34px, 10vw, 48px);
+      }
+
+      .hero-media {
+        padding: 18px;
+      }
+
+      .case-section {
+        display: block;
+      }
+
+      .section-kicker {
+        margin: 0 0 20px;
+      }
+
+      .system-visual {
+        min-height: 0;
+        padding: 20px;
+      }
+
+      .visual-grid,
+      .cms-body,
+      .meta-grid,
+      .problem-metric-grid,
+      .quiet-grid,
+      .screen-slot-grid,
+      .process-board,
+      .timeline-row {
+        grid-template-columns: 1fr;
+      }
+
+      .screen-slot.is-wide {
+        grid-column: auto;
+        display: flex;
+        gap: 0;
+        padding: 28px;
+      }
+
+      .screen-slot.is-wide > div {
+        position: static;
+        padding: 0;
+      }
+
+      .screen-slot.is-wide .screen-image-frame {
+        margin-top: 28px;
+      }
+
+      .meta-grid,
+      .problem-metric-grid,
+      .quiet-grid,
+      .process-board {
+        gap: 1px;
+      }
+
+      .impact-snapshot {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .impact-intro {
+        grid-column: 1 / -1;
+        padding-right: 0;
+        padding-bottom: 18px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .page-architecture {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .architecture-stage:nth-child(2) {
+        border-right: 0;
+      }
+
+      .architecture-stage:nth-child(2)::after {
+        content: none;
+      }
+
+      .architecture-stage:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .problem-metric-card {
+        border-right: 0;
+        border-bottom: 1px solid #e0d7d0;
+      }
+
+      .problem-metric-card:last-child {
+        border-bottom: 0;
+      }
+
+      .workflow-visual {
+        min-height: 210px;
+        padding: 22px;
+      }
+
+      .workflow-visual.flush-bottom {
+        padding-bottom: 0;
+      }
+
+      .workflow-collage {
+        aspect-ratio: auto;
+        display: grid;
+        gap: 16px;
+      }
+
+      .workflow-collage img {
+        position: static;
+        width: 100%;
+        transform: none;
+        opacity: 1;
+      }
+
+      .workflow-columns,
+      .workflow-module-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blok-list {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .process-card {
+        min-height: 260px;
+      }
+
+      .preview-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .content {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero-copy,
+      .section-copy {
+        font-size: 14px;
+      }
+
+      .case-section {
+        padding: 64px 0;
+      }
+
+      .visual-topbar,
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .cms-tabs {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .impact-snapshot {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 12px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .impact-stat strong {
+        font-size: 24px;
+      }
+
+      .impact-stat span {
+        font-size: 11.5px;
+      }
+
+      .skill-grid,
+      .page-architecture {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-card,
+      .architecture-stage,
+      .architecture-stage:nth-child(2) {
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .skill-card:last-child,
+      .architecture-stage:last-child {
+        border-bottom: 0;
+      }
+
+      .skill-card:not(:last-child)::after,
+      .architecture-stage:not(:last-child)::after {
+        content: "\2193";
+        top: auto;
+        right: auto;
+        bottom: -13px;
+        left: 24px;
+        transform: none;
+      }
+
+      .ownership-flow,
+      .learning-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ownership-stage {
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .ownership-stage:last-child {
+        border-bottom: 0;
+      }
+
+      .ownership-stage:not(:last-child)::after {
+        content: "\2193";
+        top: auto;
+        right: auto;
+        bottom: -13px;
+        left: 24px;
+        transform: none;
+      }
+
+      .comparison-head {
+        display: none;
+      }
+
+      .comparison-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 20px 18px;
+      }
+
+      .comparison-row p::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 6px;
+        color: #8a8790;
+        font-size: 10px;
+        line-height: 1.2;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .comparison-arrow {
+        justify-self: start;
+        transform: rotate(90deg);
+      }
+
+      .result-summary {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .learning-principle {
+        min-height: 0;
+      }
+
+      .funnel-metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .delivery-metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .delivery-metric {
+        min-height: 0;
+        padding: 22px 18px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .delivery-metric:last-child {
+        border-bottom: 0;
+      }
+
+      .delivery-comparison {
+        gap: 12px;
+      }
+
+      .delivery-time strong,
+      .delivery-single-value {
+        font-size: 28px;
+      }
+
+      .funnel-metric-card,
+      .funnel-metric-card:first-child,
+      .funnel-metric-card:last-child {
+        min-height: 0;
+        padding: 22px 18px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .funnel-metric-card:last-child {
+        border-bottom: 0;
+      }
+
+      .funnel-metric-card:not(:last-child)::after {
+        content: "\2193";
+        top: auto;
+        right: auto;
+        bottom: -13px;
+        left: 18px;
+        transform: none;
+      }
+
+      .funnel-metric-card strong {
+        margin-top: 12px;
+        font-size: 30px;
+      }
+
+      .funnel-rate {
+        margin-top: 10px;
+      }
+
+      .funnel-detail-header {
+        display: block;
+        margin-top: 34px;
+      }
+
+      .funnel-detail-header p {
+        margin-top: 7px;
+      }
+
+      .data-table:not(.funnel-table) {
+        table-layout: fixed;
+      }
+
+      .data-table:not(.funnel-table) th,
+      .data-table:not(.funnel-table) td {
+        padding: 12px 8px;
+        font-size: 12.5px;
+      }
+
+      .data-table:not(.funnel-table) th:first-child,
+      .data-table:not(.funnel-table) td:first-child {
+        width: 58px;
+      }
+
+      .funnel-table,
+      .funnel-table tbody,
+      .funnel-table tr,
+      .funnel-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .funnel-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .funnel-table tr {
+        padding: 18px 0;
+        border-bottom: 1px dashed #e3dbd4;
+      }
+
+      .funnel-table td {
+        display: grid;
+        grid-template-columns: minmax(116px, 42%) minmax(0, 1fr);
+        gap: 14px;
+        width: 100%;
+        padding: 5px 0;
+        border: 0;
+        font-size: 13px;
+      }
+
+      .funnel-table td:nth-child(n) {
+        width: 100%;
+      }
+
+      .funnel-table td::before {
+        content: attr(data-label);
+        color: #8a8790;
+        font-size: 11px;
+        line-height: 1.4;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      .funnel-table td:first-child {
+        display: block;
+        padding: 0 0 12px;
+        color: #37343d;
+        font-size: 14px;
+        line-height: 1.45;
+        font-weight: 600;
+      }
+
+      .funnel-table td:first-child::before {
+        content: none;
+      }
+
+      .funnel-table .funnel-total-row {
+        margin-top: 12px;
+        padding: 18px;
+        border-bottom: 0;
+        background: var(--soft-2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <main class="page">
+    <aside class="side-nav" aria-label="Case study navigation">
+      <div>
+        <a class="back-link" href="index.html#work" aria-label="Back to portfolio">&lt;- BACK</a>
+        <nav class="toc" aria-label="Sections">
+          <a href="#overview" class="active">Overview</a>
+          <a href="#problem">The Problem</a>
+          <a href="#solution">Solution</a>
+          <a href="#figma-screens">Figma Screens</a>
+          <a href="#system">The System</a>
+          <a href="#content-model">Content Model</a>
+          <a href="#design-language">Design Language</a>
+          <a href="#handoff">Handoff</a>
+          <a href="#results">Results</a>
+          <a href="#learnings">Learnings</a>
+        </nav>
+      </div>
+    </aside>
+
+    <article class="content">
+      <header class="hero reveal">
+        <p class="project-kicker">VARSITY BY INTERVIEWBIT X STORYBLOK</p>
+        <h1 class="hero-title">Building landing pages in hours, not days: <span class="accent-title">One repeatable Storyblok system.</span></h1>
+        <p class="hero-copy">A repeatable Storyblok system that shortened approval edits to about 30 minutes, enabled Marketing and SEO to publish independently, and converted early demand into 27 payments by Jul 21, 2026.</p>
+
+        <section class="meta-grid" aria-label="Project details">
+          <div>
+            <span class="meta-label">Role</span>
+            <p>Lead Product Designer</p>
+          </div>
+          <div>
+            <span class="meta-label">Timeline</span>
+            <p>Mid June 2026 to present</p>
+          </div>
+          <div>
+            <span class="meta-label">I owned</span>
+            <p>Design strategy, information architecture, workflow design and automation, and design QA</p>
+          </div>
+          <div>
+            <span class="meta-label">Team</span>
+            <p>Design, engineering, marketing, and SEO</p>
+          </div>
+          <div>
+            <span class="meta-label">Tools</span>
+            <p>Figma, Claude, Storyblok, Magnific, and Pillow</p>
+          </div>
+        </section>
+
+        <div class="hero-media" aria-label="IIT Delhi Varsity program page screenshot">
+          <div class="system-visual has-screenshot">
+            <img class="hero-screenshot" src="assets/varsity-iit-delhi-page-screenshot.webp" width="1184" height="1304" alt="IIT Delhi AI Forward Deployed Engineering landing page screenshot" decoding="async" fetchpriority="high">
+          </div>
+        </div>
+
+        <section class="impact-snapshot" aria-label="Design delivery and early July launch impact at a glance">
+          <div class="impact-intro">
+            <span class="meta-label">Impact at a glance</span>
+            <p>Early July launch &middot; Metrics through Jul 21, 2026</p>
+            <a class="impact-link" href="#results">See all results &darr;</a>
+          </div>
+          <div class="impact-stat">
+            <strong>3-4 hrs</strong>
+            <span>page build and approvals</span>
+          </div>
+          <div class="impact-stat">
+            <strong>~30 min</strong>
+            <span>approval edit cycle</span>
+          </div>
+          <div class="impact-stat">
+            <strong>6,245</strong>
+            <span>total enquiries</span>
+          </div>
+          <div class="impact-stat">
+            <strong>27</strong>
+            <span>payments completed</span>
+          </div>
+        </section>
+      </header>
+
+      <section id="overview" class="case-section reveal">
+        <p class="section-kicker">Overview</p>
+        <h2 class="section-title">A landing page became a product system.</h2>
+        <p class="section-copy">We converted a custom, multi-day landing-page build into a repeatable publishing system. An idea is shaped on Claude, styled in Figma, wired into Storyblok components by engineering, and set to a house style by design. After that, every future program page is generated from a single prompt through reusable skill files.</p>
+        <p class="section-copy">The finished system is handed to Marketing and SEO, who run and optimize each page independently to lift V2L (Volume-to-Lead) and L2P (Lead-to-Payment), without waiting on design or engineering.</p>
+        <div class="skill-grid" aria-label="Core skill files">
+          <div class="skill-card">
+            <span class="skill-stage">Build</span>
+            <h3>storyblok-program-page</h3>
+            <p>The builder. Turns a partner brochure into a full, on-brand, published program page in one prompt, with approval gates and an image-generation pipeline.</p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-stage">Govern</span>
+            <h3>storyblok-site-audit</h3>
+            <p>The go-live pass. Image optimization, image SEO, social cards, meta and structured data, and brand-safety QA, all verified on the live site.</p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-stage">Verify</span>
+            <h3>varsity-page-audit</h3>
+            <p>Post-launch live QA. It checks every link, interactive CTAs and enquiry modals in a real browser, and tier-1/tier-2 learner comprehension.</p>
+          </div>
+        </div>
+        <figure class="section-image-frame" aria-label="Varsity responsive screens screenshot">
+          <div class="section-image-window">
+            <img src="assets/varsity-overview-responsive-screens-v2.webp" width="2972" height="1418" alt="Responsive Varsity homepage and IIT Delhi program page screenshots" loading="lazy" decoding="async">
+          </div>
+        </figure>
+      </section>
+
+      <section id="problem" class="case-section reveal">
+        <p class="section-kicker">The Problem</p>
+        <h2 class="section-title">Every new program restarted the same work.</h2>
+        <p class="section-copy">The pages were structurally similar but operationally expensive. Each launch needed the same hero, overview, curriculum, learning objectives, tools strip, campus immersion, certificate, pricing, FAQ, lead forms, social card, alt text, and launch QA.</p>
+        <div class="problem-metric-grid">
+          <div class="problem-metric-card">
+            <h3>Time cost</h3>
+            <p><strong>3-4 days</strong> to build one program page, including Storyblok content, curriculum, imagery, uploads, and technical support.</p>
+          </div>
+          <div class="problem-metric-card">
+            <h3>Consistency cost</h3>
+            <p>Section structure, image style, copy tone, and curriculum patterns drifted from page to page.</p>
+          </div>
+          <div class="problem-metric-card">
+            <h3>Go-live risk</h3>
+            <p>Heavy images, missing alt text, stale placeholders, wrong form keys, and cross-brand leaks could slip into production.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="solution" class="case-section reveal">
+        <p class="section-kicker">Solution</p>
+        <h2 class="section-title">Design the process once. Let growth run the page forever.</h2>
+        <p class="section-copy">The final system rests on three skill files. `storyblok-program-page` builds a complete on-brand program page from a brochure, `storyblok-site-audit` handles image optimization, SEO, structured data, brand-safety QA, and go-live verification, and `varsity-page-audit` checks live links, CTAs, modals, and learner comprehension.</p>
+        <div class="workflow-stack" aria-label="End-to-end system workflow">
+          <article class="workflow-step">
+            <div class="workflow-step-copy">
+              <h3>Step 1 : Understand the page story</h3>
+              <ul class="workflow-action-list">
+                <li><span>Ideate on Claude with HTML prototypes, decide sections, order, story, tone, and above-the-fold behavior. View the <a href="https://varsity-project.vercel.app/" target="_blank" rel="noopener noreferrer">structure prototype</a> and <a href="https://varsity-brands.vercel.app/violet/varsity-landing.html" target="_blank" rel="noopener noreferrer">branded program prototype</a>.</span></li>
+              </ul>
+            </div>
+            <div class="workflow-visual image-only" aria-hidden="true">
+              <div class="workflow-screen-grid">
+                <div class="workflow-screen-crop"><img src="assets/step-1-understand-page-story-v2.webp" alt="" loading="lazy" decoding="async"></div>
+                <div class="workflow-screen-crop"><img src="assets/step-1-understand-page-story-v2.webp" alt="" loading="lazy" decoding="async"></div>
+                <div class="workflow-screen-crop"><img src="assets/step-1-understand-page-story-v2.webp" alt="" loading="lazy" decoding="async"></div>
+                <div class="workflow-screen-crop"><img src="assets/step-1-understand-page-story-v2.webp" alt="" loading="lazy" decoding="async"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="workflow-step">
+            <div class="workflow-step-copy">
+              <h3>Step 2 : Design the reusable screen system</h3>
+              <ul class="workflow-action-list">
+                <li><span>Design the screens in Figma: Home page, Program page, enquiry form, callback modal, payment and admissions screens, and reusable components.</span></li>
+                <li><span>Engineering translates Figma into reusable Storyblok bloks, nested curriculum components, and root-level forms.</span></li>
+                <li><span>Design builds reference pages and locks the house image style, copy voice, and content patterns.</span></li>
+              </ul>
+            </div>
+            <div class="workflow-visual image-only flush-bottom" aria-hidden="true">
+              <img class="workflow-step-image" src="assets/step-2-design-storyblok-screen.webp" width="3598" height="1962" alt="" loading="lazy" decoding="async">
+            </div>
+          </article>
+
+          <article class="workflow-step">
+            <div class="workflow-step-copy">
+              <h3>Step 3 : Codify the publishing rules</h3>
+              <ul class="workflow-action-list">
+                <li><span>Content work extracts hard facts from partner brochures and expands thin modules into structured curriculum content.</span></li>
+                <li><span>Codify decisions into skill files so every future program page can share the same context and quality rules.</span></li>
+                <li><span>Build and ship: generate copy, curriculum, imagery, uploads, CDN wiring, and publish under the institution folder.</span></li>
+              </ul>
+            </div>
+            <div class="workflow-visual flush-bottom" aria-hidden="true">
+              <div class="workflow-collage">
+                <img class="workflow-collage-back" src="assets/step-3-codify-back.webp" width="2696" height="1346" alt="" loading="lazy" decoding="async">
+                <img class="workflow-collage-front" src="assets/step-3-codify-front.webp" width="2688" height="1822" alt="" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </article>
+
+          <article class="workflow-step">
+            <div class="workflow-step-copy">
+              <h3>Step 4 : Govern launch and handoff</h3>
+              <ul class="workflow-action-list">
+                <li><span>Go live clean with image, SEO, social-card, metadata, schema, and brand-safety checks.</span></li>
+                <li><span>Handoff to Marketing and SEO so growth teams can run campaign variants independently.</span></li>
+                <li><span>Audit live rendered pages with links, interactive CTAs/modals, and tier-1/tier-2 learner comprehension.</span></li>
+              </ul>
+            </div>
+            <div class="workflow-visual" aria-hidden="true">
+              <div class="workflow-wireframe">
+                <div class="workflow-topbar"></div>
+                <div class="workflow-main-panel">
+                  <div class="workflow-line medium"></div>
+                  <div class="workflow-line long"></div>
+                  <div class="workflow-module-grid">
+                    <div class="workflow-module"></div>
+                    <div class="workflow-module"></div>
+                    <div class="workflow-module"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="figma-screens" class="case-section reveal">
+        <p class="section-kicker">Figma Screens</p>
+        <h2 class="section-title">The responsive screen library behind the publishing system.</h2>
+        <p class="section-copy">Desktop and mobile layouts, lead-capture states, admissions flows, and reusable Storyblok components show how the system moves from design intent to a repeatable production build.</p>
+        <div class="screen-slot-grid" aria-label="Figma screen library">
+          <article class="screen-slot is-wide">
+            <div>
+              <span>01 / Home page</span>
+              <h3>Desktop and mobile homepage flow</h3>
+              <p>Responsive homepage system covering program discovery, faculty, value propositions, editorial content, and global navigation.</p>
+            </div>
+            <figure class="screen-image-frame is-scrollable">
+              <img src="assets/figma-home-page.webp" width="5818" height="16383" alt="Varsity homepage desktop and mobile Figma screens" loading="lazy" decoding="async">
+            </figure>
+          </article>
+          <article class="screen-slot is-wide">
+            <div>
+              <span>02 / Program page</span>
+              <h3>Desktop and mobile design - Program Details Page</h3>
+              <p>Reusable desktop and mobile program detail templates for hero, curriculum, faculty, outcomes, proof, pricing, and admissions sections.</p>
+            </div>
+            <figure class="screen-image-frame is-scrollable">
+              <img src="assets/figma-program-page-reusable-designs.webp" width="2747" height="16383" alt="Varsity program details page desktop and mobile reusable Figma designs" loading="lazy" decoding="async">
+            </figure>
+          </article>
+          <article class="screen-slot is-wide">
+            <div>
+              <span>03 / Lead capture</span>
+              <h3>Forms and callback states</h3>
+              <p>Enquiry form, request-a-callback modal, OTP, brochure download, and validation states.</p>
+            </div>
+            <figure class="screen-image-frame is-panorama">
+              <img src="assets/figma-lead-capture-forms.webp" width="6330" height="5784" alt="Varsity lead capture form and callback states Figma screens" loading="lazy" decoding="async">
+            </figure>
+          </article>
+          <article class="screen-slot is-wide">
+            <div>
+              <span>04 / Application and Admission</span>
+              <h3>Application and admission states</h3>
+              <p>Responsive application states that carry learners from submission and university review through admission.</p>
+            </div>
+            <figure class="screen-image-frame is-scrollable">
+              <img src="assets/figma-payment-admissions.webp" width="5744" height="16383" alt="Varsity payment and admissions application flow screens" loading="lazy" decoding="async">
+            </figure>
+          </article>
+          <article class="screen-slot is-wide">
+            <div>
+              <span>05 / Fees and Payment Flow</span>
+              <h3>Fees, offers, and payment states</h3>
+              <p>Responsive states for fee review, offers, payment confirmation, successful enrollment, and rejected applications.</p>
+            </div>
+            <figure class="screen-image-frame is-scrollable">
+              <img src="assets/figma-fees-payment-flow-transparent.webp" width="9240" height="16383" alt="Varsity fee, offer, enrollment, rejection, and payment flow screens" loading="lazy" decoding="async">
+            </figure>
+          </article>
+          <article class="screen-slot is-wide">
+            <div>
+              <span>06 / Reusable Storyblok component</span>
+              <h3>Reusable design system blocks</h3>
+              <p>Cards, nav, tabs, CTA bands, curriculum modules, accordions, and shared Storyblok-ready components.</p>
+            </div>
+            <figure class="screen-image-frame">
+              <img src="assets/figma-reusable-storyblok-components.webp" width="6330" height="2688" alt="Reusable Storyblok component blocks and page configuration screens" loading="lazy" decoding="async">
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <section id="system" class="case-section reveal">
+        <p class="section-kicker">The System</p>
+        <h2 class="section-title">The Storyblok content model made every page assemble the same way.</h2>
+        <p class="section-copy">Engineering translated the Figma UI into reusable Storyblok bloks. The page body became a fixed ordered stack, so every program feels like the same product while still carrying different facts, partner content, curriculum, pricing, and media.</p>
+        <div class="quiet-grid">
+          <div class="quiet-card">
+            <h3>Core page sections</h3>
+            <p>Navbar, program hero, overview band, curriculum, CTA banners, learning objectives, faculty, tools, why now, how you learn, campus immersion, certificate, pricing, FAQ, and footer.</p>
+          </div>
+          <div class="quiet-card">
+            <h3>Nested curriculum</h3>
+            <p>`curriculum_section` contains phases, modules, case studies, tag chips, duration, practical builds, and future-proof rationales.</p>
+          </div>
+          <div class="quiet-card">
+            <h3>Conversion blocks</h3>
+            <p>Root-level forms, enquiry cards, callback modals, pricing, EMI plan CTAs, admissions copy, and partner compliance notes.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="content-model" class="case-section reveal">
+        <p class="section-kicker">Content Model</p>
+        <h2 class="section-title">Every page is an ordered stack of the same Storyblok bloks.</h2>
+        <p class="section-copy">Keeping the order fixed makes pages feel like one product and lets the builder skill assemble any program the same way. Only the content changes.</p>
+        <div class="page-architecture" aria-label="Program page architecture grouped into four stages">
+          <div class="architecture-stage">
+            <span class="architecture-count">01</span>
+            <h3>Entry</h3>
+            <p>Orient the learner and establish the program proposition.</p>
+            <div class="architecture-tags"><span>Navbar</span><span>Hero</span><span>Overview</span></div>
+          </div>
+          <div class="architecture-stage">
+            <span class="architecture-count">02</span>
+            <h3>Learning story</h3>
+            <p>Explain the curriculum, outcomes, faculty, tools, and learning experience.</p>
+            <div class="architecture-tags"><span>Curriculum</span><span>Projects</span><span>Faculty</span><span>Tools</span></div>
+          </div>
+          <div class="architecture-stage">
+            <span class="architecture-count">03</span>
+            <h3>Trust and fit</h3>
+            <p>Help learners judge credibility, eligibility, and cohort fit.</p>
+            <div class="architecture-tags"><span>Certificate</span><span>Who should enrol</span><span>Admissions</span></div>
+          </div>
+          <div class="architecture-stage">
+            <span class="architecture-count">04</span>
+            <h3>Conversion and close</h3>
+            <p>Resolve pricing questions and create clear paths to enquiry.</p>
+            <div class="architecture-tags"><span>Pricing</span><span>FAQ</span><span>Forms</span><span>CTA</span></div>
+          </div>
+        </div>
+        <details class="schema-details">
+          <summary>View the complete 21-blok Storyblok schema</summary>
+          <table class="data-table">
+            <thead><tr><th>#</th><th>Section blok</th><th>Subcopy</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>`navbar`</td><td>Top navigation and primary CTA.</td></tr>
+              <tr><td>2</td><td>`program_hero`</td><td>Above-the-fold title, value proposition, and callback CTA.</td></tr>
+              <tr><td>3</td><td>`overview_band`</td><td>Scannable program overview: duration, format, key facts.</td></tr>
+              <tr><td>4</td><td>`curriculum_section`</td><td>The 12-module / 4-phase curriculum.</td></tr>
+              <tr><td>4b</td><td>`projects_section`</td><td>Optional. Capstones/projects split out of the curriculum.</td></tr>
+              <tr><td>5</td><td>`cta_banner`</td><td>Mid-page conversion prompt.</td></tr>
+              <tr><td>6</td><td>`learning_objectives`</td><td>What a learner will be able to do on completion.</td></tr>
+              <tr><td>7</td><td>`faculty_carousel`</td><td>Program directors / instructors with photos and bios.</td></tr>
+              <tr><td>8</td><td>`tools_section`</td><td>The tools strip: official tool/vendor logos.</td></tr>
+              <tr><td>9</td><td>`why_now`</td><td>The market/timing rationale for the program.</td></tr>
+              <tr><td>10</td><td>`how_you_learn`</td><td>The learning model: live sessions, projects, mentorship.</td></tr>
+              <tr><td>11</td><td>`campus_immersion`</td><td>The in-person campus days at the partner institution.</td></tr>
+              <tr><td>12</td><td>`certificate_section`</td><td>The certificate and its issuing authority.</td></tr>
+              <tr><td>13</td><td>`who_should_enrol`</td><td>Target learner profiles and prerequisites.</td></tr>
+              <tr><td>13b</td><td>`admissions_section`</td><td>Optional partner-program cohort calendar plus admission process.</td></tr>
+              <tr><td>14</td><td>`pricing_band`</td><td>Fee, GST, EMI table, View Plans modal, and partner-account compliance note.</td></tr>
+              <tr><td>15</td><td>`faq_section`</td><td>Frequently asked questions.</td></tr>
+              <tr><td>16</td><td>`cta_strip`</td><td>Closing conversion strip.</td></tr>
+              <tr><td>17</td><td>`top_strip`</td><td>Announcement / offer strip.</td></tr>
+              <tr><td>18</td><td>`footer`</td><td>Global footer.</td></tr>
+              <tr><td>-</td><td>`forms` (root-level)</td><td>Callback + brochure lead-capture forms: name, email, phone (+91), graduation year, experience.</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </section>
+
+      <section id="design-language" class="case-section reveal">
+        <p class="section-kicker">Design Language</p>
+        <h2 class="section-title">One consistent visual and verbal style, encoded for every page.</h2>
+        <div class="quiet-grid">
+          <div class="quiet-card">
+            <h3>Image style</h3>
+            <p>Warm-copper/orange 3D concept art with a cinematic glow and no text. Text-prone concepts use an object-only, strictly no text/labels re-prompt.</p>
+          </div>
+          <div class="quiet-card">
+            <h3>Copy voice</h3>
+            <p>The copy voice was fixed on the first reference pages and reproduced by the skill for every subsequent page.</p>
+          </div>
+          <div class="quiet-card">
+            <h3>Raster vs vector</h3>
+            <p>Generated illustrations convert to WebP with Pillow. Vector logos are uploaded as SVG directly from official brand repos so they stay crisp and on-brand.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="handoff" class="case-section reveal">
+        <p class="section-kicker">Handoff</p>
+        <h2 class="section-title">The system is useful when growth can run it.</h2>
+        <p class="section-copy">The design team hands over three things: the finalized format, the built content, and the skill file. From there, Marketing and SEO run the page from their own end, with no design or engineering bottleneck.</p>
+        <div class="ownership-flow" aria-label="Ownership handoff from design to growth">
+          <article class="ownership-stage"><span class="ownership-label">Design</span><h3>Set the operating standard</h3><p>Finalize the page format, house style, component behavior, reference content, and approval gates.</p></article>
+          <article class="ownership-stage"><span class="ownership-label">Skill system</span><h3>Encode the judgment</h3><p>Carry content rules, image direction, publishing logic, QA checks, and brand safeguards into every build.</p></article>
+          <article class="ownership-stage"><span class="ownership-label">Marketing and SEO</span><h3>Run and optimize</h3><p>Adapt copy and creative per campaign, launch variants quickly, and tune V2L and L2P without a design or engineering bottleneck.</p></article>
+        </div>
+      </section>
+
+      <section id="results" class="case-section reveal">
+        <p class="section-kicker">Results</p>
+        <h2 class="section-title">A faster launch system with lower go-live risk.</h2>
+        <p class="section-copy">Delivery became faster at both creation and approval, while the first two early July launches produced a measurable learner funnel by Jul 21, 2026.</p>
+        <div class="funnel-detail-header">
+          <h3>Delivery efficiency</h3>
+          <p>Page-production and approval time after Storyblok and all three skill files were in use.</p>
+        </div>
+        <div class="delivery-metric-grid" aria-label="Design delivery efficiency metrics">
+          <div class="delivery-metric">
+            <span class="delivery-label">Page build and approvals</span>
+            <div class="delivery-comparison">
+              <div class="delivery-time is-before">
+                <strong>3-4 days</strong>
+                <span>Previously, with technical support</span>
+              </div>
+              <span class="delivery-arrow" aria-hidden="true">&rarr;</span>
+              <div class="delivery-time">
+                <strong>3-4 hours</strong>
+                <span>Storyblok + three skill files</span>
+              </div>
+            </div>
+          </div>
+          <div class="delivery-metric">
+            <span class="delivery-label">Approval edit cycle</span>
+            <strong class="delivery-single-value">~30 min</strong>
+            <p>To complete requested page edits and secure final approval.</p>
+          </div>
+        </div>
+        <div class="funnel-detail-header">
+          <h3>Early launch funnel</h3>
+          <p>First two program pages, from their early July launch through Jul 21, 2026.</p>
+        </div>
+        <div class="funnel-metric-grid" aria-label="Early July launch through Jul 21 2026 funnel totals">
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Enquiries</span>
+            <strong>6,245</strong>
+            <span class="funnel-rate">Starting volume <span>across 2 pages</span></span>
+          </div>
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Consumed</span>
+            <strong>4,283</strong>
+            <span class="funnel-rate">Lead activity <span>across 2 pages</span></span>
+          </div>
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Applications</span>
+            <strong>59</strong>
+            <span class="funnel-rate">1.38% <span>of consumed leads</span></span>
+          </div>
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Offers</span>
+            <strong>51</strong>
+            <span class="funnel-rate">86.44% <span>of applications</span></span>
+          </div>
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Payments</span>
+            <strong>27</strong>
+            <span class="funnel-rate">52.94% <span>of offers</span></span>
+          </div>
+        </div>
+        <div class="funnel-detail-header">
+          <h3>Program breakdown</h3>
+          <p>Each percentage shows conversion from the immediately preceding funnel stage.</p>
+        </div>
+        <table class="data-table funnel-table" aria-label="Program level funnel metrics from the early July launch through Jul 21 2026">
+          <thead>
+            <tr>
+              <th scope="col">Program</th>
+              <th scope="col">Enquired</th>
+              <th scope="col">Consumed</th>
+              <th scope="col">Application submitted</th>
+              <th scope="col">Offer</th>
+              <th scope="col">Payment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Program">Advanced Certificate in AI Forward Deployed Engineering</td>
+              <td data-label="Enquired">4,381</td>
+              <td data-label="Consumed">3,110</td>
+              <td data-label="Applications">43 (1.38% of consumed)</td>
+              <td data-label="Offers">36 (83.72%)</td>
+              <td data-label="Payments">20 (55.55%)</td>
+            </tr>
+            <tr>
+              <td data-label="Program">Applied Quantum Computing and AI</td>
+              <td data-label="Enquired">1,864</td>
+              <td data-label="Consumed">1,173</td>
+              <td data-label="Applications">16 (1.36% of consumed)</td>
+              <td data-label="Offers">15 (93.75%)</td>
+              <td data-label="Payments">7 (46.66%)</td>
+            </tr>
+            <tr class="funnel-total-row">
+              <td data-label="Program">Total</td>
+              <td data-label="Enquired">6,245</td>
+              <td data-label="Consumed">4,283</td>
+              <td data-label="Applications">59 (1.38% of consumed)</td>
+              <td data-label="Offers">51 (86.44%)</td>
+              <td data-label="Payments">27 (52.94%)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="funnel-detail-header">
+          <h3>Operating model change</h3>
+          <p>What changed for the teams building, approving, and optimizing program pages.</p>
+        </div>
+        <div class="comparison-list" aria-label="Before and after operating model comparison">
+          <div class="comparison-head"><span>Before</span><span></span><span>After</span></div>
+          <div class="comparison-row"><p data-label="Before">Pages hand-built in raw HTML.</p><span class="comparison-arrow" aria-hidden="true">&rarr;</span><p data-label="After">Brochure-to-page build in one prompt.</p></div>
+          <div class="comparison-row"><p data-label="Before">Structure and image style drifted.</p><span class="comparison-arrow" aria-hidden="true">&rarr;</span><p data-label="After">Fixed components and one encoded house style.</p></div>
+          <div class="comparison-row"><p data-label="Before">Go-live defects surfaced late.</p><span class="comparison-arrow" aria-hidden="true">&rarr;</span><p data-label="After">Automated audit with live guard checks.</p></div>
+          <div class="comparison-row"><p data-label="Before">Release required manual rework.</p><span class="comparison-arrow" aria-hidden="true">&rarr;</span><p data-label="After">Save and publish in one governed pass.</p></div>
+          <div class="comparison-row"><p data-label="Before">Only design and engineering could edit.</p><span class="comparison-arrow" aria-hidden="true">&rarr;</span><p data-label="After">Marketing and SEO iterate independently.</p></div>
+          <div class="comparison-row"><p data-label="Before">Slow campaign testing.</p><span class="comparison-arrow" aria-hidden="true">&rarr;</span><p data-label="After">Fast variants tuned against V2L and L2P.</p></div>
+        </div>
+        <div class="result-summary"><strong>Qualitative outcome</strong><p>Faster launches, lower go-live risk, on-brand consistency, and continuous growth-team optimization, while humans still own content and brand decisions through approval gates.</p></div>
+      </section>
+
+      <section id="learnings" class="case-section reveal">
+        <p class="section-kicker">Key Decisions and Learnings</p>
+        <h2 class="section-title">What made the system work.</h2>
+        <div class="learning-grid">
+          <article class="learning-principle"><span class="principle-tag">System</span><h3>Codify judgment, not only components.</h3><p>The durable asset is the workflow: format, style, edge cases, safety rails, and approval logic. The skill file turns that judgment into a handoff Marketing and SEO can operate.</p></article>
+          <article class="learning-principle"><span class="principle-tag">Platform</span><h3>Design with Storyblok's constraints.</h3><p>URL-baked assets require safe reference swaps. Large content writes move through files and deep-diff verification, keeping releases controlled instead of fragile.</p></article>
+          <article class="learning-principle"><span class="principle-tag">Governance</span><h3>Place human gates where judgment matters.</h3><p>Humans approve content, imagery, and voice. Automation handles factual checks and mechanical QA without slowing every production step.</p></article>
+          <article class="learning-principle"><span class="principle-tag">Outcome</span><h3>Optimize for operation and funnel movement.</h3><p>Publishing speed only matters when growth teams can run the system independently, test variants, and improve V2L and L2P.</p></article>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Prachi Pandey</span>
+        <span>Lead Product Designer</span>
+        <a href="index.html#work">Back to selected work</a>
+      </footer>
+    </article>
+  </main>
+
+  <script src="assets/gsap-3.13.0.min.js"></script>
+  <script src="assets/gsap-scroll-trigger-3.13.0.min.js"></script>
+  <script>
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealElements = Array.from(document.querySelectorAll(".reveal"));
+    const sections = Array.from(document.querySelectorAll(".case-section[id]"));
+    const navLinks = Array.from(document.querySelectorAll(".toc a"));
+    const readingProgress = document.querySelector(".reading-progress");
+    const hasGsap = !reduceMotion && typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
+    document.documentElement.dataset.motion = hasGsap ? "gsap" : (reduceMotion ? "reduced" : "fallback");
+
+    if (hasGsap) {
+      gsap.registerPlugin(ScrollTrigger);
+      revealElements.forEach((element) => element.classList.add("visible"));
+
+      const heroTimeline = gsap.timeline({ defaults: { duration: 0.72, ease: "power3.out" } });
+      heroTimeline
+        .from(".project-kicker", { y: 10, autoAlpha: 0 })
+        .from(".hero-title", { y: 22, autoAlpha: 0 }, "-=0.48")
+        .from(".hero-copy", { y: 14, autoAlpha: 0 }, "-=0.52")
+        .from(".meta-grid > div", { y: 14, autoAlpha: 0, stagger: 0.045 }, "-=0.48")
+        .from(".hero-media", { y: 20, autoAlpha: 0 }, "-=0.42");
+
+      sections.forEach((section) => {
+        const headingElements = section.querySelectorAll(".section-kicker, .section-title, .section-copy");
+        if (!headingElements.length) return;
+        gsap.from(headingElements, {
+          y: 18,
+          autoAlpha: 0,
+          duration: 0.68,
+          stagger: 0.075,
+          ease: "power3.out",
+          clearProps: "transform,opacity,visibility",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 82%",
+            once: true
+          }
+        });
+      });
+
+      if (readingProgress) {
+        gsap.to(readingProgress, {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: document.body,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.2
+          }
+        });
+      }
+
+      window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+    } else if (!reduceMotion && "IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach((element) => revealObserver.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add("visible"));
+    }
+
+    if (!hasGsap && !reduceMotion) {
+      const updateReadingProgress = () => {
+        if (!readingProgress) return;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+        readingProgress.style.transform = `scaleX(${progress})`;
+      };
+
+      updateReadingProgress();
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+    }
+
+    if ("IntersectionObserver" in window) {
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+          });
+        });
+      }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+
+      sections.forEach((section) => navObserver.observe(section));
+    }
+  </script>
+</body>
+</html>
