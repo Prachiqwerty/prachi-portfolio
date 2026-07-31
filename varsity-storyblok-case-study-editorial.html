@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Building landing pages in hours, not days: One repeatable Storyblok system</title>
+  <title>Six live pages reached 9.05% visitor-to-lead conversion while delivery moved from days to hours</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Geist:wght@400;450;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --page: #fdfdfc;
-      --ink: #2a2438;
-      --text: #505054;
-      --muted: #9da1aa;
-      --line: #eee8e2;
+      --page: #ffffff;
+      --ink: #242424;
+      --text: #424242;
+      --muted: #707070;
+      --line: #e0e0e0;
       --soft: #fff4ed;
       --soft-2: #fffaf6;
       --accent: #df4b13;
-      --blue: #0032f0;
+      --blue: var(--accent);
       --panel: #ffffff;
-      --shadow: 0 30px 90px rgba(42, 36, 56, 0.08);
+      --shadow: 0 30px 90px rgba(36, 36, 36, 0.08);
       --sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --serif: "Cormorant Garamond", Georgia, serif;
     }
@@ -88,7 +88,7 @@
       flex-direction: column;
       justify-content: space-between;
       border-right: 1px solid var(--line);
-      background: rgba(253, 253, 252, 0.92);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
@@ -180,7 +180,7 @@
       margin: 0;
       font-family: var(--serif);
       color: var(--ink);
-      font-size: clamp(30px, 3vw, 42px);
+      font-size: clamp(28px, 2.7vw, 40px);
       line-height: 1.07;
       font-weight: 500;
       letter-spacing: 0;
@@ -191,6 +191,20 @@
       margin-top: 3px;
       color: var(--accent);
       font-weight: 600;
+    }
+
+    .hero-title .hero-number {
+      font-family: var(--sans);
+      font-size: 0.78em;
+      font-weight: 500;
+      vertical-align: 0.06em;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 720px) {
+      .hero-title .accent-title {
+        white-space: nowrap;
+      }
     }
 
     .hero-copy {
@@ -206,7 +220,7 @@
       margin-top: 38px;
       padding: 32px 32px 0;
       background: var(--soft);
-      box-shadow: inset 0 0 0 1px rgba(223, 75, 19, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(223, 75, 19, 0.08);
       text-align: left;
     }
 
@@ -217,7 +231,7 @@
       overflow: hidden;
       background:
         radial-gradient(circle at 18% 16%, rgba(223, 75, 19, 0.12), transparent 28%),
-        radial-gradient(circle at 82% 64%, rgba(0, 50, 240, 0.08), transparent 32%),
+        radial-gradient(circle at 82% 64%, rgba(223, 75, 19, 0.06), transparent 32%),
         #ffffff;
       box-shadow: var(--shadow);
     }
@@ -423,7 +437,7 @@
     .preview-hero {
       min-height: 120px;
       padding: 18px;
-      background: linear-gradient(135deg, #fff7ed, #f7effa 54%, #eef3ff);
+      background: linear-gradient(135deg, #fff7ed, #fff2e9 54%, #fff4ed);
       border: 1px solid #eee8f1;
     }
 
@@ -493,6 +507,73 @@
       font-size: 14px;
       line-height: 1.48;
       font-weight: 400;
+    }
+
+    .meta-tool-icons {
+      display: flex;
+      align-items: center;
+      padding: 2px 0 0 8px;
+    }
+
+    .meta-tool-icon {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin-left: -8px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 10px 24px rgba(42, 36, 56, 0.07);
+    }
+
+    .meta-tool-icon:first-child {
+      margin-left: 0;
+    }
+
+    .meta-tool-icon img {
+      display: block;
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .magnific-mark {
+      display: block;
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      background-color: #111111;
+      background-image: url("assets/magnific.png");
+      background-repeat: no-repeat;
+      background-position: -40px -25px;
+      background-size: 243px 78px;
+    }
+
+    .meta-tool-icon::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      z-index: 4;
+      top: calc(100% + 8px);
+      left: 50%;
+      padding: 5px 7px;
+      border-radius: 4px;
+      color: #ffffff;
+      background: var(--ink);
+      font-size: 10px;
+      line-height: 1;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(-2px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .meta-tool-icon:hover::after,
+    .meta-tool-icon:focus-visible::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .impact-snapshot {
@@ -586,7 +667,7 @@
       margin: 0;
       font-family: var(--serif);
       color: var(--ink);
-      font-size: clamp(28px, 3.2vw, 42px);
+      font-size: clamp(26px, 2.8vw, 36px);
       line-height: 1.08;
       font-weight: 700;
       letter-spacing: 0;
@@ -777,6 +858,19 @@
       font-size: 14.5px;
       line-height: 1.58;
       font-weight: 300;
+    }
+
+    .workflow-skill-grid {
+      margin-top: 24px;
+    }
+
+    .workflow-skill-grid .skill-card {
+      min-height: 0;
+      padding: 22px;
+    }
+
+    .workflow-skill-grid .skill-card h3 {
+      overflow-wrap: anywhere;
     }
 
     .page-architecture {
@@ -1258,7 +1352,7 @@
       margin-top: 34px;
       display: grid;
       place-items: center;
-      color: #8296ff;
+      color: var(--accent);
       font-family: var(--serif);
       font-size: 76px;
       line-height: 1;
@@ -1551,6 +1645,10 @@
       margin-top: 16px;
     }
 
+    .funnel-metric-grid.is-acquisition {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .delivery-metric-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
@@ -1799,6 +1897,12 @@
     .funnel-table th:nth-child(6),
     .funnel-table td:nth-child(6) { width: 11%; }
 
+    .v2l-table th:nth-child(1),
+    .v2l-table td:nth-child(1) { width: 80%; }
+
+    .v2l-table th:nth-child(2),
+    .v2l-table td:nth-child(2) { width: 20%; }
+
     .funnel-total-row td {
       color: #37343d;
       background: var(--soft-2);
@@ -1882,7 +1986,7 @@
       }
 
       .hero-title {
-        font-size: clamp(34px, 10vw, 48px);
+        font-size: clamp(28px, 4.5vw, 40px);
       }
 
       .hero-media {
@@ -2055,6 +2159,15 @@
         font-size: 11.5px;
       }
 
+      .system-visual.has-screenshot {
+        height: auto;
+        aspect-ratio: 1634 / 1072;
+      }
+
+      .hero-screenshot {
+        object-fit: contain;
+      }
+
       .skill-grid,
       .page-architecture {
         grid-template-columns: 1fr;
@@ -2143,6 +2256,10 @@
       }
 
       .funnel-metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .funnel-metric-grid.is-acquisition {
         grid-template-columns: 1fr;
       }
 
@@ -2319,8 +2436,8 @@
     <article class="content">
       <header class="hero reveal">
         <p class="project-kicker">VARSITY BY INTERVIEWBIT X STORYBLOK</p>
-        <h1 class="hero-title">Building landing pages in hours, not days: <span class="accent-title">One repeatable Storyblok system.</span></h1>
-        <p class="hero-copy">A repeatable Storyblok system that shortened approval edits to about 30 minutes, enabled Marketing and SEO to publish independently, and converted early demand into 27 payments by Jul 21, 2026.</p>
+        <h1 class="hero-title">Six live pages reached <span class="hero-number">9.05%</span> visitor-to-lead conversion while the publishing system cut delivery <span class="accent-title">from days to hours.</span></h1>
+        <p class="hero-copy">I led the transformation of Varsity’s program-page process into a governed Storyblok system that Marketing and SEO could operate independently. From Jul 23–31, six live pages converted 24,541 visitors into 2,220 leads; the first two program launches progressed to 58 payments by Jul 31, 2026.</p>
 
         <section class="meta-grid" aria-label="Project details">
           <div>
@@ -2341,20 +2458,26 @@
           </div>
           <div>
             <span class="meta-label">Tools</span>
-            <p>Figma, Claude, Storyblok, Magnific, and Pillow</p>
+            <div class="meta-tool-icons" aria-label="Figma, Claude, Storyblok, Magnific, and Pillow">
+              <span class="meta-tool-icon" aria-label="Figma" data-tooltip="Figma" tabindex="0"><img src="assets/figma.svg" alt=""></span>
+              <span class="meta-tool-icon" aria-label="Claude" data-tooltip="Claude" tabindex="0"><img src="assets/claude.svg" alt=""></span>
+              <span class="meta-tool-icon" aria-label="Storyblok" data-tooltip="Storyblok" tabindex="0"><img src="assets/storyblok.svg" alt=""></span>
+              <span class="meta-tool-icon is-magnific" aria-label="Magnific" data-tooltip="Magnific" tabindex="0"><span class="magnific-mark" aria-hidden="true"></span></span>
+              <span class="meta-tool-icon" aria-label="Pillow" data-tooltip="Pillow" tabindex="0"><img src="assets/pillow-python.svg" alt=""></span>
+            </div>
           </div>
         </section>
 
         <div class="hero-media" aria-label="IIT Delhi Varsity program page screenshot">
           <div class="system-visual has-screenshot">
-            <img class="hero-screenshot" src="assets/varsity-iit-delhi-page-screenshot.webp" width="1184" height="1304" alt="IIT Delhi AI Forward Deployed Engineering landing page screenshot" decoding="async" fetchpriority="high">
+            <img class="hero-screenshot" src="assets/varsity-iit-delhi-hero-july-2026.webp" width="1634" height="1072" alt="IIT Delhi Advanced Certificate in AI Forward Deployed Engineering program page hero with enquiry form" decoding="async" fetchpriority="high">
           </div>
         </div>
 
-        <section class="impact-snapshot" aria-label="Design delivery and early July launch impact at a glance">
+        <section class="impact-snapshot" aria-label="Design delivery, acquisition, and launch impact at a glance">
           <div class="impact-intro">
             <span class="meta-label">Impact at a glance</span>
-            <p>Early July launch &middot; Metrics through Jul 21, 2026</p>
+            <p>Acquisition: Jul 23–31 &middot; Program funnel: through Jul 31, 2026</p>
             <a class="impact-link" href="#results">See all results &darr;</a>
           </div>
           <div class="impact-stat">
@@ -2362,15 +2485,15 @@
             <span>page build and approvals</span>
           </div>
           <div class="impact-stat">
-            <strong>~30 min</strong>
-            <span>approval edit cycle</span>
+            <strong>2,220</strong>
+            <span>leads across six live pages</span>
           </div>
           <div class="impact-stat">
-            <strong>6,245</strong>
-            <span>total enquiries</span>
+            <strong>9.05%</strong>
+            <span>overall visitor-to-lead conversion</span>
           </div>
           <div class="impact-stat">
-            <strong>27</strong>
+            <strong>58</strong>
             <span>payments completed</span>
           </div>
         </section>
@@ -2427,14 +2550,16 @@
 
       <section id="solution" class="case-section reveal">
         <p class="section-kicker">Solution</p>
-        <h2 class="section-title">Design the process once. Let growth run the page forever.</h2>
-        <p class="section-copy">The final system rests on three skill files. `storyblok-program-page` builds a complete on-brand program page from a brochure, `storyblok-site-audit` handles image optimization, SEO, structured data, brand-safety QA, and go-live verification, and `varsity-page-audit` checks live links, CTAs, modals, and learner comprehension.</p>
-        <div class="workflow-stack" aria-label="End-to-end system workflow">
+        <h2 class="section-title">Four steps turned one approved page into a repeatable publishing system.</h2>
+        <p class="section-copy">The workflow separates design judgment from repeatable execution: define the page narrative, formalize the responsive screen system in Figma, connect Storyblok and Magnific through MCPs, then reuse the governed skill files to launch and maintain multiple program pages.</p>
+        <div class="workflow-stack" aria-label="Four-step program-page design and publishing workflow">
           <article class="workflow-step">
             <div class="workflow-step-copy">
               <h3>Step 1 : Understand the page story</h3>
               <ul class="workflow-action-list">
-                <li><span>Ideate on Claude with HTML prototypes, decide sections, order, story, tone, and above-the-fold behavior. View the <a href="https://varsity-project.vercel.app/" target="_blank" rel="noopener noreferrer">structure prototype</a> and <a href="https://varsity-brands.vercel.app/violet/varsity-landing.html" target="_blank" rel="noopener noreferrer">branded program prototype</a>.</span></li>
+                <li><span>Translate the partner brochure, program proposition, learner questions, and conversion goals into one clear page narrative.</span></li>
+                <li><span>Define the information architecture: section order, above-the-fold message, curriculum story, proof, pricing, admissions, and lead-capture moments.</span></li>
+                <li><span>Use Claude and working HTML to test the story before visual production. Review the <a href="https://varsity-project.vercel.app/" target="_blank" rel="noopener noreferrer">structure prototype</a> and <a href="https://varsity-brands.vercel.app/violet/varsity-landing.html" target="_blank" rel="noopener noreferrer">branded program prototype</a>.</span></li>
               </ul>
             </div>
             <div class="workflow-visual image-only" aria-hidden="true">
@@ -2449,11 +2574,11 @@
 
           <article class="workflow-step">
             <div class="workflow-step-copy">
-              <h3>Step 2 : Design the reusable screen system</h3>
+              <h3>Step 2 : Design the Figma screen system</h3>
               <ul class="workflow-action-list">
-                <li><span>Design the screens in Figma: Home page, Program page, enquiry form, callback modal, payment and admissions screens, and reusable components.</span></li>
-                <li><span>Engineering translates Figma into reusable Storyblok bloks, nested curriculum components, and root-level forms.</span></li>
-                <li><span>Design builds reference pages and locks the house image style, copy voice, and content patterns.</span></li>
+                <li><span>Design the responsive home page, program details page, enquiry forms, callback modal, admissions flow, payment states, and reusable components.</span></li>
+                <li><span>Specify desktop and mobile behavior, content hierarchy, component variants, form states, image ratios, and interaction rules in Figma.</span></li>
+                <li><span>Partner with engineering to translate the approved screens into reusable Storyblok bloks, nested curriculum components, and shared lead-capture patterns.</span></li>
               </ul>
             </div>
             <div class="workflow-visual image-only flush-bottom" aria-hidden="true">
@@ -2463,12 +2588,29 @@
 
           <article class="workflow-step">
             <div class="workflow-step-copy">
-              <h3>Step 3 : Codify the publishing rules</h3>
+              <h3>Step 3 : Design and codify the publishing rules</h3>
               <ul class="workflow-action-list">
-                <li><span>Content work extracts hard facts from partner brochures and expands thin modules into structured curriculum content.</span></li>
-                <li><span>Codify decisions into skill files so every future program page can share the same context and quality rules.</span></li>
-                <li><span>Build and ship: generate copy, curriculum, imagery, uploads, CDN wiring, and publish under the institution folder.</span></li>
+                <li><span>Connect the Storyblok MCP to inspect the approved component model, assemble stories, wire forms and metadata, upload assets, and preserve the correct institution structure.</span></li>
+                <li><span>Connect the Magnific MCP to generate and refine imagery against the approved house style, then optimize and prepare each asset for Storyblok delivery.</span></li>
+                <li><span>Encode content structure, image direction, publishing logic, SEO requirements, and QA safeguards into reusable skill files so design decisions travel with every build.</span></li>
               </ul>
+              <div class="skill-grid workflow-skill-grid" aria-label="Build, go-live, and post-release skill sequence">
+                <div class="skill-card">
+                  <span class="skill-stage">Build</span>
+                  <h3>storyblok-program-page</h3>
+                  <p>Builds approved brochures into on-brand pages.</p>
+                </div>
+                <div class="skill-card">
+                  <span class="skill-stage">Go-live check</span>
+                  <h3>storyblok-site-audit</h3>
+                  <p>Checks assets, SEO, and launch readiness.</p>
+                </div>
+                <div class="skill-card">
+                  <span class="skill-stage">Verify post-release</span>
+                  <h3>varsity-page-audit</h3>
+                  <p>Verifies live content and interactions.</p>
+                </div>
+              </div>
             </div>
             <div class="workflow-visual flush-bottom" aria-hidden="true">
               <div class="workflow-collage">
@@ -2482,9 +2624,9 @@
             <div class="workflow-step-copy">
               <h3>Step 4 : Govern launch and handoff</h3>
               <ul class="workflow-action-list">
-                <li><span>Go live clean with image, SEO, social-card, metadata, schema, and brand-safety checks.</span></li>
-                <li><span>Handoff to Marketing and SEO so growth teams can run campaign variants independently.</span></li>
-                <li><span>Audit live rendered pages with links, interactive CTAs/modals, and tier-1/tier-2 learner comprehension.</span></li>
+                <li><span>Reuse the approved skills to turn new partner brochures into multiple program pages without restarting the design process.</span></li>
+                <li><span>Govern each release with image, SEO, social-card, metadata, schema, brand-safety, live-link, CTA, modal, and learner-comprehension checks.</span></li>
+                <li><span>Handoff the finalized format, skill files, and operating rules to Marketing and SEO so they can launch and optimize future program variants independently.</span></li>
               </ul>
             </div>
             <div class="workflow-visual" aria-hidden="true">
@@ -2686,8 +2828,8 @@
 
       <section id="results" class="case-section reveal">
         <p class="section-kicker">Results</p>
-        <h2 class="section-title">A faster launch system with lower go-live risk.</h2>
-        <p class="section-copy">Delivery became faster at both creation and approval, while the first two early July launches produced a measurable learner funnel by Jul 21, 2026.</p>
+        <h2 class="section-title">The system improved publishing speed and acquisition performance.</h2>
+        <p class="section-copy">The same governed workflow that moved page production from days to hours also supported six live pages converting 24,541 visitors into 2,220 leads at 9.05% V2L.</p>
         <div class="funnel-detail-header">
           <h3>Delivery efficiency</h3>
           <p>Page-production and approval time after Storyblok and all three skill files were in use.</p>
@@ -2714,46 +2856,109 @@
           </div>
         </div>
         <div class="funnel-detail-header">
-          <h3>Early launch funnel</h3>
-          <p>First two program pages, from their early July launch through Jul 21, 2026.</p>
+          <h3>Acquisition performance</h3>
+          <p>All six live Varsity pages from Jul 23–31, 2026. Jul 31 is a partial reporting day.</p>
         </div>
-        <div class="funnel-metric-grid" aria-label="Early July launch through Jul 21 2026 funnel totals">
+        <div class="funnel-metric-grid is-acquisition" aria-label="Visitor-to-lead performance from Jul 23 through Jul 31 2026">
           <div class="funnel-metric-card">
-            <span class="funnel-stage">Enquiries</span>
-            <strong>6,245</strong>
-            <span class="funnel-rate">Starting volume <span>across 2 pages</span></span>
+            <span class="funnel-stage">Visitors</span>
+            <strong>24,541</strong>
+            <span class="funnel-rate">Traffic <span>across six live pages</span></span>
           </div>
           <div class="funnel-metric-card">
-            <span class="funnel-stage">Consumed</span>
-            <strong>4,283</strong>
-            <span class="funnel-rate">Lead activity <span>across 2 pages</span></span>
+            <span class="funnel-stage">Leads</span>
+            <strong>2,220</strong>
+            <span class="funnel-rate">Qualified acquisition signal <span>across the same period</span></span>
           </div>
           <div class="funnel-metric-card">
-            <span class="funnel-stage">Applications</span>
-            <strong>59</strong>
-            <span class="funnel-rate">1.38% <span>of consumed leads</span></span>
+            <span class="funnel-stage">Visitor to lead</span>
+            <strong>9.05%</strong>
+            <span class="funnel-rate">Overall V2L <span>across all six pages</span></span>
+          </div>
+        </div>
+        <div class="funnel-detail-header">
+          <h3>Page-level V2L</h3>
+          <p>Program pages sustained strong lead conversion while the Varsity home page supported discovery.</p>
+        </div>
+        <table class="data-table funnel-table v2l-table" aria-label="Page-level visitor-to-lead performance from Jul 23 through Jul 31 2026">
+          <thead>
+            <tr>
+              <th scope="col">Page</th>
+              <th scope="col">V2L</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Page">Quantum Computing · IIT Delhi</td>
+              <td data-label="V2L">8.91%</td>
+            </tr>
+            <tr>
+              <td data-label="Page">AI Engineering / FDE · IIT Delhi</td>
+              <td data-label="V2L">8.80%</td>
+            </tr>
+            <tr>
+              <td data-label="Page">AI Operations · IIM Trichy</td>
+              <td data-label="V2L">8.70%</td>
+            </tr>
+            <tr>
+              <td data-label="Page">Generative AI · IIT Delhi</td>
+              <td data-label="V2L">9.69%</td>
+            </tr>
+            <tr>
+              <td data-label="Page">AI Marketing · IIM Trichy</td>
+              <td data-label="V2L">12.43%</td>
+            </tr>
+            <tr>
+              <td data-label="Page">Varsity home</td>
+              <td data-label="V2L">4.78%</td>
+            </tr>
+            <tr class="funnel-total-row">
+              <td data-label="Page">Overall dashboard V2L</td>
+              <td data-label="V2L">9.05%</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="funnel-detail-header">
+          <h3>Program conversion</h3>
+          <p>FDE and Quantum from their early July launches through Jul 31, 2026.</p>
+        </div>
+        <div class="funnel-metric-grid" aria-label="FDE and Quantum program conversion through Jul 31 2026">
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Leads</span>
+            <strong>9,514</strong>
+            <span class="funnel-rate">Starting volume <span>across two programs</span></span>
+          </div>
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Applications started</span>
+            <strong>567</strong>
+            <span class="funnel-rate">5.96% <span>of leads</span></span>
+          </div>
+          <div class="funnel-metric-card">
+            <span class="funnel-stage">Applications submitted</span>
+            <strong>117</strong>
+            <span class="funnel-rate">20.63% <span>of application starts</span></span>
           </div>
           <div class="funnel-metric-card">
             <span class="funnel-stage">Offers</span>
-            <strong>51</strong>
-            <span class="funnel-rate">86.44% <span>of applications</span></span>
+            <strong>107</strong>
+            <span class="funnel-rate">91.45% <span>of submitted applications</span></span>
           </div>
           <div class="funnel-metric-card">
             <span class="funnel-stage">Payments</span>
-            <strong>27</strong>
-            <span class="funnel-rate">52.94% <span>of offers</span></span>
+            <strong>58</strong>
+            <span class="funnel-rate">54.21% <span>of offers</span></span>
           </div>
         </div>
         <div class="funnel-detail-header">
           <h3>Program breakdown</h3>
           <p>Each percentage shows conversion from the immediately preceding funnel stage.</p>
         </div>
-        <table class="data-table funnel-table" aria-label="Program level funnel metrics from the early July launch through Jul 21 2026">
+        <table class="data-table funnel-table" aria-label="Program-level conversion from the early July launch through Jul 31 2026">
           <thead>
             <tr>
               <th scope="col">Program</th>
-              <th scope="col">Enquired</th>
-              <th scope="col">Consumed</th>
+              <th scope="col">Leads</th>
+              <th scope="col">Application started</th>
               <th scope="col">Application submitted</th>
               <th scope="col">Offer</th>
               <th scope="col">Payment</th>
@@ -2762,27 +2967,27 @@
           <tbody>
             <tr>
               <td data-label="Program">Advanced Certificate in AI Forward Deployed Engineering</td>
-              <td data-label="Enquired">4,381</td>
-              <td data-label="Consumed">3,110</td>
-              <td data-label="Applications">43 (1.38% of consumed)</td>
-              <td data-label="Offers">36 (83.72%)</td>
-              <td data-label="Payments">20 (55.55%)</td>
+              <td data-label="Leads">5,973</td>
+              <td data-label="Application started">298 (4.99%)</td>
+              <td data-label="Applications submitted">85 (28.52%)</td>
+              <td data-label="Offers">80 (94.12%)</td>
+              <td data-label="Payments">45 (56.25%)</td>
             </tr>
             <tr>
               <td data-label="Program">Applied Quantum Computing and AI</td>
-              <td data-label="Enquired">1,864</td>
-              <td data-label="Consumed">1,173</td>
-              <td data-label="Applications">16 (1.36% of consumed)</td>
-              <td data-label="Offers">15 (93.75%)</td>
-              <td data-label="Payments">7 (46.66%)</td>
+              <td data-label="Leads">3,541</td>
+              <td data-label="Application started">269 (7.60%)</td>
+              <td data-label="Applications submitted">32 (11.90%)</td>
+              <td data-label="Offers">27 (84.38%)</td>
+              <td data-label="Payments">13 (48.15%)</td>
             </tr>
             <tr class="funnel-total-row">
               <td data-label="Program">Total</td>
-              <td data-label="Enquired">6,245</td>
-              <td data-label="Consumed">4,283</td>
-              <td data-label="Applications">59 (1.38% of consumed)</td>
-              <td data-label="Offers">51 (86.44%)</td>
-              <td data-label="Payments">27 (52.94%)</td>
+              <td data-label="Leads">9,514</td>
+              <td data-label="Application started">567 (5.96%)</td>
+              <td data-label="Applications submitted">117 (20.63%)</td>
+              <td data-label="Offers">107 (91.45%)</td>
+              <td data-label="Payments">58 (54.21%)</td>
             </tr>
           </tbody>
         </table>
