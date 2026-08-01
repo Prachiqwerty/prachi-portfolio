@@ -429,7 +429,7 @@
 
     .surface-strategy-item > span,
     .strategy-process-header > span,
-    .method-loop-step > span {
+    .method-loop-step__kicker {
       color: #92919a;
       font-size: .6875rem;
       line-height: 1.4;
@@ -472,34 +472,137 @@
 
     .method-loop {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      margin-top: 18px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      gap: 28px;
+      margin-top: 26px;
     }
 
     .method-loop-step {
-      min-height: 0;
-      padding: 22px 18px 24px;
-      border-right: 1px solid var(--line);
+      border: 1px solid var(--line);
+      background: #fff;
     }
 
-    .method-loop-step:first-child { padding-left: 0; }
-    .method-loop-step:last-child { padding-right: 0; border-right: 0; }
+    .method-loop-step__header {
+      padding: 24px 28px 22px;
+      border-bottom: 1px solid var(--line);
+    }
 
-    .method-loop-step strong {
-      display: block;
-      margin-top: 10px;
+    .method-loop-step__header h4 {
+      margin-top: 8px;
       color: var(--ink);
       font-family: var(--sans);
-      font-size: .9375rem;
-      line-height: 1.35;
+      font-size: 1.0625rem;
+      line-height: 1.32;
       font-weight: 600;
     }
 
-    .method-loop-step p {
-      margin-top: 7px;
-      color: #68666f;
+    .method-loop-step__copy { padding: 0 28px; }
+
+    .method-loop-step__copy p {
+      margin: 0;
+      padding: 17px 0;
+      border-bottom: 1px dashed #d9d5d1;
+      color: #5f5c65;
+      font-size: .875rem;
+      line-height: 1.58;
+      text-wrap: pretty;
+    }
+
+    .method-loop-step__copy p:last-child { border-bottom: 0; }
+
+    .method-prototype-link {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .method-prototype-link:hover { text-decoration-thickness: 2px; }
+    .method-prototype-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .method-loop-step__media {
+      margin: 0;
+      padding: 28px;
+      border-top: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .method-loop-step__media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid rgba(31, 29, 27, .12);
+    }
+
+    .method-loop-step__media img.method-loop-step__image--borderless { border: 0; }
+
+    .method-loop-step__media--accent {
+      padding: clamp(22px, 4vw, 48px);
+      background: var(--soft);
+      border-top-color: transparent;
+    }
+
+    .method-step-collage {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(12px, 1.8vw, 22px);
+    }
+
+    .method-step-collage__shot {
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(255, 255, 255, .48);
+      box-shadow: 0 18px 42px rgba(1, 24, 69, .24);
+    }
+
+    .method-step-collage__shot--path { grid-column: 1 / -1; }
+
+    .method-step-collage__shot img {
+      border: 0;
+    }
+
+    .method-step-collage__shot figcaption {
+      padding: 10px 13px;
+      border-top: 1px solid var(--line);
+      color: #4f4c53;
+      font-size: .6875rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .method-loop-step__slot {
+      min-height: 230px;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      padding: 28px;
+      border: 1px dashed #c9bdb4;
+      background: rgba(255, 255, 255, .58);
+      color: #7b716b;
+      text-align: center;
+    }
+
+    .method-loop-step__slot span {
+      color: var(--accent);
+      font-size: .6875rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .method-loop-step__slot b {
+      margin-top: 9px;
+      color: #353133;
+      font-size: .9375rem;
+      font-weight: 600;
+    }
+
+    .method-loop-step__slot small {
+      max-width: 44ch;
+      margin-top: 6px;
       font-size: .75rem;
       line-height: 1.5;
     }
@@ -1264,12 +1367,7 @@
       .dashboard-step:nth-child(3) { border-right: 0; }
       .dashboard-step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
       .dashboard-step:nth-child(4) { padding-left: 0; }
-      .method-loop { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-      .method-loop-step { grid-column: span 2; }
-      .method-loop-step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
-      .method-loop-step:nth-child(3) { padding-right: 0; border-right: 0; }
-      .method-loop-step:nth-child(n+4) { grid-column: span 3; border-bottom: 0; }
-      .method-loop-step:nth-child(4) { padding-left: 0; }
+      .method-loop { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 620px) {
@@ -1287,12 +1385,15 @@
       .process-step { grid-template-columns: 42px minmax(0, 1fr); gap: 14px; }
       .process-step p { grid-column: 2; }
       .method-quote { font-size: 26px; }
-      .method-loop { grid-template-columns: 1fr; }
-      .method-loop-step,
-      .method-loop-step:first-child,
-      .method-loop-step:last-child { min-height: 0; padding: 22px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .method-loop-step:nth-child(n) { grid-column: 1 / -1; padding: 22px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .method-loop-step:last-child { border-bottom: 0; }
+      .method-loop { gap: 20px; }
+      .method-loop-step__header { padding: 20px 18px 18px; }
+      .method-loop-step__copy { padding: 0 18px; }
+      .method-loop-step__copy p { padding: 15px 0; }
+      .method-loop-step__media { padding: 18px; }
+      .method-loop-step__media--accent { padding: 18px; }
+      .method-step-collage { grid-template-columns: 1fr; gap: 12px; }
+      .method-step-collage__shot--path { grid-column: auto; }
+      .method-loop-step__slot { min-height: 170px; padding: 22px; }
       .surface-header { grid-template-columns: 1fr; gap: 10px; }
       .surface-visual { padding: 10px; }
       .argument-item { grid-template-columns: 36px minmax(0, 1fr); gap: 14px; }
@@ -1639,11 +1740,74 @@
             <h3>Validate the interaction, align the narrative, and hand off both design and behaviour.</h3>
           </div>
           <div class="method-loop" aria-label="Repeatable design and handoff method">
-            <article class="method-loop-step"><span>01 / Prototype</span><strong>Test working HTML</strong><p>Use Claude to map interaction logic, learner states, and edge cases in a working browser prototype.</p></article>
-            <article class="method-loop-step"><span>02 / Align</span><strong>Approve the direction</strong><p>Review the HTML with stakeholders and approve the ideation, interaction direction, and narrative.</p></article>
-            <article class="method-loop-step"><span>03 / Design</span><strong>Build in Figma</strong><p>Translate the approved flows into production-ready screens using the Syntax by Scaler design system.</p></article>
-            <article class="method-loop-step"><span>04 / Handoff</span><strong>Specify for engineering</strong><p>Package final screens, states, component behaviour, and design-system usage for the engineering handoff.</p></article>
-            <article class="method-loop-step"><span>05 / Clarify</span><strong>Share the working prototype</strong><p>Give engineering the approved HTML prototype alongside Figma so interactions and state changes remain clear during implementation.</p></article>
+            <article class="method-loop-step">
+              <header class="method-loop-step__header"><span class="method-loop-step__kicker">Step 1 · Prototype</span><h4>Test the interaction in working HTML</h4></header>
+              <div class="method-loop-step__copy">
+                <p>Use Claude to map the learner journey, interaction logic, and edge cases before committing to visual production.</p>
+                <p>Turn those decisions into a working browser prototype with realistic state transitions and navigable flows.</p>
+                <p><a class="method-prototype-link" href="https://path-maker-ideation.vercel.app/A0_Welcome.html?next=focused-path" target="_blank" rel="noopener noreferrer" aria-label="Open the live Path-maker ideation prototype in a new tab">Open the live Path-maker ideation prototype ↗</a> to experience the Welcome ceremony, explore learner-state edge cases, and enter the Inside Class flow.</p>
+              </div>
+              <div class="method-loop-step__media method-loop-step__media--accent" aria-label="Working HTML prototype screens">
+                <div class="method-step-collage">
+                  <figure class="method-step-collage__shot method-step-collage__shot--path">
+                    <img src="assets/scaler-ai-lms-step-1-path-maker.png" alt="Path-maker prototype showing the Module 4 learner timeline and completed onboarding states" loading="lazy" decoding="async">
+                    <figcaption>Path-maker · learner journey</figcaption>
+                  </figure>
+                  <figure class="method-step-collage__shot">
+                    <img src="assets/scaler-ai-lms-step-1-inside-class.png" alt="Inside Class prototype showing a linked lists pre-read and class navigation" loading="lazy" decoding="async">
+                    <figcaption>Inside Class · guided learning</figcaption>
+                  </figure>
+                  <figure class="method-step-collage__shot">
+                    <img src="assets/scaler-ai-lms-step-1-problem-solving.png" alt="Problem Solving prototype showing a coding problem and editor workspace" loading="lazy" decoding="async">
+                    <figcaption>Problem Solving · practice workspace</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </article>
+            <article class="method-loop-step">
+              <header class="method-loop-step__header"><span class="method-loop-step__kicker">Step 2 · Align</span><h4>Approve the direction with stakeholders</h4></header>
+              <div class="method-loop-step__copy">
+                <p>Review the working HTML with product, design, and learning stakeholders instead of relying on static descriptions.</p>
+                <p>Resolve questions about the narrative, state changes, terminology, and interaction direction while changes are inexpensive.</p>
+                <p>Capture approval on the core flow before detailed screen production begins.</p>
+              </div>
+              <figure class="method-loop-step__media">
+                <div class="method-loop-step__slot" role="img" aria-label="Image placeholder for stakeholder alignment"><span>Image slot</span><b>Stakeholder review</b><small>Add workshop notes, prototype feedback, or an approved journey view.</small></div>
+              </figure>
+            </article>
+            <article class="method-loop-step">
+              <header class="method-loop-step__header"><span class="method-loop-step__kicker">Step 3 · Design</span><h4>Translate the approved flow into Figma</h4></header>
+              <div class="method-loop-step__copy">
+                <p>Move the approved interaction model into production-ready screens using the Syntax by Scaler design system.</p>
+                <p>Define responsive layouts, component variants, and the visual hierarchy for core, empty, locked, and completed states.</p>
+                <p>Keep the Figma narrative aligned with the behaviour already validated in the browser.</p>
+              </div>
+              <figure class="method-loop-step__media">
+                <img class="method-loop-step__image--borderless" src="assets/scaler-ai-lms-step-3-home-page-states.png" alt="Figma production screens comparing the Scaler home page default state with its scrolled-up state" loading="lazy" decoding="async">
+              </figure>
+            </article>
+            <article class="method-loop-step">
+              <header class="method-loop-step__header"><span class="method-loop-step__kicker">Step 4 · Handoff</span><h4>Specify screens, states, and behaviour</h4></header>
+              <div class="method-loop-step__copy">
+                <p>Package final screens with the state matrix, component behaviour, and approved design-system usage.</p>
+                <p>Document responsive rules, transition logic, and edge cases that cannot be understood from a single static frame.</p>
+                <p>Give engineering one implementation-ready source for both visual decisions and expected behaviour.</p>
+              </div>
+              <figure class="method-loop-step__media">
+                <div class="method-loop-step__slot" role="img" aria-label="Image placeholder for engineering handoff specifications"><span>Image slot</span><b>Engineering specification</b><small>Add annotated components, state matrices, or responsive rules.</small></div>
+              </figure>
+            </article>
+            <article class="method-loop-step">
+              <header class="method-loop-step__header"><span class="method-loop-step__kicker">Step 5 · Clarify</span><h4>Keep the prototype beside the final design</h4></header>
+              <div class="method-loop-step__copy">
+                <p>Share the approved HTML prototype alongside Figma so engineering can inspect the intended interaction directly.</p>
+                <p>Use the working flow to answer implementation questions about sequencing, transitions, and changing learner states.</p>
+                <p>Preserve the original product narrative as the design moves from handoff into development.</p>
+              </div>
+              <figure class="method-loop-step__media">
+                <div class="method-loop-step__slot" role="img" aria-label="Image placeholder for paired prototype and Figma handoff"><span>Image slot</span><b>Prototype + Figma</b><small>Add the paired delivery view used to clarify implementation.</small></div>
+              </figure>
+            </article>
           </div>
         </div>
 
