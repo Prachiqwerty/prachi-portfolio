@@ -979,6 +979,139 @@
     .design-stage-body p { color: #4f4f56; font-size: 14px; line-height: 1.62; }
     .design-stage-body p + p { margin-top: 16px; }
 
+    .inside-class-logic {
+      display: grid;
+      grid-template-columns: minmax(240px, .72fr) minmax(0, 1.28fr);
+      gap: clamp(36px, 6vw, 88px);
+      margin-top: 42px;
+      padding: clamp(28px, 4vw, 48px) 0;
+    }
+
+    .inside-class-logic h3 {
+      max-width: 420px;
+      margin-top: 10px;
+      font-family: var(--serif);
+      font-size: clamp(27px, 3vw, 36px);
+      line-height: 1.06;
+      font-weight: 650;
+    }
+
+    .inside-class-logic-intro {
+      max-width: 380px;
+      margin-top: 18px;
+      color: #4f4f56;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+
+    .class-loop {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 2px solid var(--accent);
+    }
+
+    .class-loop li {
+      min-width: 0;
+      padding: 15px 14px 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .class-loop li + li { padding-left: 14px; border-left: 1px solid var(--line); }
+    .class-loop span { display: block; color: var(--accent); font-size: 10px; line-height: 1.3; font-weight: 600; }
+    .class-loop strong { display: block; margin-top: 7px; color: var(--ink); font-size: 14px; line-height: 1.35; font-weight: 600; }
+
+    .inside-class-decisions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 28px;
+    }
+
+    .inside-class-decision { padding-right: clamp(20px, 3vw, 40px); }
+    .inside-class-decision + .inside-class-decision { padding-right: 0; padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
+    .inside-class-decision span { color: var(--accent); font-size: 11px; line-height: 1.4; font-weight: 600; text-transform: uppercase; }
+    .inside-class-decision h4 { margin-top: 8px; color: var(--ink); font-size: 15px; line-height: 1.4; font-weight: 600; }
+    .inside-class-decision p { margin-top: 9px; color: #4f4f56; font-size: 13px; line-height: 1.58; }
+
+    .decision-principle {
+      max-width: 760px;
+      margin-top: 22px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.25vw, 28px);
+      line-height: 1.18;
+      font-weight: 650;
+    }
+
+    .decision-shift-list {
+      margin-top: 32px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .decision-shift-head,
+    .decision-shift {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) 36px minmax(0, 1fr) 160px;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .decision-shift-head {
+      padding: 10px 0 12px;
+      border-bottom: 1px solid var(--line);
+      color: #8a8991;
+      font-size: 10px;
+      line-height: 1.3;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .decision-shift {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .decision-shift-number {
+      color: var(--accent);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .decision-shift-from {
+      color: #77767e;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .decision-shift-arrow {
+      color: var(--accent);
+      font-size: 20px;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .decision-shift-to {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 19px;
+      line-height: 1.2;
+      font-weight: 650;
+    }
+
+    .decision-shift-intent {
+      color: #5f5e66;
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 600;
+      letter-spacing: .035em;
+      text-transform: uppercase;
+    }
+
     .concern-list {
       margin: 26px 0 0;
       padding: 0;
@@ -1213,6 +1346,132 @@
     .final-screen-copy p { max-width: 760px; color: #4f4f56; font-size: 14px; line-height: 1.62; }
     .final-screen-copy p + p { margin-top: 18px; }
 
+    .prototype-reference {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 26px;
+      padding: 12px 0 13px;
+      color: var(--ink);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--ink);
+      text-decoration: none;
+    }
+
+    .prototype-reference-copy span {
+      display: block;
+      color: var(--accent);
+      font-size: 10px;
+      line-height: 1.35;
+      font-weight: 600;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+    }
+
+    .prototype-reference-copy strong {
+      display: block;
+      margin-top: 5px;
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 650;
+    }
+
+    .prototype-reference-arrow {
+      color: var(--accent);
+      font-size: 19px;
+      line-height: 1;
+      transition: transform 180ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .prototype-reference:hover .prototype-reference-arrow,
+    .prototype-reference:focus-visible .prototype-reference-arrow {
+      transform: translate(3px, -3px);
+    }
+
+    .final-design-gallery {
+      display: grid;
+      gap: 48px;
+      margin-top: 32px;
+    }
+
+    .final-design-figure { margin: 0; }
+
+    .final-design-frame {
+      padding: 14px;
+      overflow: hidden;
+      background: var(--soft);
+      border: 1px solid #dfe7f6;
+    }
+
+    .final-design-frame a {
+      display: block;
+      cursor: zoom-in;
+    }
+
+    .final-design-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .problem-solving-gallery .final-design-pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .final-design-detail { min-width: 0; }
+
+    .final-design-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid rgba(1, 24, 69, .1);
+    }
+
+    .final-design-detail-label {
+      display: block;
+      margin-top: 8px;
+      color: #777780;
+      font-size: 10px;
+      line-height: 1.4;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .final-design-figure figcaption {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      margin-top: 13px;
+    }
+
+    .final-design-index {
+      color: var(--accent);
+      font-size: 11px;
+      line-height: 1.45;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .final-design-figure figcaption strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    .final-design-figure figcaption p {
+      max-width: 680px;
+      margin-top: 4px;
+      color: #777780;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
     .case-footer {
       display: flex;
       justify-content: space-between;
@@ -1282,6 +1541,13 @@
       .hero-collage-stack { display: none; }
       .case-section { padding: 64px 0; }
       .surface-solution { margin-top: 64px; padding-top: 64px; }
+      .inside-class-logic { grid-template-columns: 1fr; gap: 30px; }
+      .inside-class-logic-intro { max-width: 620px; }
+      .class-loop { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .class-loop li:nth-child(3) { padding-left: 0; border-left: 0; }
+      .inside-class-decisions { grid-template-columns: 1fr; margin-top: 22px; }
+      .inside-class-decision { padding-right: 0; }
+      .inside-class-decision + .inside-class-decision { margin-top: 22px; padding: 22px 0 0; border-top: 1px solid var(--line); border-left: 0; }
       .problem-item { min-height: 0; }
       .challenge-line { grid-template-columns: 1fr; gap: 12px; }
       .process-step { grid-template-columns: 42px minmax(0, 1fr); gap: 14px; }
@@ -1339,6 +1605,51 @@
       .diagnosis-group:last-child { border-bottom: 0; }
       .diagnosis-item { min-height: 0; padding: 22px; }
       .rule-list { grid-template-columns: 1fr; }
+      .decision-shift-head { display: none; }
+      .decision-shift {
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 8px 14px;
+        align-items: start;
+        padding: 22px 0;
+      }
+      .decision-shift-number { grid-row: 1 / span 3; padding-top: 15px; }
+      .decision-shift-from,
+      .decision-shift-to,
+      .decision-shift-intent { grid-column: 2; }
+      .decision-shift-arrow { display: none; }
+      .decision-shift-from::before,
+      .decision-shift-to::before,
+      .decision-shift-intent::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 4px;
+        color: #929098;
+        font-family: var(--sans);
+        font-size: 9px;
+        line-height: 1.2;
+        font-weight: 600;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+      }
+      .decision-shift-to { margin-top: 4px; }
+      .decision-shift-intent {
+        margin-top: 5px;
+        padding-top: 9px;
+        border-top: 1px dashed var(--line);
+      }
+      .final-design-gallery { gap: 32px; }
+      .prototype-reference {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .final-design-frame { padding: 8px; }
+      .final-design-pair { gap: 22px; }
+      .problem-solving-gallery .final-design-pair { grid-template-columns: 1fr; }
+      .final-design-figure figcaption {
+        grid-template-columns: 30px minmax(0, 1fr);
+        gap: 10px;
+      }
       .surface-context,
       .path-story-heading { grid-template-columns: 1fr; gap: 10px; }
       .path-decision { grid-template-columns: 38px minmax(0, 1fr); gap: 14px; }
@@ -1378,7 +1689,8 @@
           <a href="#path-maker">Path-maker</a>
           <a href="#inside-class">Inside Class</a>
           <a href="#problem-solving">Problem Solving</a>
-          <a href="#solution">The Solution</a>
+          <a href="#design-strategy">Design Strategy</a>
+          <a href="#path-maker-solution">The Solution</a>
           <a href="#phased-release">Phased Release</a>
           <a href="#learnings">Learnings</a>
         </nav>
@@ -1611,7 +1923,7 @@
         </article>
       </section>
 
-      <section class="case-section" id="solution">
+      <section class="case-section" id="design-strategy">
         <span class="eyebrow">Design Strategy</span>
         <h2 class="section-title">One learning strategy connects all three product surfaces.</h2>
         <p class="strategy-lead">Path-maker, Inside Class, and Problem Solving address different moments in the learner journey, but follow the same principle: make the next action clear, provide the context needed to act, and keep guidance inside the workflow.</p>
@@ -1649,58 +1961,238 @@
 
         <section class="surface-solution" id="path-maker-solution">
           <span class="eyebrow">Solution 01 · Path-maker</span>
-          <h2 class="section-title">Reframe the home as a prioritised weekly learning plan.</h2>
-          <p class="section-copy"><strong>A planning surface that clarifies what to do now, next, and later.</strong></p>
-
-  <article class="design-stage" data-reveal>
-            <div class="design-stage-header"><span class="design-stage-label">Approach</span><h3>Design for sixteen learner states</h3></div>
-            <div class="design-stage-body"><p>The primary design challenge was state coverage rather than layout. The prototype included <strong>16 switchable learner personas</strong>: eight onboarding states, including recent payment, limited onboarding time, mentor not selected, and refund requested, and eight steady-state conditions, including on track, behind, accelerating, and inactive. This ensured that paused, refunded, and at-risk scenarios were designed as part of the core experience rather than treated as exceptions. The roadmap also focused on the <strong>first 49 days</strong>, when refund risk is highest, and on re-engaging learners showing signs of inactivity.</p></div>
-          </article>
+          <h2 class="section-title">From mapping the complete journey to clarifying the next action.</h2>
+          <p class="section-copy"><strong>Path-maker translates curriculum state into a time-aware plan—helping learners understand what needs attention now, what comes next, and what will unlock later.</strong></p>
 
           <article class="design-stage" data-reveal>
-            <div class="design-stage-header"><span class="design-stage-label">Ideate</span><h3>Test every learner state in the browser</h3></div>
+            <div class="design-stage-header"><span class="design-stage-label">Journey model</span><h3>Map the journey before simplifying the home</h3></div>
             <div class="design-stage-body">
-              <p>I explored the flow in Claude and then implemented it as an HTML prototype. A single <code>body[data-persona]</code> attribute controlled learner states, while the onboarding quiz stored personalisation inputs in <code>localStorage</code> for the home experience to use. This allowed the prototype to demonstrate realistic state transitions in the browser. Two B10 principles guided the interaction model:</p>
+              <p>I built an internal journey model spanning onboarding, eight learning modules, and career preparation. Across <strong>14 visible states</strong>, it helped validate sequencing, dependencies, and how activities move from locked to upcoming, current, and complete.</p>
               <div class="rule-list">
-                <div class="rule-item"><strong>Differentiate cohort requirements from enrichment</strong><p>Fixed commitments such as "Class on Thursday at 7 PM" are visually and verbally distinct from adaptive suggestions such as "Recommended before Thursday's class."</p></div>
-                <div class="rule-item"><strong>Recommend without re-sequencing</strong><p>Path-maker can adjust enrichment around the curriculum, but it cannot change the sequence of core cohort activities.</p></div>
+                <div class="rule-item"><strong>Sequence the system</strong><p>Connect the curriculum rhythm with onboarding dependencies.</p></div>
+                <div class="rule-item"><strong>Cover meaningful states</strong><p>Design completed, current, upcoming, and locked activities together.</p></div>
               </div>
             </div>
           </article>
 
           <article class="design-stage" data-reveal>
-            <div class="design-stage-header"><span class="design-stage-label">Final screens</span><h3>A time-anchored weekly plan</h3></div>
-            <div class="final-screen-copy">
-              <p>The weekly plan uses a live <strong>Now</strong> marker and <em>To-Dos for Today</em> to establish an immediate priority within the first viewport.</p>
-              <p>The onboarding variant uses the same structural framework for a different task: completing the <strong>Onboarding Manager</strong> call (PSA) and the <strong>batch-allocation quiz</strong> that informs downstream personalisation.</p>
+            <div class="design-stage-header"><span class="design-stage-label">Design decisions</span><h3>Turn system complexity into one clear priority</h3></div>
+            <div class="design-stage-body">
+              <p class="decision-principle">The home should interpret the curriculum—not ask learners to decode it.</p>
+              <div class="decision-shift-list" aria-label="Path-maker design evolution from ideation model to final design">
+                <div class="decision-shift-head" aria-hidden="true"><span></span><span>Ideation model</span><span></span><span>Final design</span><span>Purpose</span></div>
+                <div class="decision-shift">
+                  <span class="decision-shift-number">01</span>
+                  <p class="decision-shift-from" data-label="Ideation model">Complete journey</p>
+                  <span class="decision-shift-arrow" aria-hidden="true">→</span>
+                  <p class="decision-shift-to" data-label="Final design">Current week</p>
+                  <p class="decision-shift-intent" data-label="Purpose">Focus attention</p>
+                </div>
+                <div class="decision-shift">
+                  <span class="decision-shift-number">02</span>
+                  <p class="decision-shift-from" data-label="Ideation model">Curriculum status</p>
+                  <span class="decision-shift-arrow" aria-hidden="true">→</span>
+                  <p class="decision-shift-to" data-label="Final design">One clear action</p>
+                  <p class="decision-shift-intent" data-label="Purpose">Reduce interpretation</p>
+                </div>
+                <div class="decision-shift">
+                  <span class="decision-shift-number">03</span>
+                  <p class="decision-shift-from" data-label="Ideation model">Generic activity row</p>
+                  <span class="decision-shift-arrow" aria-hidden="true">→</span>
+                  <p class="decision-shift-to" data-label="Final design">Context-rich task</p>
+                  <p class="decision-shift-intent" data-label="Purpose">Support decisions</p>
+                </div>
+                <div class="decision-shift">
+                  <span class="decision-shift-number">04</span>
+                  <p class="decision-shift-from" data-label="Ideation model">Hidden dependency</p>
+                  <span class="decision-shift-arrow" aria-hidden="true">→</span>
+                  <p class="decision-shift-to" data-label="Final design">Explained unlock</p>
+                  <p class="decision-shift-intent" data-label="Purpose">Set expectations</p>
+                </div>
+              </div>
             </div>
-            <div class="surface-visual"><img src="assets/scaler-ai-lms-path-maker.webp" alt="Path-maker steady-state weekly plan and onboarding states" loading="lazy" decoding="async"></div>
-            <p class="screen-caption">Path-maker steady state: a dated agenda with a live Now marker, pre-reads, a highlighted live-class kickoff, auto-graded assignments, and the Careers Hub unlock sequence. Onboarding: the PSA welcome-call card and personalisation quiz that establish the initial roadmap.</p>
+          </article>
+
+          <article class="design-stage" data-reveal>
+            <div class="design-stage-header"><span class="design-stage-label">Final design prototype</span><h3>A Weekly Plan that advances with the learner</h3></div>
+            <div class="final-screen-copy">
+              <p>The final home organises activities by date, priority, and availability. A live <strong>Now</strong> marker and <em>To-Dos for Today</em> establish the immediate priority, while future activities preserve awareness of the wider journey without competing for attention.</p>
+              <p>The same structure connects learning with operational onboarding tasks, including the manager call, batch allocation, mentor selection, and Meet n Greet. Task cards provide the topic, activity type, instructor, duration, status, explanation, and next action without requiring the learner to open another page for context.</p>
+            </div>
+            <a class="prototype-reference" href="https://path-maker-design.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Explore the interactive Path-maker dashboard prototype in a new tab">
+              <span class="prototype-reference-copy"><span>Interactive reference</span><strong>Explore the Path-maker dashboard prototype</strong></span>
+              <span class="prototype-reference-arrow" aria-hidden="true">↗</span>
+            </a>
+            <div class="final-design-gallery">
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/path-maker-final-default-state.png" target="_blank" rel="noopener" aria-label="Open the Path-maker default weekly plan at full size">
+                      <img src="assets/path-maker-final-default-state.png" width="1424" height="1946" alt="Path-maker default weekly plan with today's tasks and a live Now marker" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Default state</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/path-maker-final-default-scrolled.png" target="_blank" rel="noopener" aria-label="Open the Path-maker scrolled weekly plan at full size">
+                      <img src="assets/path-maker-final-default-scrolled.png" width="1419" height="2216" alt="Path-maker scrolled weekly plan showing completed onboarding and today's tasks" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Scrolled state</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">01</span><div><strong>Default weekly plan</strong><p>Default and scrolled states keep today's priorities anchored as the learner moves through the plan.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/path-maker-final-no-classes.png" target="_blank" rel="noopener" aria-label="Open the Path-maker empty schedule state at full size">
+                      <img src="assets/path-maker-final-no-classes.png" width="1440" height="1579" alt="Path-maker home showing no classes scheduled for today and the next available plan" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">No scheduled classes</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/path-maker-final-course-paused.png" target="_blank" rel="noopener" aria-label="Open the Path-maker paused course state at full size">
+                      <img src="assets/path-maker-final-course-paused.png" width="1430" height="1579" alt="Path-maker home explaining a three-month course pause and what happens on return" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Course paused</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">02</span><div><strong>State-aware planning</strong><p>Empty-schedule and paused-course states keep the roadmap informative when the expected weekly rhythm changes.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/path-maker-final-companion-panel.png" target="_blank" rel="noopener" aria-label="Open the Path-maker Companion prompt panel at full size">
+                      <img src="assets/path-maker-final-companion-panel.png" width="1425" height="702" alt="Path-maker home with the Companion panel and suggested onboarding prompts" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Prompt panel</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/path-maker-final-companion-chat.png" target="_blank" rel="noopener" aria-label="Open the Path-maker Companion conversation at full size">
+                      <img src="assets/path-maker-final-companion-chat.png" width="1422" height="702" alt="Path-maker home with an active contextual Companion conversation" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Active conversation</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">03</span><div><strong>Companion in context</strong><p>Companion opens beside the plan with suggested prompts, then carries the conversation without taking the learner out of the current task.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/path-maker-final-mock-upcoming.png" target="_blank" rel="noopener" aria-label="Open the upcoming Path-maker mock interview state at full size">
+                      <img src="assets/path-maker-final-mock-upcoming.png" width="1421" height="1456" alt="Path-maker weekly plan showing an upcoming DSA mock interview with ten days remaining" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">10 days remaining</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/path-maker-final-mock-expired.png" target="_blank" rel="noopener" aria-label="Open the expired Path-maker mock interview state at full size">
+                      <img src="assets/path-maker-final-mock-expired.png" width="1418" height="1456" alt="Path-maker weekly plan showing an expired DSA mock interview and its recovery action" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Interview expired</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">04</span><div><strong>Mock-interview urgency</strong><p>Upcoming and expired states change the message and action while preserving the interview's place in the weekly plan.</p></div></figcaption>
+              </figure>
+            </div>
+          </article>
+
+          <article class="design-stage" data-reveal>
+            <div class="design-stage-header"><span class="design-stage-label">Interaction proof</span><h3>Make the consequence of each action visible</h3></div>
+            <div class="design-stage-body">
+              <p>The working prototype demonstrates how the plan responds as the learner progresses. Completing one activity updates the journey and reveals the next relevant action, turning progress into something the learner can immediately understand.</p>
+              <div class="rule-list">
+                <div class="rule-item"><strong>Personalise onboarding</strong><p>Selecting and saving a batch preference returns the learner to the active plan with their choice acknowledged.</p></div>
+                <div class="rule-item"><strong>Advance the task sequence</strong><p>Completing the active live session marks it Done and activates the assignment that follows.</p></div>
+                <div class="rule-item"><strong>Explain future access</strong><p>Locked modules and the Careers Hub remain visible with the condition required to unlock them.</p></div>
+                <div class="rule-item"><strong>Guide in context</strong><p>Iris Companion reinforces the current action without replacing the plan's primary hierarchy.</p></div>
+              </div>
+            </div>
+            <p class="screen-caption">The final prototype shifts Path-maker from a dashboard learners must interpret into a planning surface that interprets the curriculum for them.</p>
           </article>
         </section>
 
         <section class="surface-solution" id="inside-class-solution">
           <span class="eyebrow">Solution 02 · Inside Class</span>
-          <h2 class="section-title">Connect preparation, live learning, practice, and revision in one class journey.</h2>
+          <h2 class="section-title">Turn every class into one connected learning loop.</h2>
+          <p class="section-copy"><strong>Inside Class connects preparation, attendance, practice, and revision around the same session.</strong></p>
 
-  <article class="design-stage" data-reveal>
-            <div class="design-stage-header"><span class="design-stage-label">Approach</span><h3>Reconnect the full class loop</h3></div>
-            <div class="design-stage-body"><p>I defined the class journey as a continuous loop: prepare, attend, practise, and revisit. <strong>Inside Class</strong> brings that loop into one container, supported by a persistent <strong>Class Rail</strong> for Pre-read, Live Class, Assignments, and Practice. Each availability state, including content in preparation, assignments not yet open, and locked practice, includes a clear explanation so gating communicates context rather than restriction alone.</p></div>
-          </article>
-
-          <article class="design-stage" data-reveal>
-            <div class="design-stage-header"><span class="design-stage-label">Ideate</span><h3>Design the pre-read as an interactive learning experience</h3></div>
-            <div class="design-stage-body"><p>The B-flow HTML prototype treated the pre-read as an interactive learning experience rather than a document. Concepts are introduced through familiar product behaviours, such as Spotify queues, Slack threads, and Chrome history, with inline exercises including a queue walkthrough and a drag-and-drop code-ordering task. The Companion remains consistent across these activities instead of appearing as separate tools.</p></div>
-          </article>
-
-          <article class="design-stage" data-reveal>
-            <div class="design-stage-header"><span class="design-stage-label">Final screens</span><h3>Active preparation around the live class</h3></div>
-            <div class="final-screen-copy">
-              <p>The instructor-authored pre-read combines editorial content, familiar product analogies, and interactive exercises in one guided sequence that connects directly to the live class.</p>
-              <p>The class lobby establishes context before the session begins through instructor details, duration, chapter count, intended learning outcomes, and a timestamped agenda.</p>
+          <article class="inside-class-logic" data-reveal>
+            <div>
+              <span class="design-stage-label">Design logic</span>
+              <h3>One class loop, four connected moments</h3>
+              <p class="inside-class-logic-intro">I organised every session around a simple sequence: prepare, attend, practise, and revisit.</p>
             </div>
-            <div class="surface-visual"><img src="assets/scaler-ai-lms-inside-class.webp" alt="Inside Class interactive pre-read, class lobby and recording experience" loading="lazy" decoding="async"></div>
-            <p class="screen-caption">Pre-read: familiar product analogies and inline exercises support active preparation. Class lobby: session context, outcomes, and agenda establish clear expectations before the learner joins the live class.</p>
+            <div>
+              <ol class="class-loop" aria-label="Inside Class learning loop">
+                <li><span>01</span><strong>Prepare</strong></li>
+                <li><span>02</span><strong>Attend</strong></li>
+                <li><span>03</span><strong>Practise</strong></li>
+                <li><span>04</span><strong>Revisit</strong></li>
+              </ol>
+              <div class="inside-class-decisions">
+                <div class="inside-class-decision">
+                  <span>Persistent context</span>
+                  <h4>Keep the full journey visible</h4>
+                  <p>A Class Rail keeps Pre-read, Live Class, Assignments, and Practice in view. Locked states explain what opens next.</p>
+                </div>
+                <div class="inside-class-decision">
+                  <span>Active preparation</span>
+                  <h4>Teach through examples and action</h4>
+                  <p>Familiar examples introduce each concept before short exercises let learners test it. Companion stays available in the same flow.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="design-stage" data-reveal>
+            <div class="design-stage-header"><span class="design-stage-label">Final design prototype</span><h3>Carry context from preparation into revision</h3></div>
+            <div class="final-screen-copy">
+              <p>Pre-read, assignment details, the class lobby, and the live session stay inside one Class Rail. Each state makes the current task, progress, and next action immediately visible.</p>
+              <p>After class, the recording, chapters, transcript highlights, personal notes, lecture notes, quizzes, and flashcards remain connected to the session.</p>
+            </div>
+            <div class="final-design-gallery">
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/inside-class-final-pre-read.png" target="_blank" rel="noopener" aria-label="Open the Inside Class interactive pre-read at full size">
+                      <img src="assets/inside-class-final-pre-read.png" width="1435" height="2222" alt="Inside Class interactive linked-lists pre-read with product analogies and inline questions" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Interactive pre-read</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/inside-class-final-assignment-details.png" target="_blank" rel="noopener" aria-label="Open the Inside Class assignment details at full size">
+                      <img src="assets/inside-class-final-assignment-details.png" width="1434" height="2222" alt="Inside Class assignment detail page showing an accepted solution, performance, examples, and constraints" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Assignment details</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">01</span><div><strong>Preparation and application</strong><p>The pre-read moves from explanation to practice; assignment details carry the same context into solution review.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/inside-class-final-countdown.png" target="_blank" rel="noopener" aria-label="Open the Inside Class countdown state at full size">
+                      <img src="assets/inside-class-final-countdown.png" width="1426" height="1029" alt="Inside Class lobby with session context, learning outcome, agenda, and an eight-minute countdown" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Class starts in 08:00</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/inside-class-final-live.png" target="_blank" rel="noopener" aria-label="Open the Inside Class live-session state at full size">
+                      <img src="assets/inside-class-final-live.png" width="1422" height="1029" alt="Inside Class lobby with the live session available to join" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Class active now</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">02</span><div><strong>Live-class readiness</strong><p>The lobby preserves the outcomes and agenda while the primary action changes from countdown to Join Live Class.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/inside-class-final-recording.png" target="_blank" rel="noopener" aria-label="Open the Inside Class recording overview at full size">
+                      <img src="assets/inside-class-final-recording.png" width="1308" height="2746" alt="Inside Class recording overview with video, timestamped transcript, highlights, notes, quizzes, and flashcards" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Recording overview</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/inside-class-final-lecture-notes.png" target="_blank" rel="noopener" aria-label="Open the Inside Class lecture-notes view at full size">
+                      <img src="assets/inside-class-final-lecture-notes.png" width="1318" height="2746" alt="Inside Class recording with handwritten lecture notes beside the video and timestamped transcript" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Recorded lecture notes</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">03</span><div><strong>Recording and revision</strong><p>Video, transcript, highlights, notes, quizzes, and flashcards form one revision surface anchored to the class.</p></div></figcaption>
+              </figure>
+            </div>
           </article>
         </section>
 
@@ -1708,15 +2200,15 @@
           <span class="eyebrow">Solution 03 · Problem Solving</span>
           <h2 class="section-title">Integrate problem context, coding, and guided support in one workspace.</h2>
 
-  <article class="design-stage" data-reveal>
+          <article class="design-stage" data-reveal>
             <div class="design-stage-header"><span class="design-stage-label">Approach</span><h3>Support learners through moments of difficulty</h3></div>
-            <div class="design-stage-body"><p>The key design requirement was to support productive struggle without leaving learners without direction. I designed a focused, timed, in-product workspace with three coordinated areas: problem, editor, and Companion. Support is introduced through a <strong>progressive assistance model</strong>, while error and submission states explain what happened and how to continue. Each problem also includes a clear name and learning context.</p></div>
+            <div class="design-stage-body"><p>The design keeps the problem, editor, test cases, submissions, and Companion inside one timed workspace. Guidance escalates from contextual hints to solution reveal, while each result explains what happened and what to try next.</p></div>
           </article>
 
           <article class="design-stage" data-reveal>
             <div class="design-stage-header"><span class="design-stage-label">Ideate</span><h3>Balance productive effort with progressive support</h3></div>
             <div class="design-stage-body">
-              <p>The C-flow prototype introduced a focused, dark-theme IDE reached through the <strong>Start coding</strong> action within an assignment. Two principles shaped the support model:</p>
+              <p>The prototype introduced two deliberate forms of friction:</p>
               <div class="rule-list">
                 <div class="rule-item"><strong>Preserve productive friction</strong><p>Hints reduce the available score, while revealing the complete solution sets the score to zero. This encourages an independent attempt before the answer is disclosed.</p></div>
                 <div class="rule-item"><strong>Escalate support progressively</strong><p>Companion hints and saved conversation history lead to TA support by text or video after meaningful attempts, creating one continuous assistance path.</p></div>
@@ -1725,13 +2217,76 @@
           </article>
 
           <article class="design-stage" data-reveal>
-            <div class="design-stage-header"><span class="design-stage-label">Final screens</span><h3>One workspace for solving and guided help</h3></div>
+            <div class="design-stage-header"><span class="design-stage-label">Final design prototype</span><h3>Keep every attempt inside one focused workspace</h3></div>
             <div class="final-screen-copy">
-              <p>The core editor places the problem and worked examples alongside code and test cases, with the Companion available within the same workspace. Submission states such as Accepted, Wrong Answer, Time Limit, and Compile Error provide specific feedback without requiring an external editor.</p>
-              <p>The Companion panel creates one assistance layer across surfaces, supported by conversation history and prompts to reframe the problem, explain the concept, or explore a different approach.</p>
+              <p>The problem, code, test cases, and navigation stay visible in both light and dark themes. Companion opens beside the attempt without covering the work.</p>
+              <p>Submission history distinguishes Accepted, Wrong Answer, Time Limit, and Compile Error. The solution remains locked behind a Companion-first prompt, making the cost of revealing it explicit.</p>
             </div>
-            <div class="surface-visual dark"><img src="assets/scaler-ai-lms-problem-solving.webp" alt="Problem-Solving coding IDE and Companion panel" loading="lazy" decoding="async"></div>
-            <p class="screen-caption">The three-pane workspace combines a contextual problem statement, an in-product editor with test cases, and a persistent Companion. This replaces the separate Chat GPT Help and Help with Problem Solving paths with one coordinated support model.</p>
+            <div class="final-design-gallery problem-solving-gallery">
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/problem-solving-final-workspace-light.png" target="_blank" rel="noopener" aria-label="Open the light Problem Solving workspace at full size">
+                      <img src="assets/problem-solving-final-workspace-light.png" width="1800" height="891" alt="Light Problem Solving workspace with the problem description, empty editor, test cases, timer, and submission controls" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Light workspace</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/problem-solving-final-workspace-dark.png" target="_blank" rel="noopener" aria-label="Open the dark Problem Solving workspace at full size">
+                      <img src="assets/problem-solving-final-workspace-dark.png" width="1800" height="889" alt="Dark Problem Solving workspace with the problem description, empty editor, test cases, timer, and submission controls" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Dark workspace</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">01</span><div><strong>Focused workspace</strong><p>Problem context, editor, test cases, and navigation share one timed workspace in both themes.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/problem-solving-final-code-light.png" target="_blank" rel="noopener" aria-label="Open the light Problem Solving code and Companion state at full size">
+                      <img src="assets/problem-solving-final-code-light.png" width="1800" height="891" alt="Light Problem Solving workspace with code, running test cases, and contextual Companion guidance" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Code with Companion · Light</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/problem-solving-final-code-dark.png" target="_blank" rel="noopener" aria-label="Open the dark Problem Solving code and Companion state at full size">
+                      <img src="assets/problem-solving-final-code-dark.png" width="1800" height="889" alt="Dark Problem Solving workspace with code, running test cases, and contextual Companion guidance" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Code with Companion · Dark</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">02</span><div><strong>In-context assistance</strong><p>Companion explains a failed test beside the code, so learners can act without leaving the attempt.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/problem-solving-final-submissions-light.png" target="_blank" rel="noopener" aria-label="Open the light Problem Solving submissions state at full size">
+                      <img src="assets/problem-solving-final-submissions-light.png" width="1800" height="891" alt="Light Problem Solving submissions view showing accepted, wrong answer, time limit, and compile error results beside code" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Submission history · Light</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/problem-solving-final-submissions-dark.png" target="_blank" rel="noopener" aria-label="Open the dark Problem Solving submissions state at full size">
+                      <img src="assets/problem-solving-final-submissions-dark.png" width="1800" height="889" alt="Dark Problem Solving submissions view showing accepted, wrong answer, time limit, and compile error results beside code" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Submission history · Dark</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">03</span><div><strong>Submission feedback</strong><p>Accepted and failed attempts sit beside the code, connecting outcome, runtime, and recovery to the work.</p></div></figcaption>
+              </figure>
+
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/problem-solving-final-solution-light.png" target="_blank" rel="noopener" aria-label="Open the light Problem Solving solution-access state at full size">
+                      <img src="assets/problem-solving-final-solution-light.png" width="1800" height="891" alt="Light Problem Solving solution tab prompting the learner to use Companion before revealing the answer" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Solution access · Light</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/problem-solving-final-solution-dark.png" target="_blank" rel="noopener" aria-label="Open the dark Problem Solving solution-access state at full size">
+                      <img src="assets/problem-solving-final-solution-dark.png" width="1800" height="889" alt="Dark Problem Solving solution tab prompting the learner to use Companion and warning that revealing the answer sets the score to zero" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Solution access · Dark</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">04</span><div><strong>Progressive solution access</strong><p>Solution reveal follows guided help and clearly communicates the score trade-off before disclosure.</p></div></figcaption>
+              </figure>
+            </div>
           </article>
         </section>
       </section>
@@ -1797,6 +2352,63 @@
       tocLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${current}`));
     };
 
+    let stopAnchorTracking = null;
+
+    const keepSectionAligned = (target) => {
+      stopAnchorTracking?.();
+
+      const pageContent = document.querySelector("main");
+      let observer;
+      let stopTimer;
+      const cancelEvents = ["wheel", "touchstart", "pointerdown", "keydown"];
+
+      const align = () => {
+        target.scrollIntoView({ block: "start" });
+        updateProgress();
+        updateActiveSection();
+      };
+
+      const stop = () => {
+        observer?.disconnect();
+        window.clearTimeout(stopTimer);
+        document.removeEventListener("load", align, true);
+        cancelEvents.forEach((eventName) => window.removeEventListener(eventName, stop));
+        stopAnchorTracking = null;
+      };
+
+      stopAnchorTracking = stop;
+
+      if (pageContent && "ResizeObserver" in window) {
+        observer = new ResizeObserver(align);
+        observer.observe(pageContent);
+      }
+
+      document.addEventListener("load", align, true);
+      cancelEvents.forEach((eventName) => window.addEventListener(eventName, stop, { once: true }));
+      stopTimer = window.setTimeout(stop, 4000);
+
+      align();
+      window.requestAnimationFrame(() => window.requestAnimationFrame(align));
+      document.fonts?.ready.then(align);
+    };
+
+    tocLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const href = link.getAttribute("href");
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        event.preventDefault();
+        if (window.location.hash !== href) window.history.pushState(null, "", href);
+        keepSectionAligned(target);
+      });
+    });
+
+    window.addEventListener("hashchange", () => {
+      const target = document.querySelector(window.location.hash);
+      if (target) keepSectionAligned(target);
+    });
+
     window.addEventListener("scroll", () => {
       updateProgress();
       updateActiveSection();
@@ -1804,6 +2416,11 @@
 
     updateProgress();
     updateActiveSection();
+
+    if (window.location.hash) {
+      const initialTarget = document.querySelector(window.location.hash);
+      if (initialTarget) window.requestAnimationFrame(() => keepSectionAligned(initialTarget));
+    }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!reduceMotion && window.gsap && window.ScrollTrigger) {
