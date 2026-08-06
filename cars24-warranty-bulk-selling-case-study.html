@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="CARS24 Warranty Bulk Selling case study by Prachi Pandey: reframing warranty as dealer inventory that can be purchased in bulk and activated when needed.">
+  <title>CARS24 Warranty Bulk Selling: From one-car checkout to dealer inventory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Geist:wght@400;450;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page: #fdfdfc;
+      --ink: #282438;
+      --text: #54545c;
+      --muted: #9699a2;
+      --line: #e9e8e5;
+      --accent: #0055ff;
+      --accent-dark: #011845;
+      --soft: #eef4ff;
+      --soft-2: #f7f9ff;
+      --panel: #ffffff;
+      --sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: "Cormorant Garamond", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-kerning: normal;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    img { display: block; max-width: 100%; }
+    p, h1, h2, h3, h4 { margin: 0; }
+
+    .reading-progress {
+      position: fixed;
+      z-index: 20;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      width: min(100%, 1500px);
+      min-height: 100dvh;
+      margin: 0 auto;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100dvh;
+      padding: 54px 32px 40px;
+      border-right: 1px solid var(--line);
+      background: rgba(253, 253, 252, .94);
+      backdrop-filter: blur(16px);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      min-height: 44px;
+      color: #8f939b;
+      font-size: .875rem;
+      font-weight: 450;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+    .back-link:hover { color: var(--ink); transform: translateX(-2px); }
+    .toc { display: grid; gap: 11px; margin-top: 46px; }
+    .toc a {
+      position: relative;
+      color: #929296;
+      font-size: .8125rem;
+      line-height: 1.25;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+    .toc a::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -15px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      transform: translateY(-50%) scale(.5);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+    .toc a:hover,
+    .toc a.active { color: #303036; transform: translateX(2px); }
+    .toc a.active::before { opacity: 1; transform: translateY(-50%) scale(1); }
+    .side-note { max-width: 155px; color: #a5a8af; font-size: .75rem; line-height: 1.5; }
+
+    .content {
+      width: min(100%, 1160px);
+      margin: 0 auto;
+      padding: 54px 56px 80px;
+    }
+    .project-kicker,
+    .eyebrow {
+      color: #9a9ea7;
+      font-size: .75rem;
+      font-weight: 400;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .project-kicker { margin: 18px 0 30px; }
+    .eyebrow { display: block; margin-bottom: 16px; }
+    .hero-title {
+      max-width: 880px;
+      font-family: var(--serif);
+      font-size: clamp(2.125rem, 3.2vw, 2.75rem);
+      font-weight: 500;
+      line-height: 1.07;
+      text-wrap: balance;
+    }
+    .hero-title .hero-number {
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: .78em;
+      font-weight: 500;
+      letter-spacing: -.035em;
+      vertical-align: .05em;
+      white-space: nowrap;
+    }
+    .hero-title .accent-title { color: var(--accent); font-weight: 600; }
+    .hero-copy {
+      max-width: 740px;
+      margin-top: 24px;
+      color: #4f4f56;
+      font-size: .875rem;
+      line-height: 1.65;
+      text-wrap: pretty;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: .9fr .75fr 1.45fr 1.25fr .65fr;
+      gap: 28px;
+      margin-top: 38px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    .meta-label {
+      display: block;
+      margin-bottom: 9px;
+      color: #a1a5ae;
+      font-size: .6875rem;
+      font-weight: 450;
+      text-transform: uppercase;
+    }
+    .meta-grid p { color: #55535c; font-size: .875rem; line-height: 1.48; }
+    .meta-tool-icon {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--panel);
+    }
+    .meta-tool-icon img { width: 22px; height: 22px; object-fit: contain; }
+
+    .hero-media {
+      margin-top: 38px;
+      padding: 30px;
+      overflow: hidden;
+      border: 1px solid #dfe7f6;
+      background: var(--soft);
+    }
+    .hero-media-window {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(1, 24, 69, .12);
+      background: var(--panel);
+    }
+    .hero-screen-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .impact-strip {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(4, minmax(0, 1fr));
+      margin-top: 48px;
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .impact-intro { padding-right: 28px; border-right: 1px solid var(--line); }
+    .impact-intro p { max-width: 190px; margin-top: 10px; color: #62616a; font-size: .8125rem; line-height: 1.5; }
+    .impact-intro a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 600;
+    }
+    .impact-item { padding: 0 20px; border-right: 1px solid var(--line); }
+    .impact-item:last-child { padding-right: 0; border-right: 0; }
+    .impact-item strong {
+      display: block;
+      color: var(--accent);
+      font-size: clamp(1.375rem, 1.7vw, 1.6875rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -.035em;
+      font-variant-numeric: tabular-nums;
+    }
+    .impact-item span { display: block; margin-top: 12px; color: #56545d; font-size: .8125rem; line-height: 1.45; }
+
+    .case-section {
+      padding: 96px 0;
+      border-top: 1px solid var(--line);
+      scroll-margin-top: 20px;
+    }
+    .case-section:first-of-type { margin-top: 76px; }
+    .section-title {
+      max-width: 830px;
+      font-family: var(--serif);
+      font-size: clamp(1.875rem, 3.2vw, 2.625rem);
+      font-weight: 700;
+      line-height: 1.08;
+      text-wrap: balance;
+    }
+    .section-copy {
+      max-width: 740px;
+      margin-top: 20px;
+      color: #4f4f56;
+      font-size: .9375rem;
+      line-height: 1.6;
+      text-wrap: pretty;
+    }
+    .section-copy strong { color: var(--ink); font-weight: 550; }
+
+    .context-line {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 32px;
+      margin-top: 42px;
+      padding: 26px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .context-line > span { color: var(--accent); font-size: .75rem; font-weight: 600; text-transform: uppercase; }
+    .context-line p { max-width: 700px; font-family: var(--serif); font-size: 1.75rem; font-weight: 600; line-height: 1.12; }
+
+    .problem-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 42px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .problem-item { min-height: 208px; padding: 28px 30px; border-right: 1px solid var(--line); }
+    .problem-item:first-child { padding-left: 0; }
+    .problem-item:last-child { padding-right: 0; border-right: 0; }
+    .problem-item > span { color: var(--accent); font-size: .75rem; font-weight: 600; }
+    .problem-item h3 { margin-top: 20px; font-family: var(--serif); font-size: 1.5rem; font-weight: 600; line-height: 1.08; }
+    .problem-item p { margin-top: 12px; color: #65636a; font-size: .875rem; line-height: 1.58; }
+
+    .model-shift {
+      display: grid;
+      grid-template-columns: 1fr 72px 1fr;
+      align-items: stretch;
+      margin-top: 44px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .model-side { padding: 32px 34px; }
+    .model-side:first-child { padding-left: 0; }
+    .model-side:last-child { padding-right: 0; background: var(--soft-2); }
+    .model-side span { color: #9998a0; font-size: .75rem; text-transform: uppercase; }
+    .model-side h3 { margin-top: 14px; font-family: var(--serif); font-size: 1.75rem; line-height: 1.08; }
+    .model-side p { margin-top: 12px; color: #5e5c64; font-size: .875rem; line-height: 1.55; }
+    .model-arrow { display: grid; place-items: center; color: var(--accent); font-size: 1.75rem; border-right: 1px solid var(--line); border-left: 1px solid var(--line); }
+
+    .principle-list { margin-top: 40px; border-top: 1px solid var(--line); }
+    .principle {
+      display: grid;
+      grid-template-columns: 72px 270px minmax(0, 1fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .principle > span { color: var(--accent); font-size: 1.125rem; font-weight: 600; }
+    .principle strong { font-family: var(--serif); font-size: 1.375rem; font-weight: 600; line-height: 1.12; }
+    .principle p { color: #56545c; font-size: .90625rem; line-height: 1.58; }
+
+    .flow-gallery { display: grid; gap: 52px; margin-top: 48px; }
+    .flow-step {
+      display: grid;
+      grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr);
+      gap: 42px;
+      align-items: center;
+    }
+    .flow-step:nth-child(even) .flow-copy { order: 2; }
+    .flow-step:nth-child(even) .screen-shell { order: 1; }
+    .flow-number { display: block; color: var(--accent); font-size: .75rem; font-weight: 600; }
+    .flow-copy h3 { margin-top: 14px; font-family: var(--serif); font-size: 1.75rem; font-weight: 600; line-height: 1.08; }
+    .flow-copy p { margin-top: 14px; color: #5a5860; font-size: .90625rem; line-height: 1.62; }
+    .flow-copy ul { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
+    .flow-copy li { position: relative; padding-left: 17px; color: #5a5860; font-size: .8125rem; line-height: 1.5; }
+    .flow-copy li::before { content: ""; position: absolute; top: .55em; left: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .screen-shell {
+      width: min(100%, 430px);
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid #dfe7f6;
+      background: var(--soft);
+      justify-self: center;
+    }
+    .screen-crop { position: relative; aspect-ratio: 529 / 1174; overflow: hidden; background: var(--panel); }
+    .screen-crop img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 453.686%;
+      max-width: none;
+      height: 100%;
+      object-fit: fill;
+      transform: translateX(var(--screen-offset));
+    }
+    .screen-one { --screen-offset: 0%; }
+    .screen-two { --screen-offset: -25.958%; }
+    .screen-three { --screen-offset: -51.958%; }
+    .screen-four { --screen-offset: -77.958%; }
+
+    .decision-table { margin-top: 42px; border-top: 1px solid var(--line); }
+    .decision-head,
+    .decision-row {
+      display: grid;
+      grid-template-columns: 42px minmax(0, .9fr) 38px minmax(0, .9fr) minmax(0, 1.15fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .decision-head { padding: 0 0 13px; color: #97969e; font-size: .6875rem; font-weight: 600; text-transform: uppercase; }
+    .decision-row { padding: 26px 0; border-top: 1px solid var(--line); }
+    .decision-number { color: var(--accent); font-size: .875rem; font-weight: 600; }
+    .decision-from { color: #88868d; font-size: .875rem; line-height: 1.5; }
+    .decision-arrow { color: var(--accent); font-size: 1rem; }
+    .decision-to { color: var(--ink); font-family: var(--serif); font-size: 1.25rem; font-weight: 600; line-height: 1.14; }
+    .decision-intent { color: #57555d; font-size: .875rem; line-height: 1.55; }
+
+    .pricing-proof {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 52px;
+      align-items: center;
+      margin-top: 44px;
+    }
+    .pricing-visual { padding: 24px; overflow: hidden; border: 1px solid #dfe7f6; background: var(--soft); }
+    .pricing-visual { width: min(100%, 430px); justify-self: center; }
+    .proof-list { border-top: 1px solid var(--line); }
+    .proof-item { padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .proof-item span { color: var(--accent); font-size: .75rem; font-weight: 600; }
+    .proof-item strong { display: block; margin-top: 8px; font-family: var(--serif); font-size: 1.375rem; line-height: 1.1; }
+    .proof-item p { margin-top: 8px; color: #626067; font-size: .8125rem; line-height: 1.52; }
+
+    .outcome-layout {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 70px;
+      align-items: start;
+      margin-top: 44px;
+    }
+    .outcome-stat { padding: 8px 0 32px; border-bottom: 1px solid var(--line); }
+    .outcome-stat strong { display: block; color: var(--accent); font-size: clamp(3rem, 7vw, 5rem); font-weight: 500; line-height: .9; letter-spacing: -.055em; }
+    .outcome-stat span { display: block; max-width: 420px; margin-top: 18px; font-family: var(--serif); font-size: 1.625rem; font-weight: 600; line-height: 1.12; }
+    .outcome-note { padding: 28px; background: var(--soft-2); }
+    .outcome-note h3 { font-family: var(--serif); font-size: 1.625rem; line-height: 1.1; }
+    .outcome-note p { margin-top: 14px; color: #5d5860; font-size: .875rem; line-height: 1.6; }
+    .measurement-boundary { margin-top: 24px; padding-top: 20px; border-top: 1px solid #dce6f7; }
+    .measurement-boundary strong { display: block; color: var(--accent-dark); font-size: .75rem; text-transform: uppercase; }
+    .measurement-boundary p { margin-top: 8px; }
+
+    .learning-list { margin-top: 40px; border-top: 1px solid var(--line); }
+    .learning-item {
+      display: grid;
+      grid-template-columns: 56px 310px minmax(0, 1fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .learning-item > span { color: var(--accent); font-size: 1.125rem; font-weight: 600; }
+    .learning-item strong { font-family: var(--serif); font-size: 1.375rem; font-weight: 600; line-height: 1.12; }
+    .learning-item p { color: #5b5960; font-size: .875rem; line-height: 1.58; }
+
+    .case-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 42px;
+      color: #92949b;
+      font-size: .75rem;
+    }
+    .case-footer a { min-height: 44px; color: var(--accent); font-weight: 600; }
+
+    [data-reveal] { opacity: 0; transform: translateY(18px); }
+    .no-js [data-reveal] { opacity: 1; transform: none; }
+
+    @media (max-width: 1020px) {
+      .page { display: block; }
+      .side-nav { position: static; height: auto; padding: 24px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .toc, .side-note { display: none; }
+      .content { padding: 36px 24px 64px; }
+      .meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .impact-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .impact-intro { grid-column: 1 / -1; padding: 0 0 20px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .impact-item { min-height: 130px; padding: 24px 20px 0 0; border-bottom: 1px solid var(--line); }
+      .impact-item:nth-child(odd) { padding-left: 20px; border-right: 0; }
+      .impact-item:nth-last-child(-n+2) { border-bottom: 0; }
+      .principle { grid-template-columns: 56px 220px minmax(0, 1fr); }
+      .flow-step { gap: 30px; }
+      .decision-head, .decision-row { grid-template-columns: 36px minmax(0, .8fr) 28px minmax(0, 1fr) minmax(0, 1.15fr); gap: 14px; }
+    }
+
+    @media (max-width: 680px) {
+      .content { padding-right: 18px; padding-left: 18px; }
+      .hero-title { font-size: clamp(2.125rem, 10vw, 3rem); }
+      .hero-copy, .section-copy { font-size: .875rem; }
+      .meta-grid { grid-template-columns: 1fr; gap: 18px; }
+      .hero-media { margin-top: 30px; padding: 10px; }
+      .hero-media-window { overflow-x: auto; }
+      .hero-screen-grid { grid-template-columns: repeat(4, 230px); width: max-content; }
+      .impact-strip { margin-top: 40px; }
+      .case-section { padding: 64px 0; }
+      .case-section:first-of-type { margin-top: 54px; }
+      .context-line { grid-template-columns: 1fr; gap: 12px; }
+      .context-line p { font-size: 1.5rem; }
+      .problem-list { grid-template-columns: 1fr; }
+      .problem-item, .problem-item:first-child, .problem-item:last-child { min-height: 0; padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .problem-item:last-child { border-bottom: 0; }
+      .model-shift { grid-template-columns: 1fr; }
+      .model-side, .model-side:first-child, .model-side:last-child { padding: 26px 0; }
+      .model-side:last-child { padding-right: 18px; padding-left: 18px; }
+      .model-arrow { min-height: 54px; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: rotate(90deg); }
+      .principle { grid-template-columns: 38px minmax(0, 1fr); gap: 14px; }
+      .principle p { grid-column: 2; }
+      .flow-gallery { gap: 58px; }
+      .flow-step { grid-template-columns: 1fr; gap: 24px; }
+      .flow-step:nth-child(even) .flow-copy, .flow-step:nth-child(even) .screen-shell { order: initial; }
+      .screen-shell { padding: 10px; }
+      .decision-head { display: none; }
+      .decision-row { grid-template-columns: 34px minmax(0, 1fr); gap: 8px 14px; }
+      .decision-number { grid-row: 1 / span 4; }
+      .decision-from, .decision-arrow, .decision-to, .decision-intent { grid-column: 2; }
+      .decision-arrow { transform: rotate(90deg); }
+      .decision-from::before, .decision-to::before, .decision-intent::before { display: block; margin-bottom: 5px; color: #99969d; font-family: var(--sans); font-size: .625rem; font-weight: 600; text-transform: uppercase; }
+      .decision-from::before { content: "Before"; }
+      .decision-to::before { content: "Design shift"; }
+      .decision-intent::before { content: "Why it mattered"; }
+      .pricing-proof, .outcome-layout { grid-template-columns: 1fr; gap: 38px; }
+      .pricing-visual { padding: 10px; }
+      .learning-item { grid-template-columns: 38px minmax(0, 1fr); gap: 12px; }
+      .learning-item p { grid-column: 2; }
+      .case-footer { flex-direction: column; }
+    }
+
+    @media (pointer: coarse) {
+      .toc a, .case-footer a { min-height: 44px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="page">
+    <aside class="side-nav" aria-label="Case study navigation">
+      <div>
+        <a class="back-link" href="index.html#work" aria-label="Back to selected work">← Back to work</a>
+        <nav class="toc" aria-label="On this page">
+          <a class="active" href="#overview">Overview</a>
+          <a href="#problem">The Problem</a>
+          <a href="#reframe">Product Reframe</a>
+          <a href="#principles">Design Principles</a>
+          <a href="#flow">Solution Flow</a>
+          <a href="#decisions">Design Decisions</a>
+          <a href="#outcome">Outcome</a>
+          <a href="#learnings">Learnings</a>
+        </nav>
+      </div>
+      <p class="side-note">A dealer-commerce workflow for buying warranty plans in volume and activating them when needed.</p>
+    </aside>
+
+    <main class="content">
+      <header class="hero" data-reveal>
+        <p class="project-kicker">CARS24 DEALER PLATFORM · PRODUCT DESIGN</p>
+        <h1 class="hero-title">The dealer platform supported <span class="hero-number">500+</span> warranties a month with a flow designed for <span class="accent-title">bulk buying.</span></h1>
+        <p class="hero-copy">I redesigned warranty purchase around the way dealers operate: compare plans once, choose a useful quantity, understand the unit economics, and hold purchased plans until a vehicle is ready for activation. The product moved from a one-car checkout toward a repeatable inventory workflow.</p>
+
+        <section class="meta-grid" aria-label="Project details">
+          <div><span class="meta-label">Role</span><p>Product Designer</p></div>
+          <div><span class="meta-label">Timeline</span><p>2025</p></div>
+          <div><span class="meta-label">I owned</span><p>Product thinking, dealer journey, interaction design, final UI, and handoff</p></div>
+          <div><span class="meta-label">Team</span><p>Product, engineering, business, and dealer operations</p></div>
+          <div>
+            <span class="meta-label">Tool</span>
+            <span class="meta-tool-icon" aria-label="Figma"><img src="assets/figma.svg" alt=""></span>
+          </div>
+        </section>
+
+        <div class="hero-media">
+          <div class="hero-media-window hero-screen-grid" role="img" aria-label="Four CARS24 dealer app screens showing warranty plan comparison, quantity selection, bulk discount, and a cart containing five plans">
+            <div class="screen-crop screen-one" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
+            <div class="screen-crop screen-two" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
+            <div class="screen-crop screen-three" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
+            <div class="screen-crop screen-four" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
+          </div>
+        </div>
+
+        <section class="impact-strip" aria-label="Product impact and design changes at a glance">
+          <div class="impact-intro">
+            <span class="meta-label">At a glance</span>
+            <p>One commerce flow designed around dealership scale.</p>
+            <a href="#outcome">See outcome ↓</a>
+          </div>
+          <div class="impact-item"><strong>500+</strong><span>warranties supported per month</span></div>
+          <div class="impact-item"><strong>Bulk</strong><span>quantity-based plan purchase</span></div>
+          <div class="impact-item"><strong>5+ packs</strong><span>discount threshold shown upfront</span></div>
+          <div class="impact-item"><strong>Flexible</strong><span>purchase now, activate when needed</span></div>
+        </section>
+      </header>
+
+      <section class="case-section" id="overview">
+        <span class="eyebrow">Overview</span>
+        <h2 class="section-title">Warranty became inventory a dealer could plan around.</h2>
+        <p class="section-copy">A dealership does not operate one vehicle at a time. It manages a changing stock of cars, multiple customer conversations, and recurring value-added-service demand. The warranty experience needed to reflect that operating model without making price, eligibility, or coverage harder to understand.</p>
+        <p class="section-copy">The redesigned flow lets dealers review compatible plans, purchase several units together, see the commercial benefit of quantity, and keep the order ready for later activation.</p>
+        <div class="context-line" data-reveal>
+          <span>Core product shift</span>
+          <p>Separate the moment a dealer purchases a plan from the moment a warranty is assigned to a car.</p>
+        </div>
+      </section>
+
+      <section class="case-section" id="problem">
+        <span class="eyebrow">The Problem</span>
+        <h2 class="section-title">A dealer buying for many cars still moved through a one-car mental model.</h2>
+        <p class="section-copy">Warranty products contain real complexity—coverage, vehicle eligibility, tenure, pricing, and activation rules. Repeating the same decision for each car added operational effort and made it difficult to turn volume into a clear commercial advantage.</p>
+        <div class="problem-list" data-reveal>
+          <article class="problem-item">
+            <span>01</span>
+            <h3>Repeated purchase effort</h3>
+            <p>Buying plan by plan forces a high-volume dealer to repeat selection and checkout instead of creating one useful stock of warranties.</p>
+          </article>
+          <article class="problem-item">
+            <span>02</span>
+            <h3>Price without scale</h3>
+            <p>A unit price is not enough for a bulk decision. Dealers need to understand quantity, total cost, savings, and effective unit price together.</p>
+          </article>
+          <article class="problem-item">
+            <span>03</span>
+            <h3>Activation too early</h3>
+            <p>Tying purchase to one known vehicle prevents the dealer from buying ahead and assigning plans as inventory moves.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section" id="reframe">
+        <span class="eyebrow">Product Reframe</span>
+        <h2 class="section-title">Treat warranty plans as dealer inventory—not a checkout attached to one car.</h2>
+        <p class="section-copy">The key decision was structural rather than visual. Purchase and activation became two moments in the same service lifecycle. Dealers could commit when pricing and demand made sense, then consume each plan when the matching car was ready.</p>
+        <div class="model-shift" data-reveal>
+          <article class="model-side">
+            <span>One-car model</span>
+            <h3>Select car → choose plan → pay → activate</h3>
+            <p>Every warranty begins with a vehicle and repeats the complete purchase journey.</p>
+          </article>
+          <div class="model-arrow" aria-hidden="true">→</div>
+          <article class="model-side">
+            <span>Dealer-inventory model</span>
+            <h3>Choose plan → set quantity → pay → activate per car later</h3>
+            <p>One order creates a usable stock of plans without hiding the rules that make each plan valid.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section" id="principles">
+        <span class="eyebrow">Design Principles</span>
+        <h2 class="section-title">Four principles kept a bulk transaction clear and controllable.</h2>
+        <div class="principle-list" data-reveal>
+          <article class="principle"><span>01</span><strong>Separate purchase from activation.</strong><p>Let dealers secure inventory without forcing them to identify the final vehicle at checkout.</p></article>
+          <article class="principle"><span>02</span><strong>Make unit economics obvious.</strong><p>Keep quantity, total price, effective unit price, original price, and discount visually connected.</p></article>
+          <article class="principle"><span>03</span><strong>Preserve eligibility confidence.</strong><p>Engine-capacity range, tenure, coverage, and applicability stay visible while the dealer makes a commercial decision.</p></article>
+          <article class="principle"><span>04</span><strong>Keep every bulk action reversible.</strong><p>Selection confirms before it changes the order; the added state and persistent cart make review and correction easy.</p></article>
+        </div>
+      </section>
+
+      <section class="case-section" id="flow">
+        <span class="eyebrow">Solution Flow</span>
+        <h2 class="section-title">One focused sequence moves from comparison to a reviewable bulk order.</h2>
+        <p class="section-copy">The interface reveals complexity at the moment it becomes useful. Dealers begin with the plan, choose quantity in a focused layer, see the resulting economics, and return to the catalogue with a persistent route to the cart.</p>
+
+        <div class="flow-gallery">
+          <article class="flow-step" data-reveal>
+            <div class="flow-copy">
+              <span class="flow-number">01 / Compare</span>
+              <h3>Start with coverage and fit.</h3>
+              <p>Budget and premium plans form the primary choice. Each product keeps its engine-capacity range, tenure, price, and coverage route visible before quantity enters the decision.</p>
+              <ul><li>Plan families remain easy to switch.</li><li>Coverage details are available without leaving the purchase context.</li></ul>
+            </div>
+            <div class="screen-shell"><div class="screen-crop screen-one"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Warranty plan list with budget and premium plan tabs, vehicle capacity ranges, tenure, and unit prices" loading="lazy"></div></div>
+          </article>
+
+          <article class="flow-step" data-reveal>
+            <div class="flow-copy">
+              <span class="flow-number">02 / Select quantity</span>
+              <h3>Isolate the one decision that changes the order.</h3>
+              <p>A bottom sheet holds the dealer in context while making quantity the only active choice. Confirmation remains unavailable until a quantity is selected.</p>
+              <ul><li>Large numeric targets make volume quick to scan.</li><li>A close action makes the step safe to abandon.</li></ul>
+            </div>
+            <div class="screen-shell"><div class="screen-crop screen-two"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Quantity selection bottom sheet for a CARS24 warranty plan" loading="lazy"></div></div>
+          </article>
+
+          <article class="flow-step" data-reveal>
+            <div class="flow-copy">
+              <span class="flow-number">03 / Understand value</span>
+              <h3>Translate quantity into unit economics.</h3>
+              <p>Once five units are selected, the interface connects total cost, effective per-unit price, original value, and discount. The dealer can evaluate the order before committing it to the cart.</p>
+              <ul><li>Selected quantity receives a clear active state.</li><li>The enabled confirmation action signals a complete choice.</li></ul>
+            </div>
+            <div class="screen-shell"><div class="screen-crop screen-three"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Selected quantity of five warranty plans showing total cost, per-unit price, and discount" loading="lazy"></div></div>
+          </article>
+
+          <article class="flow-step" data-reveal>
+            <div class="flow-copy">
+              <span class="flow-number">04 / Review order</span>
+              <h3>Return to the catalogue without losing purchase state.</h3>
+              <p>The selected plan becomes an editable added state. A persistent summary shows service count and order value, keeping the cart available while the dealer continues comparing plans.</p>
+              <ul><li>Inline quantity controls support quick correction.</li><li>The cart action remains anchored to the bottom of the screen.</li></ul>
+            </div>
+            <div class="screen-shell"><div class="screen-crop screen-four"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Warranty plan added state with quantity controls and a persistent view cart summary" loading="lazy"></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section" id="decisions">
+        <span class="eyebrow">Design Decisions</span>
+        <h2 class="section-title">The interface shifts from transaction mechanics to dealer confidence.</h2>
+        <div class="decision-table" data-reveal>
+          <div class="decision-head" aria-hidden="true"><span></span><span>Before</span><span></span><span>Design shift</span><span>Why it mattered</span></div>
+          <article class="decision-row"><span class="decision-number">01</span><span class="decision-from">One warranty tied to one immediate vehicle need</span><span class="decision-arrow">→</span><strong class="decision-to">Purchase several plans before activation</strong><p class="decision-intent">Matches how dealerships plan stock and removes the need to repeat checkout for every car.</p></article>
+          <article class="decision-row"><span class="decision-number">02</span><span class="decision-from">Price shown as an isolated unit value</span><span class="decision-arrow">→</span><strong class="decision-to">Total, unit price, original value, and discount shown together</strong><p class="decision-intent">Lets the dealer verify the commercial logic instead of mentally calculating the order.</p></article>
+          <article class="decision-row"><span class="decision-number">03</span><span class="decision-from">Quantity treated as a small control inside the plan card</span><span class="decision-arrow">→</span><strong class="decision-to">A focused quantity-selection layer</strong><p class="decision-intent">Makes the highest-impact decision deliberate without sending the dealer to another page.</p></article>
+          <article class="decision-row"><span class="decision-number">04</span><span class="decision-from">Selection disappears into a later checkout</span><span class="decision-arrow">→</span><strong class="decision-to">Visible added state and persistent cart summary</strong><p class="decision-intent">Keeps purchase state legible while the dealer continues browsing or adjusts the order.</p></article>
+        </div>
+
+        <div class="pricing-proof" data-reveal>
+          <div class="pricing-visual"><div class="screen-crop screen-three"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Bulk warranty pricing breakdown showing five selected plans and the resulting discount" loading="lazy"></div></div>
+          <div class="proof-list">
+            <article class="proof-item"><span>Eligibility</span><strong>Plan for 0–1300cc</strong><p>The product remains tied to a recognizable vehicle category.</p></article>
+            <article class="proof-item"><span>Quantity</span><strong>5 plans selected</strong><p>The commercial decision is visible before confirmation.</p></article>
+            <article class="proof-item"><span>Economics</span><strong>₹10,000 total · ₹2,000 per unit</strong><p>Total and effective unit price reconcile in the same view.</p></article>
+            <article class="proof-item"><span>Value</span><strong>50% off</strong><p>The discount is attached to the price change it explains.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section" id="outcome">
+        <span class="eyebrow">Outcome</span>
+        <h2 class="section-title">The workflow supported warranty commerce at dealership scale.</h2>
+        <p class="section-copy">The released dealer experience supported more than 500 warranty sales in a month. Beyond throughput, the design established a reusable commerce model: select a service in quantity, understand its unit economics, purchase it as inventory, and activate each unit when the operational need arrives.</p>
+        <div class="outcome-layout" data-reveal>
+          <div class="outcome-stat"><strong>500+</strong><span>warranties supported in a month through the dealer platform.</span></div>
+          <aside class="outcome-note">
+            <span class="eyebrow">Design outcome</span>
+            <h3>A scalable purchase model for value-added services.</h3>
+            <p>The product no longer assumes that every warranty purchase begins and ends with one car. This creates a clearer foundation for dealer inventory, repeat purchase, and later activation.</p>
+            <div class="measurement-boundary"><strong>Measurement boundary</strong><p>The available metric establishes live operational volume. Without a pre-launch baseline or controlled conversion data, it should not be read as incremental lift caused by the redesign alone.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="case-section" id="learnings">
+        <span class="eyebrow">Learnings</span>
+        <h2 class="section-title">Four principles from designing commerce for dealer operations.</h2>
+        <div class="learning-list" data-reveal>
+          <article class="learning-item"><span>01</span><strong>Product structure should follow the operating model.</strong><p>A one-customer checkout creates friction when the actual user manages inventory and repeated transactions.</p></article>
+          <article class="learning-item"><span>02</span><strong>Separate commercial commitment from fulfilment.</strong><p>Purchase and activation can happen at different times while remaining part of one understandable lifecycle.</p></article>
+          <article class="learning-item"><span>03</span><strong>Bulk pricing needs more clarity, not more decoration.</strong><p>Quantity, total, unit price, original value, and savings must remain mathematically and visually connected.</p></article>
+          <article class="learning-item"><span>04</span><strong>State visibility builds confidence.</strong><p>Selected, added, editable, and ready-to-review states help dealers trust a higher-value order before payment.</p></article>
+        </div>
+      </section>
+
+      <footer class="case-footer">
+        <span>Prachi · Product Design · CARS24 · 2025</span>
+        <a href="index.html#work">Back to selected work ↑</a>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.documentElement.classList.remove("no-js");
+
+    const progress = document.querySelector(".reading-progress");
+    const sections = [...document.querySelectorAll("main section[id]")];
+    const navLinks = [...document.querySelectorAll(".toc a")];
+    const revealItems = [...document.querySelectorAll("[data-reveal]")];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const value = scrollable > 0 ? window.scrollY / scrollable : 0;
+      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value))})`;
+    }
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`));
+    }, { rootMargin: "-20% 0px -64%", threshold: [0, .2, .5] });
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    if (reduceMotion) {
+      revealItems.forEach((item) => { item.style.opacity = "1"; item.style.transform = "none"; });
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.animate([
+            { opacity: 0, transform: "translateY(18px)" },
+            { opacity: 1, transform: "translateY(0)" }
+          ], { duration: 620, easing: "cubic-bezier(.22, 1, .36, 1)", fill: "forwards" });
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: .08 });
+      revealItems.forEach((item) => revealObserver.observe(item));
+    }
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+  </script>
+</body>
+</html>

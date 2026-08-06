@@ -17,6 +17,7 @@
       --soft: #fff4ed;
       --soft-2: #fffaf6;
       --accent: #df4b13;
+      --screen-canvas: #f7eae3;
       --blue: var(--accent);
       --panel: #ffffff;
       --shadow: 0 30px 90px rgba(36, 36, 36, 0.08);
@@ -259,7 +260,7 @@
     }
 
     .section-image-window {
-      aspect-ratio: 2972 / 1418;
+      aspect-ratio: 3200 / 2217;
       height: auto;
       overflow: hidden;
       background: #ffffff;
@@ -1269,21 +1270,21 @@
     .screen-image-frame {
       margin-top: 28px;
       border: 1px solid #eaded7;
-      background: linear-gradient(135deg, #fff3ec 0%, #fff9f4 100%);
+      background: var(--screen-canvas);
       max-height: min(760px, 72vh);
       overflow: auto;
       overscroll-behavior: contain;
     }
 
-    .screen-image-frame.is-scrollable,
-    .screen-image-frame.is-panorama {
-      height: min(760px, 72vh);
+    .screen-image-frame.is-scrollable {
+      height: auto;
     }
 
     .screen-image-frame.is-panorama {
-      overflow-x: hidden;
-      overflow-y: auto;
-      padding: 18px;
+      height: auto;
+      max-height: none;
+      overflow: hidden;
+      padding: 0;
     }
 
     .screen-image-frame img {
@@ -2161,7 +2162,7 @@
 
       .system-visual.has-screenshot {
         height: auto;
-        aspect-ratio: 1634 / 1072;
+        aspect-ratio: 2200 / 1619;
       }
 
       .hero-screenshot {
@@ -2468,9 +2469,9 @@
           </div>
         </section>
 
-        <div class="hero-media" aria-label="IIT Delhi Varsity program page screenshot">
+        <div class="hero-media" aria-label="IIT Delhi Applied Quantum Computing and AI program page screenshot">
           <div class="system-visual has-screenshot">
-            <img class="hero-screenshot" src="assets/varsity-iit-delhi-hero-july-2026.webp" width="1634" height="1072" alt="IIT Delhi Advanced Certificate in AI Forward Deployed Engineering program page hero with enquiry form" decoding="async" fetchpriority="high">
+            <img class="hero-screenshot" src="assets/varsity-iit-delhi-quantum-computing-august-2026.webp" width="2200" height="1619" alt="IIT Delhi Certification in Applied Quantum Computing and AI program page with brochure form and program details" decoding="async" fetchpriority="high">
           </div>
         </div>
 
@@ -2521,9 +2522,9 @@
             <p>Post-launch live QA. It checks every link, interactive CTAs and enquiry modals in a real browser, and tier-1/tier-2 learner comprehension.</p>
           </div>
         </div>
-        <figure class="section-image-frame" aria-label="Varsity responsive screens screenshot">
+        <figure class="section-image-frame" aria-label="Varsity responsive homepage and IIT Delhi program-page designs">
           <div class="section-image-window">
-            <img src="assets/varsity-overview-responsive-screens-v2.webp" width="2972" height="1418" alt="Responsive Varsity homepage and IIT Delhi program page screenshots" loading="lazy" decoding="async">
+            <img src="assets/varsity-designs-overview-august-2026.webp" width="3200" height="2217" alt="Responsive Varsity homepage and IIT Delhi Applied Quantum Computing and AI program-page designs shown on desktop and mobile" loading="lazy" decoding="async">
           </div>
         </figure>
       </section>
@@ -2669,7 +2670,7 @@
               <p>Reusable desktop and mobile program detail templates for hero, curriculum, faculty, outcomes, proof, pricing, and admissions sections.</p>
             </div>
             <figure class="screen-image-frame is-scrollable">
-              <img src="assets/figma-program-page-reusable-designs.webp" width="2747" height="16383" alt="Varsity program details page desktop and mobile reusable Figma designs" loading="lazy" decoding="async">
+              <img src="assets/figma-program-details-page-complete-august-2026.jpg" width="2200" height="13469" alt="Complete Varsity Applied Quantum Computing and AI program details page shown in desktop and mobile designs" loading="lazy" decoding="async">
             </figure>
           </article>
           <article class="screen-slot is-wide">
@@ -2679,7 +2680,7 @@
               <p>Enquiry form, request-a-callback modal, OTP, brochure download, and validation states.</p>
             </div>
             <figure class="screen-image-frame is-panorama">
-              <img src="assets/figma-lead-capture-forms.webp" width="6330" height="5784" alt="Varsity lead capture form and callback states Figma screens" loading="lazy" decoding="async">
+              <img src="assets/figma-lead-capture-august-2026.jpg" width="2600" height="1195" alt="Varsity program page lead capture, brochure download, and OTP verification form states" loading="lazy" decoding="async">
             </figure>
           </article>
           <article class="screen-slot is-wide">

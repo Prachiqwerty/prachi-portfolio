@@ -146,38 +146,6 @@
       text-transform: uppercase;
     }
 
-    .availability-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #18b300;
-      box-shadow: 0 0 0 0 rgba(24, 179, 0, 0.45);
-      animation: blinkPulse 1.2s ease-out infinite;
-      flex: 0 0 auto;
-    }
-
-    .availability-pill {
-      background: var(--green-soft);
-      color: #0e7a00;
-    }
-
-    @keyframes blinkPulse {
-      0% {
-        opacity: 1;
-        box-shadow: 0 0 0 0 rgba(24, 179, 0, 0.45);
-      }
-
-      70% {
-        opacity: 0.55;
-        box-shadow: 0 0 0 7px rgba(24, 179, 0, 0);
-      }
-
-      100% {
-        opacity: 1;
-        box-shadow: 0 0 0 0 rgba(24, 179, 0, 0);
-      }
-    }
-
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -203,6 +171,7 @@
     }
 
     .hero-title {
+      max-width: 900px;
       font-family: var(--serif);
       font-weight: 600;
       line-height: 1.02;
@@ -230,7 +199,7 @@
       color: var(--muted);
       font-size: 15px;
       line-height: 1.42;
-      max-width: 620px;
+      max-width: 760px;
       padding-top: 0;
     }
 
@@ -580,16 +549,6 @@
         linear-gradient(135deg, #f1f5ff 0%, #ffffff 72%);
     }
 
-    .mockup.scaler-topics {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 34px;
-      background:
-        radial-gradient(circle at 18% 22%, rgba(45, 112, 220, 0.18), transparent 32%),
-        linear-gradient(135deg, #eef5ff 0%, #dceaff 52%, #ffffff 100%);
-    }
-
     .mockup.scaler-lms {
       display: flex;
       align-items: center;
@@ -606,6 +565,8 @@
       gap: 10px;
       width: min(720px, 100%);
       height: 100%;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .scaler-lms-preview > img,
@@ -613,6 +574,7 @@
       display: block;
       width: 100%;
       height: 100%;
+      min-height: 0;
       object-fit: cover;
       object-position: top center;
       border: 1px solid rgba(1, 24, 69, 0.12);
@@ -622,27 +584,11 @@
 
     .scaler-lms-preview-stack {
       display: grid;
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
       gap: 10px;
       min-width: 0;
       min-height: 0;
-    }
-
-    .scaler-topics-preview {
-      width: min(720px, 100%);
-      height: 100%;
-      border: 1px solid rgba(42, 36, 56, 0.12);
-      background: #fff;
-      box-shadow: var(--shadow);
       overflow: hidden;
-    }
-
-    .scaler-topics-preview img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
     }
 
     .pathmaker-preview {
@@ -911,6 +857,28 @@
       color: var(--muted);
       font-size: 15px;
       line-height: 1.35;
+    }
+
+    .work-card-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      margin-top: 22px;
+      padding: 0 18px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 600;
+      transition: background-color 180ms ease, color 180ms ease, transform 180ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .work-card:hover .work-card-cta,
+    .work-card:focus-visible .work-card-cta {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
     }
 
     .experience {
@@ -2140,18 +2108,17 @@
     <section id="home" class="hero">
       <div class="tag-row">
         <span class="pill">Lead Product Designer</span>
-        <span class="pill availability-pill"><span class="availability-dot" aria-hidden="true"></span>Actively looking for job</span>
       </div>
 
       <div class="hero-grid">
         <div>
-          <h1 class="hero-title"><span class="intro-line">Hi! I am Prachi Pandey</span><span class="craft-line">Crafting seamless digital experiences - fueled by curiosity, creativity, and a lot of coffee ☕</span></h1>
+          <h1 class="hero-title"><span class="intro-line">Hi, I’m Prachi Pandey.</span><span class="craft-line">I shape product direction and stay hands-on</span><span class="craft-line">to build experiences from strategy to launch.</span></h1>
           <div class="actions">
             <a class="button" href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">Resume</a>
             <a class="email-chip" href="mailto:prachipande.506@gmail.com">prachipande.506@gmail.com ⧉</a>
           </div>
         </div>
-        <p class="hero-copy">Designing large-scale B2C and platform products across ed-tech and marketplace domains. Proven track record of driving measurable business impact through growth optimization, conversion improvements, and AI-assisted learning experiences.</p>
+        <p class="hero-copy">With 6 years of experience across ed-tech and marketplaces, I design and ship growth, platform, and AI-assisted learning products. I combine systems thinking, interaction design, and rapid prototyping to deliver measurable user and business outcomes.</p>
       </div>
     </section>
 
@@ -2236,10 +2203,10 @@
     <section id="work" class="work">
       <div class="section-label">Selected work</div>
 
-      <a class="work-card" href="varsity-storyblok-case-study-editorial.html">
+      <a class="work-card" href="varsity-storyblok-case-study-editorial.html" aria-label="Open the Varsity Program-Page System case study">
         <div class="mockup case-image">
           <div class="work-preview-window" aria-hidden="true">
-            <img src="assets/varsity-iit-delhi-hero-july-2026.webp" width="1634" height="1072" alt="" loading="lazy" decoding="async">
+            <img src="assets/varsity-iit-delhi-quantum-computing-august-2026.webp" width="2200" height="1619" alt="" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="work-meta">
@@ -2248,15 +2215,16 @@
         </div>
         <h2>Six live pages reached <span class="work-title-number">9.05%</span> visitor-to-lead conversion while delivery moved from days to hours.</h2>
         <p>A governed Storyblok system enabled Marketing and SEO to launch independently. From Jul 23–31, 24,541 visitors generated 2,220 leads across six pages; the first two program launches progressed to 58 payments by Jul 31, 2026.</p>
+        <span class="work-card-cta">View Case Study&nbsp;↗</span>
       </a>
 
       <a class="work-card" href="scaler-ai-lms-case-study-editorial.html" aria-label="Open the Scaler AI LMS case study">
         <div class="mockup scaler-lms">
           <div class="scaler-lms-preview" aria-hidden="true">
-            <img src="assets/scaler-ai-lms-path-maker.webp" alt="" loading="lazy" decoding="async">
+            <img src="assets/path-maker-final-default-state.png" alt="" loading="lazy" decoding="async">
             <div class="scaler-lms-preview-stack">
               <img src="assets/scaler-ai-lms-inside-class.webp" alt="" loading="lazy" decoding="async">
-              <img src="assets/scaler-ai-lms-problem-solving.webp" alt="" loading="lazy" decoding="async">
+              <img src="assets/problem-solving-final-code-dark.png" alt="" loading="lazy" decoding="async">
             </div>
           </div>
         </div>
@@ -2264,25 +2232,12 @@
           <span class="project">Scaler AI LMS</span>
           <span class="year">Product Design, 2026</span>
         </div>
-        <h2>Designing the LMS as a path learners walk, not a dashboard they decode.</h2>
-        <p>Designed three connected learning surfaces through code-first prototyping, tested 16 learner states in one experience, and translated approved behavior into a fully stated Figma handoff.</p>
+        <h2><span class="work-title-number">59.3%</span> of the first cohort activated the new LMS, creating a clear opportunity for a guided learning journey.</h2>
+        <p>Across the first launch cohort, <strong>134 of 226 learners</strong> enabled the new LMS. The redesign channelled that early adoption across Path-maker, Inside Class, and Problem Solving into one connected experience, giving learners a clearer next action at every stage.</p>
+        <span class="work-card-cta">View Case Study&nbsp;↗</span>
       </a>
 
-      <a class="work-card" href="scaler-topics-skill-assessment-case-study.html" aria-label="Open the Scaler Topics skill assessment case study">
-        <div class="mockup scaler-topics">
-          <div class="scaler-topics-preview" aria-hidden="true">
-            <img src="assets/scaler-topics-skill-assessment.webp" alt="" loading="lazy" decoding="async">
-          </div>
-        </div>
-        <div class="work-meta">
-          <span class="project">Scaler Topics</span>
-          <span class="year">Product Growth, 20 days</span>
-        </div>
-        <h2>Driving course engagement through skill assessment.</h2>
-        <p>Designed an assessment experience that helps learners validate skills, understand gaps, and discover the right learning path. Signup conversion reached 7.59%, while 46% of test takers continued to course pages.</p>
-      </a>
-
-      <article class="work-card is-coming-soon">
+      <a class="work-card" href="cars24-warranty-bulk-selling-case-study.html" aria-label="Open the CARS24 Warranty Bulk Selling case study">
         <div class="mockup cars24">
           <div class="cars24-preview" role="img" aria-label="Cars24 dealer app screens for selecting and purchasing warranty plans in bulk">
             <div class="cars24-screen" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" loading="lazy" decoding="async"></div>
@@ -2293,11 +2248,12 @@
         </div>
         <div class="work-meta">
           <span class="project">Cars24 Dealer Platform</span>
-          <span class="status-tag">Coming soon</span>
+          <span class="year">Product Design, 2025</span>
         </div>
-        <h2>New Car Addition + VAS Bulk Selling</h2>
-        <p>Empowering dealers to add new cars and sell Value Added Services (VAS) plans in bulk with ease.</p>
-      </article>
+        <h2><span class="work-title-number">500+</span> warranties a month moved through a dealer flow designed for bulk buying.</h2>
+        <p>Dealers could compare plans, purchase several units with visible volume pricing, and activate each warranty when the matching car was ready.</p>
+        <span class="work-card-cta">View Case Study&nbsp;↗</span>
+      </a>
 
     </section>
 
@@ -3037,7 +2993,7 @@
       <h2>You can find me here :)</h2>
       <div class="footer-links">
         <a href="https://www.linkedin.com/in/prachi-pandey-506/" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a href="https://prachipandey.framer.website/" target="_blank" rel="noreferrer">Portfolio</a>
+        <a href="https://prachi-pandey-portfolio.vercel.app/index.html" target="_blank" rel="noreferrer">Portfolio</a>
         <a href="mailto:prachipande.506@gmail.com">Email</a>
         <a href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">Resume</a>
       </div>

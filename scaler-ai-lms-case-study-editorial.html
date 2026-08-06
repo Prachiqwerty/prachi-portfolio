@@ -147,6 +147,15 @@
 
     .hero-title span { color: var(--accent); font-weight: 600; }
 
+    .hero-title .hero-number {
+      color: inherit;
+      font-family: var(--sans);
+      font-size: 0.78em;
+      font-weight: 500;
+      vertical-align: 0.06em;
+      white-space: nowrap;
+    }
+
     .hero-copy {
       max-width: 720px;
       margin: 24px 0 0;
@@ -293,20 +302,99 @@
       display: grid;
       grid-template-columns: 1.3fr .85fr;
       gap: 12px;
-      min-height: 430px;
+      height: 430px;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .hero-collage img {
       display: block;
       width: 100%;
       height: 100%;
+      min-height: 0;
       object-fit: cover;
       object-position: top center;
       background: #fff;
       border: 1px solid rgba(1, 24, 69, .1);
     }
 
-    .hero-collage-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 12px; }
+    .hero-collage-stack { display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; min-height: 0; overflow: hidden; }
+
+    .hero-impact {
+      display: grid;
+      grid-template-columns: 1.35fr repeat(4, minmax(0, 1fr));
+      margin-top: 48px;
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-impact-intro {
+      padding-right: 30px;
+      border-right: 1px solid var(--line);
+    }
+
+    .hero-impact-title {
+      display: block;
+      color: #9a9ea7;
+      font-size: .6875rem;
+      line-height: 1.3;
+      font-weight: 500;
+      letter-spacing: .035em;
+      text-transform: uppercase;
+    }
+
+    .hero-impact-context {
+      max-width: 190px;
+      margin-top: 10px;
+      color: #62616a;
+      font-size: .8125rem;
+      line-height: 1.5;
+    }
+
+    .hero-impact-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-top: 4px;
+      color: var(--accent);
+      font-size: .75rem;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    .hero-impact-link span { transition: transform 180ms cubic-bezier(.22, 1, .36, 1); }
+    .hero-impact-link:hover span,
+    .hero-impact-link:focus-visible span { transform: translateY(3px); }
+
+    .hero-impact-metric {
+      min-width: 0;
+      padding: 0 22px;
+      border-right: 1px solid var(--line);
+    }
+
+    .hero-impact-metric:last-child { padding-right: 0; border-right: 0; }
+
+    .hero-impact-value {
+      display: block;
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: clamp(1.5rem, 1.8vw, 1.75rem);
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: -.045em;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .hero-impact-label {
+      display: block;
+      margin-top: 12px;
+      color: #56545d;
+      font-size: .8125rem;
+      line-height: 1.45;
+      font-weight: 450;
+    }
 
     .case-section {
       display: block;
@@ -388,9 +476,8 @@
 
     .method-quote {
       margin-top: 38px;
-      padding: 28px 0 0 30px;
+      padding: 28px 0 0;
       border-top: 1px solid var(--line);
-      border-left: 3px solid var(--accent);
       color: var(--ink);
       font-family: var(--serif);
       font-size: 30px;
@@ -471,25 +558,21 @@
     }
 
     .method-loop {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
       margin-top: 18px;
       border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
     }
 
     .method-loop-step {
-      min-height: 0;
-      padding: 22px 18px 24px;
-      border-right: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 120px 220px minmax(0, 1fr);
+      gap: 24px;
+      align-items: baseline;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
     }
-
-    .method-loop-step:first-child { padding-left: 0; }
-    .method-loop-step:last-child { padding-right: 0; border-right: 0; }
 
     .method-loop-step strong {
       display: block;
-      margin-top: 10px;
       color: var(--ink);
       font-family: var(--sans);
       font-size: .9375rem;
@@ -498,10 +581,10 @@
     }
 
     .method-loop-step p {
-      margin-top: 7px;
       color: #68666f;
-      font-size: .75rem;
-      line-height: 1.5;
+      font-size: .8125rem;
+      line-height: 1.58;
+      text-wrap: pretty;
     }
 
     .surface {
@@ -772,18 +855,133 @@
     .handoff-panel h3 { font-family: var(--serif); font-size: 19px; line-height: 1.25; font-weight: 600; }
     .handoff-panel p { margin-top: 12px; color: #5f5c65; font-size: 13.5px; line-height: 1.58; }
 
-    .outcome-band {
-      margin-top: 42px;
-      padding: 34px;
+    .outcome-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr);
+      gap: 64px;
+      align-items: end;
+    }
+
+    .outcome-intro .section-title { margin-top: 0; }
+
+    .outcome-lead {
+      max-width: 430px;
+      color: #55535c;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .outcome-evidence {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 52px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .outcome-stat {
+      min-height: 245px;
+      padding: 32px 30px 30px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .outcome-stat + .outcome-stat { padding-left: 30px; }
+    .outcome-stat:last-child { padding-right: 0; border-right: 0; }
+
+    .outcome-stat-value {
+      display: block;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: clamp(42px, 5vw, 62px);
+      line-height: .95;
+      font-weight: 500;
+      letter-spacing: -.05em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .outcome-stat-label {
+      display: block;
+      max-width: 270px;
+      margin-top: 24px;
+      color: #44434a;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .outcome-stat-note {
+      display: block;
+      max-width: 270px;
+      margin-top: 14px;
+      color: #8b8e96;
+      font-size: 11.5px;
+      line-height: 1.5;
+    }
+
+    .outcome-readout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 72px;
+      margin-top: 58px;
+      align-items: start;
+    }
+
+    .outcome-routes h3,
+    .outcome-interpretation h3 {
+      font-family: var(--serif);
+      font-size: clamp(25px, 2.6vw, 32px);
+      line-height: 1.1;
+      font-weight: 600;
+    }
+
+    .outcome-routes-intro {
+      margin-top: 12px;
+      color: #77777f;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .route-list { margin-top: 30px; border-top: 1px solid var(--line); }
+
+    .route-row {
+      display: grid;
+      grid-template-columns: minmax(175px, .9fr) minmax(120px, 1.1fr) 48px;
+      gap: 18px;
+      align-items: center;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .route-label { color: #45434b; font-size: 12.5px; line-height: 1.4; font-weight: 500; }
+    .route-track { height: 5px; background: #e9effb; overflow: hidden; }
+    .route-fill { display: block; height: 100%; background: var(--accent); }
+    .route-value { color: var(--ink); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+
+    .outcome-interpretation {
+      padding: 30px;
       background: var(--accent-dark);
       color: #fff;
     }
 
-    .outcome-band .eyebrow { color: #95b6ff; }
-    .outcome-band p { max-width: 840px; font-family: var(--serif); font-size: clamp(25px, 3vw, 36px); line-height: 1.15; font-weight: 600; }
+    .outcome-interpretation .eyebrow { color: #93b4ff; }
+    .outcome-interpretation p { margin-top: 20px; color: #d8e2f8; font-size: 13px; line-height: 1.65; }
 
-    .outcome-details { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 26px; border-top: 1px solid rgba(255,255,255,.2); }
-    .outcome-details div { padding: 20px 20px 0 0; color: #dbe5ff; font-size: 12.5px; line-height: 1.5; }
+    .measurement-boundary {
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+
+    .measurement-boundary strong {
+      display: block;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .measurement-boundary p { margin-top: 8px; color: #aebbd5; font-size: 11.5px; line-height: 1.55; }
 
     .learning-list { margin-top: 40px; border-top: 1px solid var(--line); }
     .learning-item {
@@ -1135,46 +1333,56 @@
 
     .concern-list.is-horizontal {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
       width: 100%;
       margin-top: 30px;
+      background: var(--line);
       border: 1px solid var(--line);
     }
 
     .concern-list.is-horizontal.is-four {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .concern-list.is-horizontal li {
-      display: block;
-      min-height: 226px;
-      padding: 24px 20px 26px;
-      border-right: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 4px 14px;
+      min-height: 0;
+      padding: 24px;
+      background: var(--page);
+      border-right: 0;
       border-bottom: 0;
-      font-size: .75rem;
-      line-height: 1.55;
+      font-size: .8125rem;
+      line-height: 1.58;
     }
 
-    .concern-list.is-horizontal li:last-child { border-right: 0; }
+    .concern-list.is-horizontal:not(.is-four) li:last-child {
+      grid-column: 1 / -1;
+    }
 
     .concern-list.is-horizontal span {
       display: block;
-      font-size: 1rem;
+      grid-row: 1 / span 2;
+      font-size: .875rem;
       line-height: 1.2;
     }
 
     .concern-list.is-horizontal strong {
       display: block;
-      margin-top: 22px;
-      font-size: .8125rem;
+      margin-top: 0;
+      font-size: .875rem;
       line-height: 1.42;
     }
 
     .concern-list.is-horizontal p {
-      margin-top: 9px;
+      grid-column: 2;
+      margin-top: 3px;
       color: #68666f;
-      font-size: .75rem;
-      line-height: 1.55;
+      font-size: .8125rem;
+      line-height: 1.58;
+      text-wrap: pretty;
     }
 
     .before-gallery {
@@ -1245,13 +1453,14 @@
     .diagnosis-groups {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 28px;
-      padding: 34px;
-      background-color: #fafbfc;
+      gap: 1px;
+      padding: 0;
+      background: var(--line);
     }
 
     .diagnosis-group {
-      padding: 0;
+      padding: 28px;
+      background: #fafbfc;
     }
 
     .diagnosis-group-label {
@@ -1272,20 +1481,12 @@
 
     .diagnosis-item {
       display: block;
-      min-height: 218px;
-      margin-top: 18px;
-      padding: 24px 24px 26px;
-      border: 0;
-      background: #b9ddf8;
-      box-shadow: 0 8px 16px rgba(35, 50, 76, .13), 0 1px 2px rgba(35, 50, 76, .1);
-    }
-
-    .diagnosis-group:nth-child(2) .diagnosis-item {
-      background: #ffe3a0;
-    }
-
-    .diagnosis-group:nth-child(3) .diagnosis-item {
-      background: #cfe9d6;
+      min-height: 0;
+      margin-top: 20px;
+      padding: 18px 0 0;
+      border-top: 1px solid #dedfe3;
+      background: transparent;
+      box-shadow: none;
     }
 
     .diagnosis-item > span {
@@ -1298,8 +1499,8 @@
 
     .diagnosis-item strong {
       display: block;
-      margin-top: 18px;
-      color: #243246;
+      margin-top: 8px;
+      color: var(--ink);
       font-family: var(--sans);
       font-size: .9375rem;
       line-height: 1.4;
@@ -1307,18 +1508,15 @@
     }
 
     .diagnosis-item p {
-      margin-top: 10px;
-      color: #405064;
+      margin-top: 8px;
+      color: #63616a;
       font-size: .8125rem;
       line-height: 1.58;
+      text-wrap: pretty;
     }
 
     .diagnosis-group:nth-child(2) .diagnosis-item > span { color: #8a6500; }
-    .diagnosis-group:nth-child(2) .diagnosis-item strong { color: #493b17; }
-    .diagnosis-group:nth-child(2) .diagnosis-item p { color: #65552b; }
     .diagnosis-group:nth-child(3) .diagnosis-item > span { color: #287347; }
-    .diagnosis-group:nth-child(3) .diagnosis-item strong { color: #244434; }
-    .diagnosis-group:nth-child(3) .diagnosis-item p { color: #456553; }
 
     .rule-list {
       display: grid;
@@ -1502,19 +1700,13 @@
       .meta-grid,
       .problem-grid,
       .handoff-grid { grid-template-columns: 1fr; }
-      .hero-collage { min-height: 360px; }
+      .hero-collage { height: 360px; min-height: 0; }
       .process-step { grid-template-columns: 60px 180px minmax(0, 1fr); gap: 22px; }
       .decision-grid { grid-template-columns: 1fr; }
       .decision { min-height: 0; }
       .argument-item { grid-template-columns: 44px 190px minmax(0, 1fr); gap: 20px; }
       .concern-list.is-horizontal,
-      .concern-list.is-horizontal.is-four { grid-template-columns: 1fr; }
-      .concern-list.is-horizontal li {
-        min-height: 0;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-      .concern-list.is-horizontal li:last-child { border-bottom: 0; }
+      .concern-list.is-horizontal.is-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .phase-grid { grid-template-columns: 1fr; }
       .phase-item { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
       .phase-item:last-child { border-bottom: 0; }
@@ -1523,12 +1715,7 @@
       .dashboard-step:nth-child(3) { border-right: 0; }
       .dashboard-step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
       .dashboard-step:nth-child(4) { padding-left: 0; }
-      .method-loop { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-      .method-loop-step { grid-column: span 2; }
-      .method-loop-step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
-      .method-loop-step:nth-child(3) { padding-right: 0; border-right: 0; }
-      .method-loop-step:nth-child(n+4) { grid-column: span 3; border-bottom: 0; }
-      .method-loop-step:nth-child(4) { padding-left: 0; }
+      .method-loop-step { grid-template-columns: 105px 185px minmax(0, 1fr); gap: 20px; }
     }
 
     @media (max-width: 620px) {
@@ -1536,9 +1723,32 @@
       .hero-copy,
       .section-copy { font-size: 14px; }
       .hero-media { padding: 12px; margin-top: 30px; }
-      .hero-collage { display: block; min-height: 0; }
-      .hero-collage > img { aspect-ratio: 4 / 3; }
+      .hero-collage { display: block; height: auto; min-height: 0; }
+      .hero-collage > img { height: auto; aspect-ratio: 4 / 3; }
       .hero-collage-stack { display: none; }
+      .hero-impact {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 40px;
+        padding: 0;
+      }
+      .hero-impact-intro {
+        grid-column: 1 / -1;
+        padding: 24px 0 18px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-impact-context { max-width: 260px; }
+      .hero-impact-metric,
+      .hero-impact-metric:last-child {
+        min-height: 142px;
+        padding: 24px 14px 24px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-impact-metric:nth-child(even) { border-right: 1px solid var(--line); }
+      .hero-impact-metric:nth-child(odd) { padding-left: 18px; }
+      .hero-impact-metric:nth-last-child(-n+2) { border-bottom: 0; }
+      .hero-impact-value { font-size: 1.5rem; }
       .case-section { padding: 64px 0; }
       .surface-solution { margin-top: 64px; padding-top: 64px; }
       .inside-class-logic { grid-template-columns: 1fr; gap: 30px; }
@@ -1553,12 +1763,9 @@
       .process-step { grid-template-columns: 42px minmax(0, 1fr); gap: 14px; }
       .process-step p { grid-column: 2; }
       .method-quote { font-size: 26px; }
-      .method-loop { grid-template-columns: 1fr; }
-      .method-loop-step,
-      .method-loop-step:first-child,
-      .method-loop-step:last-child { min-height: 0; padding: 22px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .method-loop-step:nth-child(n) { grid-column: 1 / -1; padding: 22px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .method-loop-step:last-child { border-bottom: 0; }
+      .method-loop-step { grid-template-columns: 1fr; gap: 5px; align-items: start; padding: 20px 0; }
+      .method-loop-step strong { margin-top: 3px; }
+      .method-loop-step p { margin-top: 2px; }
       .surface-header { grid-template-columns: 1fr; gap: 10px; }
       .surface-visual { padding: 10px; }
       .argument-item { grid-template-columns: 36px minmax(0, 1fr); gap: 14px; }
@@ -1590,20 +1797,24 @@
       .before-shot figcaption span { display: block; }
       .before-shot figcaption span + span { margin-top: 3px; }
       .screen-diagnosis { margin-top: 40px; }
+      .concern-list.is-horizontal,
+      .concern-list.is-horizontal.is-four { grid-template-columns: 1fr; }
+      .concern-list.is-horizontal:not(.is-four) li:last-child { grid-column: auto; }
+      .concern-list.is-horizontal li { padding: 22px 18px; }
       .diagnosis-groups {
         grid-template-columns: 1fr;
         gap: 0;
-        padding: 24px 18px;
+        padding: 0;
       }
       .diagnosis-group,
       .diagnosis-group:first-child,
       .diagnosis-group:last-child {
-        padding: 24px 0 28px;
+        padding: 26px 18px 28px;
         border-right: 0;
         border-bottom: 1px solid var(--line);
       }
       .diagnosis-group:last-child { border-bottom: 0; }
-      .diagnosis-item { min-height: 0; padding: 22px; }
+      .diagnosis-item { min-height: 0; padding: 18px 0 0; }
       .rule-list { grid-template-columns: 1fr; }
       .decision-shift-head { display: none; }
       .decision-shift {
@@ -1667,7 +1878,24 @@
       .layer-step { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
       .layer-step:last-child { border-bottom: 0; }
       .layer-step::after { display: none; }
-      .outcome-details { grid-template-columns: 1fr; }
+      .outcome-intro { grid-template-columns: 1fr; gap: 24px; }
+      .outcome-lead { max-width: 560px; }
+      .outcome-evidence { grid-template-columns: 1fr; margin-top: 38px; }
+      .outcome-stat,
+      .outcome-stat + .outcome-stat,
+      .outcome-stat:last-child {
+        min-height: 0;
+        padding: 28px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .outcome-stat:last-child { border-bottom: 0; }
+      .outcome-readout { grid-template-columns: 1fr; gap: 42px; margin-top: 44px; }
+      .route-row { grid-template-columns: 1fr auto; gap: 10px 18px; }
+      .route-label { grid-column: 1; grid-row: 1; }
+      .route-value { grid-column: 2; grid-row: 1; }
+      .route-track { grid-column: 1 / -1; grid-row: 2; }
+      .outcome-interpretation { padding: 26px; }
       .case-footer { flex-direction: column; }
     }
 
@@ -1691,6 +1919,7 @@
           <a href="#problem-solving">Problem Solving</a>
           <a href="#design-strategy">Design Strategy</a>
           <a href="#path-maker-solution">The Solution</a>
+          <a href="#outcome">Outcome</a>
           <a href="#phased-release">Phased Release</a>
           <a href="#learnings">Learnings</a>
         </nav>
@@ -1701,8 +1930,8 @@
     <main class="content">
       <header class="hero" id="overview">
         <p class="project-kicker">Scaler AI LMS · Product Design</p>
-        <h1 class="hero-title">Rebuilding the learning platform to match an AI-native curriculum, <span>one surface at a time.</span></h1>
-        <p class="hero-copy">A redesign of Scaler's three core learning surfaces (the <strong>Path-maker</strong> home, <strong>Inside Class</strong>, and <strong>Problem Solving</strong>) to align the product experience with an AI-native curriculum. While the curriculum had become personalised, adaptive, and Companion-led, the interface remained organised around static widgets and standardised course flows.</p>
+        <h1 class="hero-title"><span class="hero-number">59.3%</span> of the first cohort activated the new LMS, creating a clear opportunity for a guided learning journey.</h1>
+        <p class="hero-copy">Across the first launch cohort, <strong>134 of 226 learners</strong> enabled the new LMS. The redesign channelled that early adoption across Path-maker, Inside Class, and Problem Solving into one connected experience, giving learners a clearer next action at every stage.</p>
 
         <div class="meta-grid">
           <div><span class="meta-label">Role</span><p>Product Design<br>Interaction, flows, states and brand application</p></div>
@@ -1722,11 +1951,35 @@
 
         <div class="hero-media">
           <div class="hero-collage" aria-label="Scaler AI LMS Path-maker, Inside Class, and Problem-Solving IDE">
-            <img src="assets/scaler-ai-lms-path-maker.webp" alt="Scaler AI LMS Path-maker home showing learner states and a personalised learning path">
+            <img src="assets/path-maker-final-default-state.png" alt="Final Path-maker home showing today's time-aware learning plan and the learner's next actions">
             <div class="hero-collage-stack" aria-hidden="true">
               <img src="assets/scaler-ai-lms-inside-class.webp" alt="">
-              <img src="assets/scaler-ai-lms-problem-solving.webp" alt="">
+              <img src="assets/problem-solving-final-code-dark.png" alt="">
             </div>
+          </div>
+        </div>
+
+        <div class="hero-impact" data-reveal aria-label="Outcome at a glance">
+          <div class="hero-impact-intro">
+            <span class="hero-impact-title">Outcome at a glance</span>
+            <p class="hero-impact-context">First launch cohort · adoption and learner navigation</p>
+            <a class="hero-impact-link" href="#outcome">See the full outcome&nbsp;<span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-impact-metric">
+            <span class="hero-impact-value">134 / 226</span>
+            <span class="hero-impact-label">paid learners enabled the new LMS</span>
+          </div>
+          <div class="hero-impact-metric">
+            <span class="hero-impact-value">100–155</span>
+            <span class="hero-impact-label">daily unique visits after the mid-July step-up</span>
+          </div>
+          <div class="hero-impact-metric">
+            <span class="hero-impact-value">30.2%</span>
+            <span class="hero-impact-label">reached Core Curriculum within seven days</span>
+          </div>
+          <div class="hero-impact-metric">
+            <span class="hero-impact-value">16.7%</span>
+            <span class="hero-impact-label">reached All Problems to continue practising</span>
           </div>
         </div>
 
@@ -2219,10 +2472,26 @@
           <article class="design-stage" data-reveal>
             <div class="design-stage-header"><span class="design-stage-label">Final design prototype</span><h3>Keep every attempt inside one focused workspace</h3></div>
             <div class="final-screen-copy">
-              <p>The problem, code, test cases, and navigation stay visible in both light and dark themes. Companion opens beside the attempt without covering the work.</p>
+              <p>The All Problem Space brings assignments, contests, and mock interviews into one searchable entry point. From there, the problem, code, test cases, and navigation stay visible in both light and dark themes.</p>
               <p>Submission history distinguishes Accepted, Wrong Answer, Time Limit, and Compile Error. The solution remains locked behind a Companion-first prompt, making the cost of revealing it explicit.</p>
             </div>
             <div class="final-design-gallery problem-solving-gallery">
+              <figure class="final-design-figure">
+                <div class="final-design-frame">
+                  <div class="final-design-pair">
+                    <a class="final-design-detail" href="assets/problem-solving-final-all-problems.png" target="_blank" rel="noopener" aria-label="Open the All Problem Space assignments list at full size">
+                      <img src="assets/problem-solving-final-all-problems.png" width="1800" height="1771" alt="All Problem Space showing the searchable assignments list with topic, difficulty, type, score, status, and actions" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Assignments</span>
+                    </a>
+                    <a class="final-design-detail" href="assets/problem-solving-final-all-contests.png" target="_blank" rel="noopener" aria-label="Open the All Problem Space contests list at full size">
+                      <img src="assets/problem-solving-final-all-contests.png" width="1800" height="1866" alt="All Problem Space showing live, completed, failed, and missed contests with scores and attempt actions" loading="lazy" decoding="async">
+                      <span class="final-design-detail-label">Contests</span>
+                    </a>
+                  </div>
+                </div>
+                <figcaption><span class="final-design-index">01</span><div><strong>All Problem Space</strong><p>All assignments and contests are listed in one searchable space, with status and the next action visible before learners begin.</p></div></figcaption>
+              </figure>
+
               <figure class="final-design-figure">
                 <div class="final-design-frame">
                   <div class="final-design-pair">
@@ -2236,7 +2505,7 @@
                     </a>
                   </div>
                 </div>
-                <figcaption><span class="final-design-index">01</span><div><strong>Focused workspace</strong><p>Problem context, editor, test cases, and navigation share one timed workspace in both themes.</p></div></figcaption>
+                <figcaption><span class="final-design-index">02</span><div><strong>Focused workspace</strong><p>Problem context, editor, test cases, and navigation share one timed workspace in both themes.</p></div></figcaption>
               </figure>
 
               <figure class="final-design-figure">
@@ -2252,7 +2521,7 @@
                     </a>
                   </div>
                 </div>
-                <figcaption><span class="final-design-index">02</span><div><strong>In-context assistance</strong><p>Companion explains a failed test beside the code, so learners can act without leaving the attempt.</p></div></figcaption>
+                <figcaption><span class="final-design-index">03</span><div><strong>In-context assistance</strong><p>Companion explains a failed test beside the code, so learners can act without leaving the attempt.</p></div></figcaption>
               </figure>
 
               <figure class="final-design-figure">
@@ -2268,7 +2537,7 @@
                     </a>
                   </div>
                 </div>
-                <figcaption><span class="final-design-index">03</span><div><strong>Submission feedback</strong><p>Accepted and failed attempts sit beside the code, connecting outcome, runtime, and recovery to the work.</p></div></figcaption>
+                <figcaption><span class="final-design-index">04</span><div><strong>Submission feedback</strong><p>Accepted and failed attempts sit beside the code, connecting outcome, runtime, and recovery to the work.</p></div></figcaption>
               </figure>
 
               <figure class="final-design-figure">
@@ -2284,11 +2553,63 @@
                     </a>
                   </div>
                 </div>
-                <figcaption><span class="final-design-index">04</span><div><strong>Progressive solution access</strong><p>Solution reveal follows guided help and clearly communicates the score trade-off before disclosure.</p></div></figcaption>
+                <figcaption><span class="final-design-index">05</span><div><strong>Progressive solution access</strong><p>Solution reveal follows guided help and clearly communicates the score trade-off before disclosure.</p></div></figcaption>
               </figure>
             </div>
           </article>
         </section>
+
+      </section>
+
+      <section class="case-section outcome-section" id="outcome">
+        <div class="outcome-intro">
+          <div>
+            <span class="eyebrow">Outcome</span>
+            <h2 class="section-title">The new LMS established early adoption—and revealed where learners wanted to go next.</h2>
+          </div>
+          <p class="outcome-lead">The redesign made next steps clearer across curriculum, practice, career growth, and learning resources. The strongest signal was not traffic alone, but the high-value journeys learners chose after entering the new experience.</p>
+        </div>
+
+        <div class="outcome-evidence" data-reveal aria-label="New LMS adoption and learner-intent evidence">
+          <article class="outcome-stat">
+            <span class="outcome-stat-value">59.3%</span>
+            <strong class="outcome-stat-label">134 of 226 paid learners enabled the new LMS at least once.</strong>
+            <span class="outcome-stat-note">Enablement was strongest among Academy learners at 67.7% and DSML learners at 64.9%.</span>
+          </article>
+          <article class="outcome-stat">
+            <span class="outcome-stat-value">100–155</span>
+            <strong class="outcome-stat-label">Daily unique mentee-home visits sustained this range after a mid-July step-up.</strong>
+            <span class="outcome-stat-note">The preceding 30-day average was 84 daily unique visits.</span>
+          </article>
+          <article class="outcome-stat">
+            <span class="outcome-stat-value">30.2%</span>
+            <strong class="outcome-stat-label">Reached Core Curriculum Classes within seven days of entering the mentee experience.</strong>
+            <span class="outcome-stat-note">A further 16.7% reached All Problems, signalling practice intent alongside structured learning.</span>
+          </article>
+        </div>
+
+        <div class="outcome-readout" data-reveal>
+          <div class="outcome-routes">
+            <h3>Where learners chose to go next</h3>
+            <p class="outcome-routes-intro">Average daily unique clicks across the most-used primary navigation destinations.</p>
+            <div class="route-list" role="list" aria-label="Average daily unique navigation clicks">
+              <div class="route-row" role="listitem"><span class="route-label">Roadmap</span><span class="route-track" aria-hidden="true"><span class="route-fill" style="width: 100%"></span></span><span class="route-value">58.9</span></div>
+              <div class="route-row" role="listitem"><span class="route-label">Career Curriculum &amp; Mentorship</span><span class="route-track" aria-hidden="true"><span class="route-fill" style="width: 42.8%"></span></span><span class="route-value">25.2</span></div>
+              <div class="route-row" role="listitem"><span class="route-label">Lecture Library</span><span class="route-track" aria-hidden="true"><span class="route-fill" style="width: 35.3%"></span></span><span class="route-value">20.8</span></div>
+              <div class="route-row" role="listitem"><span class="route-label">Careers Hub</span><span class="route-track" aria-hidden="true"><span class="route-fill" style="width: 30.1%"></span></span><span class="route-value">17.7</span></div>
+            </div>
+          </div>
+
+          <aside class="outcome-interpretation" aria-label="Design outcome and measurement boundary">
+            <span class="eyebrow">Design outcome</span>
+            <h3>A stronger entry point into the learning ecosystem.</h3>
+            <p>The new LMS helped learners discover curriculum, roadmap, practice, lectures, and career support from one connected experience. Adoption opened the door; purposeful navigation showed what learners valued once they entered.</p>
+            <div class="measurement-boundary">
+              <strong>Measurement boundary</strong>
+              <p>These metrics support an adoption-and-discovery story. They do not establish that learner retention improved.</p>
+            </div>
+          </aside>
+        </div>
       </section>
 
       <section class="case-section" id="phased-release">
