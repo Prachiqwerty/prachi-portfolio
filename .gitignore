@@ -1,4 +1,5 @@
 .DS_Store
+node_modules/
 .impeccable/
 
 # Alternate prototype; index.html is the production portfolio.
