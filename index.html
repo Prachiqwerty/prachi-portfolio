@@ -553,10 +553,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 34px;
+      padding: 0;
       background:
-        radial-gradient(circle at 16% 18%, rgba(0, 85, 255, 0.20), transparent 31%),
-        linear-gradient(135deg, #e8f1ff 0%, #f5f8ff 58%, #ffffff 100%);
+        linear-gradient(90deg, rgba(73, 123, 188, 0.18) 0%, transparent 46%, rgba(227, 128, 125, 0.14) 100%),
+        linear-gradient(180deg, #3376a7 0%, #dfe1e8 49%, #5d726d 100%);
+    }
+
+    .scaler-lms-gif {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
     }
 
     .scaler-lms-preview {
@@ -2225,13 +2233,7 @@
 
       <a class="work-card" href="scaler-ai-lms-case-study-editorial.html" aria-label="Open the Scaler AI LMS case study">
         <div class="mockup scaler-lms">
-          <div class="scaler-lms-preview" aria-hidden="true">
-            <img src="assets/path-maker-final-default-state.png" alt="" loading="lazy" decoding="async">
-            <div class="scaler-lms-preview-stack">
-              <img src="assets/scaler-ai-lms-inside-class.webp" alt="" loading="lazy" decoding="async">
-              <img src="assets/problem-solving-final-code-dark.png" alt="" loading="lazy" decoding="async">
-            </div>
-          </div>
+          <img class="scaler-lms-gif" src="assets/scaler-ai-lms-case-study-preview.gif" width="1664" height="1080" alt="" loading="lazy" decoding="async">
         </div>
         <div class="work-meta">
           <span class="project">Scaler AI LMS</span>
