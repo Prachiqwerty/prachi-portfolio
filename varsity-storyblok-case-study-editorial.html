@@ -354,7 +354,8 @@
     }
 
     .system-visual.has-screenshot {
-      height: 480px;
+      height: auto;
+      aspect-ratio: 1816 / 1080;
       min-height: 0;
       padding: 0;
       background: #ffffff;
@@ -3725,7 +3726,7 @@
 
       .system-visual.has-screenshot {
         height: auto;
-        aspect-ratio: 2200 / 1619;
+        aspect-ratio: 1816 / 1080;
       }
 
       .hero-screenshot {
@@ -4080,6 +4081,17 @@
     .hero-media,
     .section-image-frame {
       overflow: hidden;
+    }
+
+    /* Let the Varsity walkthrough fill the case-study media container. */
+    .hero-media {
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .hero-media .system-visual.has-screenshot {
+      width: 100%;
     }
 
     /* Editorial takeaway used to punctuate a section's core operating insight. */
@@ -5364,7 +5376,7 @@
 
         <div class="hero-media" aria-label="Varsity AI-first programs landing page banner">
           <div class="system-visual has-screenshot">
-            <img class="hero-screenshot" src="assets/varsity-hero-banner-august-2026.webp" width="1426" height="1246" alt="Varsity AI-first programs landing page with university program proposition and enquiry form" decoding="async" fetchpriority="high">
+            <img class="hero-screenshot" src="assets/varsity-hero-detail-august-2026.webp" width="1816" height="1080" alt="Animated walkthrough of the Varsity program landing page and enquiry experience" decoding="async" fetchpriority="high">
           </div>
         </div>
 
