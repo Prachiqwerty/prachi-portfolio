@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Six live pages reached 9.05% visitor-to-lead conversion while delivery moved from days to hours</title>
+  <title>Varsity program-page system — six live pages reached 9.05% V2L</title>
+  <meta name="description" content="How a governed program-page system reduced production from 3–4 days to 3–4 hours, improved consistency, and gave Marketing and SEO greater launch ownership.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Caveat:wght@500;600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet">
@@ -3313,6 +3314,15 @@
       white-space: nowrap;
     }
 
+    #decisions .section-title {
+      max-width: none;
+    }
+
+    #decisions .decision-title-line {
+      display: block;
+      white-space: nowrap;
+    }
+
     @media (max-width: 900px) {
       #solution .section-title {
         max-width: 22ch;
@@ -3339,6 +3349,14 @@
       }
 
       #design-language .design-language-title-line {
+        white-space: normal;
+      }
+
+      #decisions .section-title {
+        max-width: 22ch;
+      }
+
+      #decisions .decision-title-line {
         white-space: normal;
       }
     }
@@ -4978,7 +4996,7 @@
       }
     }
 
-    #learnings .learning-grid {
+    #decisions .learning-grid {
       display: block;
       margin-top: 44px;
       overflow: hidden;
@@ -4988,15 +5006,15 @@
       text-align: left;
     }
 
-    #learnings .learning-grid-head,
-    #learnings .learning-principle {
+    #decisions .learning-grid-head,
+    #decisions .learning-principle {
       display: grid;
       grid-template-columns: 72px minmax(0, 0.9fr) minmax(0, 1.1fr);
       gap: clamp(20px, 3vw, 40px);
       align-items: start;
     }
 
-    #learnings .learning-grid-head {
+    #decisions .learning-grid-head {
       padding: 14px clamp(24px, 3vw, 36px);
       border-bottom: 1px solid var(--line);
       color: var(--text-muted);
@@ -5008,11 +5026,11 @@
       text-transform: uppercase;
     }
 
-    #learnings .learning-grid-head span:first-child {
+    #decisions .learning-grid-head span:first-child {
       grid-column: 1 / 3;
     }
 
-    #learnings .learning-principle {
+    #decisions .learning-principle {
       min-height: 0;
       padding: clamp(28px, 3.5vw, 44px) clamp(24px, 3vw, 36px);
       border: 0;
@@ -5020,17 +5038,17 @@
       background: #fff;
     }
 
-    #learnings .learning-principle:last-child {
+    #decisions .learning-principle:last-child {
       border-bottom: 0;
       background: #faf9f8;
     }
 
-    #learnings .learning-principle-meta {
+    #decisions .learning-principle-meta {
       display: grid;
       gap: 12px;
     }
 
-    #learnings .learning-principle-index {
+    #decisions .learning-principle-index {
       color: var(--accent);
       font-family: var(--display);
       font-size: 1.125rem;
@@ -5039,7 +5057,7 @@
       letter-spacing: -0.025em;
     }
 
-    #learnings .principle-tag {
+    #decisions .principle-tag {
       color: var(--text-muted);
       font-family: var(--sans);
       font-size: var(--type-label);
@@ -5049,7 +5067,7 @@
       text-transform: uppercase;
     }
 
-    #learnings .learning-principle h3 {
+    #decisions .learning-principle h3 {
       margin: 0;
       color: var(--ink);
       font-family: var(--display);
@@ -5060,7 +5078,7 @@
       text-wrap: balance;
     }
 
-    #learnings .learning-principle p {
+    #decisions .learning-principle p {
       margin: 0;
       color: var(--text-body);
       font-size: var(--type-body);
@@ -5071,36 +5089,36 @@
     }
 
     @media (max-width: 760px) {
-      #learnings .learning-grid-head {
+      #decisions .learning-grid-head {
         display: none;
       }
 
-      #learnings .learning-principle {
+      #decisions .learning-principle {
         grid-template-columns: 56px minmax(0, 1fr);
         gap: 18px 20px;
       }
 
-      #learnings .learning-principle h3 {
+      #decisions .learning-principle h3 {
         align-self: center;
       }
 
-      #learnings .learning-principle p {
+      #decisions .learning-principle p {
         grid-column: 2;
       }
     }
 
     @media (max-width: 480px) {
-      #learnings .learning-principle {
+      #decisions .learning-principle {
         grid-template-columns: 1fr;
       }
 
-      #learnings .learning-principle-meta {
+      #decisions .learning-principle-meta {
         display: flex;
         align-items: baseline;
         gap: 12px;
       }
 
-      #learnings .learning-principle p {
+      #decisions .learning-principle p {
         grid-column: 1;
       }
     }
@@ -5317,25 +5335,26 @@
       <div>
         <a class="back-link" href="index.html#work" aria-label="Back to portfolio">&larr; Back</a>
         <nav class="toc" aria-label="Sections">
-          <a href="#overview" class="active" aria-current="location">Overview</a>
-          <a href="#problem">The Problem</a>
-          <a href="#solution">Solution</a>
+          <a href="#overview" class="active" aria-current="location">Business Context</a>
+          <a href="#problem">The Challenge</a>
+          <a href="#solution">My Approach</a>
+          <a href="#decisions">Key Decisions</a>
           <a href="#figma-screens">Figma Screens</a>
           <a href="#system">The System</a>
           <a href="#content-model">Content Model</a>
           <a href="#design-language">Design Language</a>
-          <a href="#handoff">Handoff</a>
+          <a href="#alignment">Team Alignment</a>
           <a href="#results">Results</a>
-          <a href="#future-workflow">Future Workflow</a>
           <a href="#learnings">Learnings</a>
+          <a href="#future-workflow">Next Step</a>
         </nav>
       </div>
     </aside>
 
     <article class="content">
       <header class="hero reveal">
-        <p class="project-kicker">VARSITY BY INTERVIEWBIT X STORYBLOK</p>
-        <h1 class="hero-title"><span class="hero-line">From one-off pages to a</span><span class="hero-line">publishing system.</span><span class="hero-line">Six live pages reached <span class="hero-highlight">9.05% V2L.</span></span></h1>
+        <p class="project-kicker">VARSITY BY INTERVIEWBIT · PROGRAM-PAGE SYSTEM</p>
+        <h1 class="hero-title"><span class="hero-line">From one-off program pages</span><span class="hero-line">to a repeatable launch system.</span><span class="hero-line">Six live pages reached <span class="hero-highlight">9.05% V2L.</span></span></h1>
         <aside class="margin-fact hero-v2l-fact" aria-label="V2L means visitor to lead">
           <svg class="margin-fact-arrow" viewBox="0 0 220 90" aria-hidden="true">
             <path d="M214 14 C158 8 148 66 44 58"></path>
@@ -5343,7 +5362,7 @@
           </svg>
           <span>V2L means<br><strong>visitor to lead</strong></span>
         </aside>
-        <p class="hero-copy"><mark class="focus-highlight">I led the transformation</mark> of Varsity’s program-page process into a governed Storyblok system that <mark class="focus-highlight">Marketing and SEO could operate independently</mark>. From Jul 23–31, six live pages converted 24,541 visitors into 2,220 leads; the first two program launches progressed to <mark class="focus-highlight">58 payments</mark> by Jul 31, 2026.</p>
+        <p class="hero-copy"><mark class="focus-highlight">I led the transformation</mark> of Varsity’s program-page process into a governed system that reduced page production and approvals from 3–4 days to 3–4 hours, created a more consistent learner experience, and gave <mark class="focus-highlight">Marketing and SEO greater launch ownership</mark>.</p>
 
         <section class="meta-grid" aria-label="Project details">
           <div>
@@ -5388,7 +5407,7 @@
           </div>
           <div class="impact-stat">
             <span class="impact-stat-label">Delivery</span>
-            <strong>3-4 hrs</strong>
+            <strong>3–4 hrs</strong>
             <span>page build and approvals</span>
           </div>
           <div class="impact-stat">
@@ -5410,65 +5429,55 @@
       </header>
 
       <section id="overview" class="case-section reveal">
-        <p class="section-kicker">Overview</p>
-        <h2 class="section-title">A landing page became a <span class="section-title-highlight">product system</span>.</h2>
-        <p class="section-copy">We converted a custom, multi-day landing-page build into a repeatable publishing system. An idea is shaped on Claude, styled in Figma, wired into Storyblok components by engineering, and set to a house style by design. After that, every future program page is generated from a single prompt through reusable skill files.</p>
-        <p id="overview-takeaway" class="section-copy overview-statement">The finished system is handed to Marketing and SEO, who run and optimize each page independently to lift V2L (Volume-to-Lead) and L2P (Lead-to-Payment), without waiting on design or engineering.</p>
-        <div class="skill-grid" aria-label="Core skill files">
-          <div class="skill-card">
-            <span class="skill-stage">Build</span>
-            <h3><span class="skill-name-label">Skill file</span><span class="skill-name">storyblok-program-page</span></h3>
-            <p>The builder. Turns a partner brochure into a full, on-brand, published program page in one prompt, with approval gates and an image-generation pipeline.</p>
-          </div>
-          <div class="skill-card">
-            <span class="skill-stage">Govern</span>
-            <h3><span class="skill-name-label">Skill file</span><span class="skill-name">storyblok-site-audit</span></h3>
-            <p>The go-live pass. Image optimization, image SEO, social cards, meta and structured data, and brand-safety QA, all verified on the live site.</p>
-          </div>
-          <div class="skill-card">
-            <span class="skill-stage">Verify</span>
-            <h3><span class="skill-name-label">Skill file</span><span class="skill-name">varsity-page-audit</span></h3>
-            <p>Post-launch live QA. It checks every link, interactive CTAs and enquiry modals in a real browser, and tier-1/tier-2 learner comprehension.</p>
-          </div>
+        <p class="section-kicker">Business Context</p>
+        <h2 class="section-title">Varsity needed to launch complex partner programs <span class="section-title-highlight">at campaign speed</span>.</h2>
+        <p class="section-copy">Varsity by InterviewBit launches professional certificate programs with institutions such as IIT Delhi and IIM Trichy. Each program page has to explain a complex curriculum, establish the credibility of the institution and instructors, answer questions about admissions and pricing, and convert interested visitors into qualified leads.</p>
+        <p class="section-copy">The subject matter changed between programs, but the learner journey was largely the same. As the launch pipeline grew, treating every page as a new website project became a business constraint: campaign teams waited for specialist support, testing slowed down, and every launch created new opportunities for inconsistency.</p>
+        <p id="overview-takeaway" class="section-copy overview-statement">I reframed the assignment from “design another landing page” to “create a governed launch system that protects quality while allowing teams to move independently.”</p>
+        <div class="system-overview" aria-label="What the Varsity program-page system needed to achieve">
+          <article class="system-overview-item"><span class="system-overview-index">01 / CLARITY</span><h3>Explain a complex offer</h3><p>Turn curriculum, faculty, outcomes, eligibility, pricing, and admissions into one clear learner decision journey.</p></article>
+          <article class="system-overview-item"><span class="system-overview-index">02 / TRUST</span><h3>Protect partner credibility</h3><p>Keep institutional claims, brand expression, program facts, and conversion journeys accurate across every launch.</p></article>
+          <article class="system-overview-item"><span class="system-overview-index">03 / SPEED</span><h3>Enable campaign iteration</h3><p>Give Marketing and SEO enough control to launch and improve approved pages without restarting the design process.</p></article>
         </div>
       </section>
 
       <section id="problem" class="case-section reveal">
-        <p class="section-kicker">The Problem</p>
-        <h2 class="section-title">Every new program <span class="section-title-highlight">restarted the same work</span>.</h2>
-        <p class="section-copy">The pages were structurally similar but operationally expensive. Each launch needed the same hero, overview, curriculum, learning objectives, tools strip, campus immersion, certificate, pricing, FAQ, lead forms, social card, alt text, and launch QA.</p>
+        <p class="section-kicker">The Challenge</p>
+        <h2 class="section-title">Every launch repeated the same work—and <span class="section-title-highlight">blocked the next experiment</span>.</h2>
+        <p class="section-copy">The pages were structurally similar but operationally expensive. Each launch repeated the same information architecture, curriculum patterns, imagery, forms, metadata, and quality checks. The cost was not only production time; it affected how quickly the business could launch, learn, and improve.</p>
         <div class="problem-metric-grid" aria-label="Problem costs">
           <div class="problem-metric-card">
-            <h3>Delay</h3>
-            <p><strong>3-4 days</strong> to build one program page, including Storyblok content, curriculum, imagery, uploads, and technical support.</p>
+            <h3>Launch speed</h3>
+            <p><strong>3–4 days</strong> to build and approve one page, slowing campaign launches and reducing the time available to test propositions.</p>
           </div>
           <div class="problem-metric-card">
-            <h3>Drift</h3>
-            <p>Section structure, image style, copy tone, and curriculum patterns drifted from page to page.</p>
+            <h3>Experience drift</h3>
+            <p>Section order, curriculum presentation, image style, and copy patterns changed from page to page, making Varsity feel less like one product.</p>
           </div>
           <div class="problem-metric-card">
-            <h3>Risk</h3>
-            <p>Heavy images, missing alt text, stale placeholders, wrong form keys, and cross-brand leaks could slip into production.</p>
+            <h3>Team dependency</h3>
+            <p>Routine campaign, content, and SEO changes still depended on Design or Engineering, creating queues around specialist teams.</p>
           </div>
         </div>
+        <p class="section-copy">Launch quality was also fragile. Heavy images, missing metadata, incorrect forms, unfinished content, or cross-brand errors could reach production when checks happened late or relied on memory.</p>
       </section>
 
       <section id="solution" class="case-section reveal">
-        <p class="section-kicker">Solution</p>
-        <h2 class="section-title"><span class="solution-title-line">Four steps turned one approved page into a</span> <span class="section-title-highlight">repeatable publishing system</span>.</h2>
+        <p class="section-kicker">My Approach</p>
+        <h2 class="section-title"><span class="solution-title-line">Four moves turned one approved page into a</span> <span class="section-title-highlight">repeatable launch system</span>.</h2>
         <ol class="solution-quick-view" aria-label="Solution steps at a glance">
           <li class="solution-quick-step">
             <span>Step 01</span>
-            <strong>Understand the page story</strong>
-            <div class="solution-tool-row" aria-label="Tools: Claude, HTML, and Mobbin MCP">
+            <strong>Standardize the learner story</strong>
+            <div class="solution-tool-row" aria-label="Tools: Claude, HTML, and Mobbin">
               <span class="solution-tool" role="img" aria-label="Claude" title="Claude"><img src="assets/claude.svg" alt=""></span>
               <span class="solution-tool" role="img" aria-label="HTML" title="HTML"><img src="assets/html5.svg" alt=""></span>
-              <span class="solution-tool is-wordmark" role="img" aria-label="Mobbin MCP" title="Mobbin MCP">Mobbin MCP</span>
+              <span class="solution-tool is-wordmark" role="img" aria-label="Mobbin" title="Mobbin">Mobbin</span>
             </div>
           </li>
           <li class="solution-quick-step">
             <span>Step 02</span>
-            <strong>Design the Figma screen system</strong>
+            <strong>Design the component system</strong>
             <div class="solution-tool-row" aria-label="Tools: Figma, Figma Agent, and Storyblok">
               <span class="solution-tool" role="img" aria-label="Figma" title="Figma"><img src="assets/figma.svg" alt=""></span>
               <span class="solution-tool is-agent" role="img" aria-label="Figma Agent" title="Figma Agent"><img src="assets/figma.svg" alt=""></span>
@@ -5477,25 +5486,25 @@
           </li>
           <li class="solution-quick-step">
             <span>Step 03</span>
-            <strong>Design and codify the publishing rules</strong>
+            <strong>Encode the production rules</strong>
             <div class="solution-tool-row" aria-label="Tools: Claude Code and Cursor">
               <span class="solution-tool is-code" role="img" aria-label="Claude Code" title="Claude Code"><img src="assets/claude.svg" alt=""></span>
               <span class="solution-tool" role="img" aria-label="Cursor" title="Cursor"><img src="assets/cursor.svg" alt=""></span>
             </div>
           </li>
-          <li class="solution-quick-step"><span>Step 04</span><strong>Govern launch and handoff</strong></li>
+          <li class="solution-quick-step"><span>Step 04</span><strong>Govern launch and transfer ownership</strong></li>
         </ol>
-        <p class="section-copy">The workflow separates design judgment from repeatable execution: define the page narrative, formalize the responsive screen system in Figma, connect Storyblok and Magnific through MCPs, then reuse the governed skill files to launch and maintain multiple program pages.</p>
+        <p class="section-copy">The workflow separates decisions that require human judgment from work that can be repeated safely: define the learner narrative, formalize the responsive component system, encode the production rules, and give growth teams a governed way to launch and maintain pages.</p>
         <div class="workflow-stack" aria-label="Four-step program-page design and publishing workflow">
           <article class="workflow-step">
             <div class="workflow-step-expanded">
             <div class="workflow-step-copy">
               <span class="workflow-step-number">Step 01</span>
-              <h3 class="workflow-step-title">Understand the page story</h3>
-              <p class="workflow-step-lead">Turn the partner brochure and conversion goals into one clear page story.</p>
+              <h3 class="workflow-step-title">Standardize the learner story</h3>
+              <p class="workflow-step-lead">Turn the partner brief and conversion goals into one clear sequence of learner questions.</p>
               <ul class="workflow-action-list">
-                <li><span>Define the section order, key message, curriculum, proof, pricing, admissions, and lead capture.</span></li>
-                <li><span>Test it in Claude and HTML before visual design. View the <a href="https://varsity-project.vercel.app/" target="_blank" rel="noopener noreferrer">structure</a> and <a href="https://varsity-brands.vercel.app/violet/varsity-landing.html" target="_blank" rel="noopener noreferrer">branded</a> prototypes.</span></li>
+                <li><span>Order the proposition, curriculum, proof, learner fit, pricing, admissions, and lead capture around the questions a prospective learner needs answered.</span></li>
+                <li><span>Test the narrative in low-fidelity and branded prototypes before investing in the full visual system. View the <a href="https://varsity-project.vercel.app/" target="_blank" rel="noopener noreferrer">structure</a> and <a href="https://varsity-brands.vercel.app/violet/varsity-landing.html" target="_blank" rel="noopener noreferrer">branded</a> prototypes.</span></li>
               </ul>
             </div>
             <div class="workflow-visual image-only">
@@ -5547,11 +5556,11 @@
             <div class="workflow-step-expanded">
             <div class="workflow-step-copy">
               <span class="workflow-step-number">Step 02</span>
-              <h3 class="workflow-step-title">Design the Figma screen system</h3>
+              <h3 class="workflow-step-title">Design the reusable component system</h3>
               <p class="workflow-step-lead">Design the responsive home page, program details page, enquiry forms, callback modal, admissions flow, payment states, and reusable components.</p>
               <ul class="workflow-action-list">
                 <li><span>Specify desktop and mobile behavior, content hierarchy, component variants, form states, image ratios, and interaction rules in Figma.</span></li>
-                <li><span>Partner with engineering to translate the approved screens into reusable Storyblok bloks, nested curriculum components, and shared lead-capture patterns.</span></li>
+                <li><span>Partner with Engineering to translate the approved screens into reusable Storyblok components—the content sections teams could assemble without rebuilding the page in code.</span></li>
               </ul>
             </div>
             <div class="workflow-visual image-only flush-bottom" aria-hidden="true">
@@ -5564,11 +5573,11 @@
             <div class="workflow-step-expanded">
             <div class="workflow-step-copy">
               <span class="workflow-step-number">Step 03</span>
-              <h3 class="workflow-step-title">Design and codify the publishing rules</h3>
-              <p class="workflow-step-lead">Connect the Storyblok MCP to inspect the approved component model, assemble stories, wire forms and metadata, upload assets, and preserve the correct institution structure.</p>
+              <h3 class="workflow-step-title">Encode the production rules</h3>
+              <p class="workflow-step-lead">Turn the design and publishing decisions into reusable automation playbooks so the same standards travel with every build.</p>
               <ul class="workflow-action-list">
-                <li><span>Connect the Magnific MCP to generate and refine imagery against the approved house style, then optimize and prepare each asset for Storyblok delivery.</span></li>
-                <li><span>Encode content structure, image direction, publishing logic, SEO requirements, and QA safeguards into reusable skill files so design decisions travel with every build.</span></li>
+                <li><span>Connect the content platform and image tools to assemble approved sections, prepare assets, wire forms, and preserve the correct institution structure.</span></li>
+                <li><span>Encode content structure, image direction, publishing logic, SEO requirements, and safeguards into reusable “skill files”—structured instructions the team can run again.</span></li>
               </ul>
               <ul class="workflow-skill-pointers" aria-label="Build, go-live, and post-release skill sequence">
                 <li><span class="workflow-skill-stage">Build</span><strong>storyblok-program-page</strong></li>
@@ -5636,8 +5645,8 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
             <div class="workflow-step-expanded">
             <div class="workflow-step-copy">
               <span class="workflow-step-number">Step 04</span>
-              <h3 class="workflow-step-title">Govern launch and handoff</h3>
-              <p class="workflow-step-lead">Reuse the approved skills to turn new partner brochures into multiple program pages without restarting the design process.</p>
+              <h3 class="workflow-step-title">Govern launch and transfer ownership</h3>
+              <p class="workflow-step-lead">Turn approved partner briefs into program pages without restarting the design process or removing human accountability.</p>
               <ul class="workflow-action-list">
                 <li><span>Govern each release with image, SEO, social-card, metadata, schema, brand-safety, live-link, CTA, modal, and learner-comprehension checks.</span></li>
                 <li><span>Handoff the finalized format, skill files, and operating rules to Marketing and SEO so they can launch and optimize future program variants independently.</span></li>
@@ -5659,6 +5668,19 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
             </div>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section id="decisions" class="case-section reveal">
+        <p class="section-kicker">Key Decisions</p>
+        <h2 class="section-title"><span class="decision-title-line">The system worked because the</span><span class="section-title-highlight">trade-offs were deliberate</span>.</h2>
+        <p class="section-copy">The goal was not maximum automation or unlimited page flexibility. I made four decisions that balanced learner clarity, team autonomy, and launch safety.</p>
+        <div class="learning-grid">
+          <div class="learning-grid-head" aria-hidden="true"><span>Decision</span><span>Why I chose it</span></div>
+          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">01</span><span class="principle-tag">Journey</span></div><h3>Keep the core page order fixed</h3><p>A consistent sequence gives learners a predictable decision journey and prevents campaign requests from weakening the narrative. Content changes by program; the logic does not.</p></article>
+          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">02</span><span class="principle-tag">Platform</span></div><h3>Build with Storyblok components</h3><p>A static template would be too rigid, while custom pages would preserve the Engineering bottleneck. Reusable sections created flexibility within approved boundaries.</p></article>
+          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">03</span><span class="principle-tag">Governance</span></div><h3>Keep human approval gates</h3><p>Institutional claims, learner promises, pricing, imagery, and partner representation require accountable judgment. Automation prepares the work; people approve what ships.</p></article>
+          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">04</span><span class="principle-tag">Quality</span></div><h3>Separate build, pre-launch, and live QA</h3><p>Each stage fails differently. A page can be correct in the content platform and still have a broken form or interaction on the live site, so each check has a focused role.</p></article>
         </div>
       </section>
 
@@ -5732,31 +5754,31 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
 
       <section id="system" class="case-section reveal">
         <p class="section-kicker">The System</p>
-        <h2 class="section-title"><span class="system-title-line">The Storyblok content model made every page</span><span class="system-title-line">assemble the same way.</span></h2>
-        <p class="section-copy">Engineering translated the Figma UI into reusable Storyblok bloks. The page body became a fixed ordered stack, so every program feels like the same product while still carrying different facts, partner content, curriculum, pricing, and media.</p>
+        <h2 class="section-title"><span class="system-title-line">Three focused playbooks carried the same standards</span><span class="system-title-line">from brief to live page.</span></h2>
+        <p class="section-copy">The system separated page assembly, release readiness, and live-page verification. Internally these reusable automation playbooks were called “skill files”; each one handled a distinct production risk and could be maintained independently.</p>
         <div class="system-overview" aria-label="Three parts of the reusable Storyblok system">
           <article class="system-overview-item">
-            <span class="system-overview-index">01 / 03</span>
-            <h3>Core page sections</h3>
-            <p>Navbar, program hero, overview band, curriculum, CTA banners, learning objectives, faculty, tools, why now, how you learn, campus immersion, certificate, pricing, FAQ, and footer.</p>
+            <span class="system-overview-index">01 / BUILD</span>
+            <h3>Page builder</h3>
+            <p>Turns an approved program brief into a complete first draft using the fixed learner journey, reusable components, house style, forms, and metadata.</p>
           </article>
           <article class="system-overview-item">
-            <span class="system-overview-index">02 / 03</span>
-            <h3>Nested curriculum</h3>
-            <p>`curriculum_section` contains phases, modules, case studies, tag chips, duration, practical builds, and future-proof rationales.</p>
+            <span class="system-overview-index">02 / PRE-LAUNCH</span>
+            <h3>Release audit</h3>
+            <p>Checks image weight and accessibility, search metadata, social previews, structured data, partner-brand safeguards, and publishing readiness.</p>
           </article>
           <article class="system-overview-item">
-            <span class="system-overview-index">03 / 03</span>
-            <h3>Conversion blocks</h3>
-            <p>Root-level forms, enquiry cards, callback modals, pricing, EMI plan CTAs, admissions copy, and partner compliance notes.</p>
+            <span class="system-overview-index">03 / LIVE</span>
+            <h3>Live-page QA</h3>
+            <p>Tests the rendered experience in a browser, including links, calls to action, enquiry modals, and comprehension for the intended learner audience.</p>
           </article>
         </div>
       </section>
 
       <section id="content-model" class="case-section reveal">
         <p class="section-kicker">Content Model</p>
-        <h2 class="section-title">Every page is an ordered stack of the same Storyblok bloks.</h2>
-        <p class="section-copy">Keeping the order fixed makes pages feel like one product and lets the builder skill assemble any program the same way. Only the content changes.</p>
+        <h2 class="section-title">Every page follows the same <span class="section-title-highlight">learner decision journey</span>.</h2>
+        <p class="section-copy">Engineering translated the approved Figma experience into reusable Storyblok components—content sections that teams could edit without rebuilding the page in code. Keeping their core order fixed makes every program feel like one Varsity product while allowing the facts, partner content, curriculum, pricing, and media to change.</p>
         <div class="page-architecture" aria-label="Program page architecture grouped into four stages">
           <div class="architecture-stage">
             <span class="architecture-count">01 / 04</span>
@@ -5784,14 +5806,14 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
           </div>
         </div>
         <details class="schema-details">
-          <summary>View the complete 21-blok Storyblok schema</summary>
+          <summary>View the complete 21-component Storyblok structure</summary>
           <table class="data-table">
             <thead><tr><th>#</th><th>Section blok</th><th>Subcopy</th></tr></thead>
             <tbody>
               <tr><td>1</td><td>`navbar`</td><td>Top navigation and primary CTA.</td></tr>
               <tr><td>2</td><td>`program_hero`</td><td>Above-the-fold title, value proposition, and callback CTA.</td></tr>
               <tr><td>3</td><td>`overview_band`</td><td>Scannable program overview: duration, format, key facts.</td></tr>
-              <tr><td>4</td><td>`curriculum_section`</td><td>The 12-module / 4-phase curriculum.</td></tr>
+              <tr><td>4</td><td>`curriculum_section`</td><td>The program curriculum, structured into modules and phases.</td></tr>
               <tr><td>4b</td><td>`projects_section`</td><td>Optional. Capstones/projects split out of the curriculum.</td></tr>
               <tr><td>5</td><td>`cta_banner`</td><td>Mid-page conversion prompt.</td></tr>
               <tr><td>6</td><td>`learning_objectives`</td><td>What a learner will be able to do on completion.</td></tr>
@@ -5821,36 +5843,37 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
           <article class="system-overview-item">
             <span class="system-overview-index">01 / 03</span>
             <h3>Image style</h3>
-            <p>Warm-copper/orange 3D concept art with a cinematic glow and no text. Text-prone concepts use an object-only, strictly no text/labels re-prompt.</p>
+            <p>Warm copper and orange concept art created a recognizable house style. Illustrations stayed object-led and text-free so they could scale across programs and screen sizes.</p>
           </article>
           <article class="system-overview-item">
             <span class="system-overview-index">02 / 03</span>
             <h3>Copy voice</h3>
-            <p>The copy voice was fixed on the first reference pages and reproduced by the skill for every subsequent page.</p>
+            <p>The first approved reference pages set the voice: direct, credible, learner-focused, and consistent across curriculum, outcomes, proof, pricing, and calls to action.</p>
           </article>
           <article class="system-overview-item">
             <span class="system-overview-index">03 / 03</span>
-            <h3>Raster vs vector</h3>
-            <p>Generated illustrations convert to WebP with Pillow. Vector logos are uploaded as SVG directly from official brand repos so they stay crisp and on-brand.</p>
+            <h3>Asset quality</h3>
+            <p>Illustrations were compressed for fast delivery, while official institution and tool logos stayed in crisp vector formats to protect brand accuracy.</p>
           </article>
         </div>
       </section>
 
-      <section id="handoff" class="case-section reveal">
-        <p class="section-kicker">Handoff</p>
-        <h2 class="section-title">The system is useful when <span class="section-title-highlight">growth can run it</span>.</h2>
-        <p class="section-copy">The design team hands over three things: the finalized format, the built content, and the skill file. From there, Marketing and SEO run the page from their own end, with no design or engineering bottleneck.</p>
-        <div class="system-overview" aria-label="Ownership handoff from design to growth">
-          <article class="system-overview-item"><span class="system-overview-index">01 / 03</span><span class="handoff-overview-label">Design</span><h3>Set the operating standard</h3><p>Finalize the page format, house style, component behavior, reference content, and approval gates.</p></article>
-          <article class="system-overview-item"><span class="system-overview-index">02 / 03</span><span class="handoff-overview-label">Skill system</span><h3>Encode the judgment</h3><p>Carry content rules, image direction, publishing logic, QA checks, and brand safeguards into every build.</p></article>
-          <article class="system-overview-item"><span class="system-overview-index">03 / 03</span><span class="handoff-overview-label">Marketing and SEO</span><h3>Run and optimize</h3><p>Adapt copy and creative per campaign, launch variants quickly, and tune V2L and L2P without a design or engineering bottleneck.</p></article>
+      <section id="alignment" class="case-section reveal">
+        <p class="section-kicker">Team Alignment</p>
+        <h2 class="section-title">The handoff was an <span class="section-title-highlight">operating model</span>, not a Figma file.</h2>
+        <p class="section-copy">I aligned Design, Engineering, Marketing, and SEO around a clear division of responsibility. Specialist teams owned the system and its standards; growth teams gained control over approved day-to-day changes.</p>
+        <div class="learning-grid" aria-label="Cross-functional ownership model">
+          <article class="learning-principle"><span class="principle-tag">Design</span><h3>Set the experience standard</h3><p>I defined the learner journey, responsive layouts, component behavior, visual direction, content rules, and human approval gates.</p></article>
+          <article class="learning-principle"><span class="principle-tag">Engineering</span><h3>Build the reusable foundation</h3><p>Engineering translated the approved designs into maintainable Storyblok components and shared interaction patterns.</p></article>
+          <article class="learning-principle"><span class="principle-tag">Marketing</span><h3>Own campaign relevance</h3><p>Marketing could adapt approved propositions, copy, and creative for each program without restarting the design process.</p></article>
+          <article class="learning-principle"><span class="principle-tag">SEO</span><h3>Own search readiness</h3><p>SEO could manage search inputs, metadata, and ongoing content improvements within the governed system.</p></article>
         </div>
       </section>
 
       <section id="results" class="case-section reveal">
         <p class="section-kicker">Results</p>
-        <h2 class="section-title">The system improved <span class="section-title-highlight">publishing speed and acquisition performance</span>.</h2>
-        <p class="section-copy">The same governed workflow moved page production from days to hours and supported strong acquisition and conversion performance across six live pages.</p>
+        <h2 class="section-title">The system improved <span class="section-title-highlight">speed, consistency, and ownership</span>.</h2>
+        <p class="section-copy">The clearest direct effect was operational: page production moved from days to hours, release checks became repeatable, and Marketing and SEO could operate approved variants with less day-to-day dependency on Design and Engineering.</p>
         <div class="results-overview">
           <div class="results-outcomes" aria-label="Results overview">
             <article class="results-outcome is-primary">
@@ -5858,21 +5881,21 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
               <h3>Production moved from days to hours</h3>
               <p>The governed Storyblok workflow shortened page production and approval cycles.</p>
               <div class="results-signal" aria-label="Production moved from days to hours"><span>Days</span><span class="results-signal-arrow" aria-hidden="true">&rarr;</span><span>Hours</span></div>
-              <div class="results-signal-detail"><strong>3-4 hrs</strong><span>page build and approvals</span></div>
+              <div class="results-signal-detail"><strong>3–4 hrs</strong><span>page build and approvals</span></div>
             </article>
             <article class="results-outcome">
               <span class="results-outcome-index">02 / ACQUISITION</span>
-              <h3>Six live pages generated qualified demand</h3>
+              <h3>Leads recorded across six live pages</h3>
               <strong class="results-outcome-number">2,220</strong>
             </article>
             <article class="results-outcome">
               <span class="results-outcome-index">03 / CONVERSION</span>
-              <h3>Overall visitor-to-lead conversion</h3>
+              <h3>Observed visitor-to-lead conversion</h3>
               <strong class="results-outcome-number">9.05%</strong>
             </article>
             <article class="results-outcome">
               <span class="results-outcome-index">04 / PAYMENTS</span>
-              <h3>Payments completed across the first two programs</h3>
+              <h3>Observed payments across the first two programs</h3>
               <strong class="results-outcome-number">58</strong>
             </article>
           </div>
@@ -5889,6 +5912,7 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
             </div>
           </div>
         </div>
+        <p class="section-copy overview-statement"><strong>Attribution:</strong> From Jul 23–31, 2026, six live pages received 24,541 visitors, generated 2,220 leads, and recorded 9.05% visitor-to-lead conversion. The first two programs progressed to 58 payments by Jul 31. The system supported these outcomes through consistency, launch quality, and iteration speed; traffic quality, campaign strategy, program proposition, pricing, and the wider admissions journey also influenced conversion.</p>
         <div class="results-legacy-detail" hidden>
         <div class="funnel-detail-header">
           <h3>Delivery efficiency</h3>
@@ -6102,11 +6126,21 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
         </div>
       </section>
 
+      <section id="learnings" class="case-section reveal">
+        <p class="section-kicker">What I Learned</p>
+        <h2 class="section-title">The durable outcome was a <span class="section-title-highlight">shared way of working</span>.</h2>
+        <div class="system-overview" aria-label="Project learnings">
+          <article class="system-overview-item"><span class="system-overview-index">01 / SYSTEM</span><h3>Design the operation, not only the interface</h3><p>The reusable asset was the shared way of deciding, building, approving, publishing, and improving program pages—not only the components.</p></article>
+          <article class="system-overview-item"><span class="system-overview-index">02 / JUDGMENT</span><h3>Automate repetition and preserve judgment</h3><p>Mechanical work and predictable checks can move faster. Institutional claims, learner promises, brand expression, and final approval still need accountable people.</p></article>
+          <article class="system-overview-item"><span class="system-overview-index">03 / OWNERSHIP</span><h3>Treat autonomy as a design outcome</h3><p>The system succeeded when Marketing and SEO could operate approved pages confidently—not simply when Design finished the interface.</p></article>
+        </div>
+      </section>
+
       <section id="future-workflow" class="case-section reveal">
-        <div class="future-workflow-status-row"><p class="section-kicker">Future Workflow</p><span class="future-workflow-status">Currently in progress</span></div>
-        <h2 class="section-title">The next evolution starts with <span class="section-title-highlight">one Slack request</span>.</h2>
-        <p class="section-copy">Today, brochures are designed first and then shared for landing-page production. The proposed model moves intake upstream: Strategy or Marketing submits the university proposal through Slack, while SEO adds the approved slug and search inputs.</p>
-        <p class="future-workflow-note">This future-state workflow is currently being developed and is not yet the live production process.</p>
+        <div class="future-workflow-status-row"><p class="section-kicker">Next Step</p><span class="future-workflow-status">In progress</span></div>
+        <h2 class="section-title">Move intake upstream to <span class="section-title-highlight">one approved source</span>.</h2>
+        <p class="section-copy">I am exploring a future intake workflow in which Strategy or Marketing submits the university proposal and SEO inputs through one request. That approved source could prepare the brochure, program page, and initial campaign assets while retaining the same human approval gates.</p>
+        <p class="future-workflow-note">This workflow is still in progress. The completed program-page system and its measured launch impact remain the primary outcome of this case study.</p>
 
         <div class="future-system" aria-label="Proposed automated programme-launch workflow">
           <div class="future-system-main">
@@ -6135,12 +6169,12 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
               <div class="future-output-list">
                 <article class="future-output">
                   <span class="future-output-index">01</span>
-                  <div><span class="future-output-label">Brochure</span><h4>Generate the programme brochure</h4><p>Structure the university proposal, programme brief, curriculum and proof into the approved brochure format.</p></div>
+                  <div><span class="future-output-label">Brochure</span><h4>Generate the programme brochure</h4><p>Structure the university proposal, programme brief, curriculum, and proof into the approved brochure format.</p></div>
                   <span class="future-output-status">Generated</span>
                 </article>
                 <article class="future-output">
                   <span class="future-output-index">02</span>
-                  <div><span class="future-output-label">Landing page</span><h4>Run storyblok-program-page</h4><p>Build the Storyblok page with the approved slug, content model, house style, metadata and pre-publish checks.</p></div>
+                  <div><span class="future-output-label">Landing page</span><h4>Run storyblok-program-page</h4><p>Build the Storyblok page with the approved slug, content model, house style, metadata, and pre-publish checks.</p></div>
                   <span class="future-output-status">Generated</span>
                 </article>
                 <article class="future-output">
@@ -6156,18 +6190,6 @@ approval: required</code><span class="skill-terminal-caret" aria-hidden="true"><
             <div><span class="future-approval-label">Human approval gate</span><p>Automation prepares the launch system; teams still approve what ships.</p></div>
             <div class="future-approval-steps" aria-label="Approval sequence"><span>Strategy</span><i>&rarr;</i><span>Marketing + SEO</span><i>&rarr;</i><span>Final approval</span><i>&rarr;</i><span>Publish</span></div>
           </div>
-        </div>
-      </section>
-
-      <section id="learnings" class="case-section reveal">
-        <p class="section-kicker">Key Decisions and Learnings</p>
-        <h2 class="section-title">What <span class="section-title-highlight">made the system work</span>.</h2>
-        <div class="learning-grid">
-          <div class="learning-grid-head" aria-hidden="true"><span>Key decision</span><span>Why it mattered</span></div>
-          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">01</span><span class="principle-tag">System</span></div><h3>Codify judgment, not only components.</h3><p>The durable asset is the workflow: format, style, edge cases, safety rails, and approval logic. The skill file turns that judgment into a handoff Marketing and SEO can operate.</p></article>
-          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">02</span><span class="principle-tag">Platform</span></div><h3>Design with Storyblok's constraints.</h3><p>URL-baked assets require safe reference swaps. Large content writes move through files and deep-diff verification, keeping releases controlled instead of fragile.</p></article>
-          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">03</span><span class="principle-tag">Governance</span></div><h3>Place human gates where judgment matters.</h3><p>Humans approve content, imagery, and voice. Automation handles factual checks and mechanical QA without slowing every production step.</p></article>
-          <article class="learning-principle"><div class="learning-principle-meta"><span class="learning-principle-index">04</span><span class="principle-tag">Outcome</span></div><h3>Optimize for operation and funnel movement.</h3><p>Publishing speed only matters when growth teams can run the system independently, test variants, and improve V2L and L2P.</p></article>
         </div>
       </section>
 
