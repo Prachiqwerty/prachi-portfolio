@@ -110,8 +110,8 @@
     }
 
     .site-cursor.is-footer {
-      --cursor-color: #f6f3f5;
-      --cursor-label-color: #151416;
+      --cursor-color: #100e11;
+      --cursor-label-color: #ffffff;
     }
 
     html.has-custom-cursor,
@@ -634,6 +634,12 @@
     .tool-logo.framer-logo {
       width: 29px;
       height: 29px;
+    }
+
+    .tool-logo.wispr-logo {
+      width: 31px;
+      height: 31px;
+      border-radius: 7px;
     }
 
     .tool-icon::after {
@@ -2275,98 +2281,149 @@
     }
 
     .footer {
-      padding: clamp(56px, 8vw, 84px) clamp(31px, 5vw, 64px) 34px;
-      background: #151416;
-      color: #f6f3f5;
+      --footer-inline: clamp(31px, 5vw, 64px);
+      padding: clamp(44px, 6vw, 64px) var(--footer-inline) 28px;
+      border-top: 1px solid var(--line);
+      background: var(--page);
+      color: var(--ink);
     }
 
-    .footer-top,
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 32px;
+    .footer-contact {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 36px clamp(36px, 7vw, 96px);
+      padding-bottom: clamp(36px, 5vw, 56px);
     }
 
-    .footer-top {
-      padding-bottom: 34px;
-      border-bottom: 1px solid rgba(246, 243, 245, 0.12);
+    .footer-intro {
+      display: grid;
+      gap: 26px;
     }
 
-    .footer-name {
-      font-family: var(--hero-display);
-      font-size: 20px;
-      font-weight: 700;
+    .footer-kicker {
+      margin: 0;
+      color: #74707a;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
       line-height: 1.2;
-      letter-spacing: -0.02em;
+    }
+
+    .footer-title {
+      max-width: 600px;
+      margin: 0;
+      color: #171318;
+      font-family: var(--hero-display);
+      font-size: clamp(2.15rem, 3.3vw, 3rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      white-space: nowrap;
+    }
+
+    .footer-title span {
+      display: block;
+      color: #aaa7b0;
     }
 
     .footer-links {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: 28px;
-      color: #c6c1c5;
+      align-self: start;
+      gap: clamp(22px, 3vw, 40px);
+      color: #171318;
       font-family: var(--hero-sans);
-      font-size: 15px;
+      font-size: clamp(0.95rem, 1.35vw, 1.15rem);
       font-weight: 500;
     }
 
     .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      white-space: nowrap;
       transition: color 160ms ease, transform 160ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .footer-links svg {
+      width: 21px;
+      height: 21px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
     }
 
     .footer-links a:hover,
     .footer-links a:focus-visible {
-      color: #ffffff;
+      color: var(--home-accent-ink);
       transform: translateY(-1px);
     }
 
-    .footer-bottom {
-      padding-top: 24px;
-      color: #8f8a8e;
-      font-family: var(--hero-sans);
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .footer-location {
-      display: inline-flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      text-align: right;
-    }
-
-    .footer-conditions {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #c6c1c5;
-      white-space: nowrap;
-    }
-
-    .footer-conditions[hidden] {
-      display: none;
-    }
-
-    .footer-conditions::before {
-      content: "·";
-      color: #625e61;
-      margin-inline-end: 2px;
-    }
-
-    .footer-conditions-separator {
-      color: #625e61;
-    }
-
-    .footer-location::before {
+    .footer-divider {
       content: "";
-      width: 6px;
-      height: 6px;
-      flex: 0 0 auto;
-      border-radius: 50%;
-      background: #f6f3f5;
+      display: block;
+      height: 18px;
+      margin-inline: calc(-1 * var(--footer-inline));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent 0,
+        transparent 9px,
+        #e8e5ea 9px,
+        #e8e5ea 10px
+      );
+    }
+
+    .footer-signoff {
+      display: flex;
+      min-height: 174px;
+      padding-top: 30px;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .footer-signature-image {
+      display: block;
+      width: min(238px, 48vw);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .footer-credit-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: #69738c;
+      font-family: var(--hero-sans);
+      font-size: clamp(0.9rem, 1.25vw, 1.05rem);
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+
+    .footer-credit-line p {
+      margin: 0;
+    }
+
+    .footer-credit-line strong {
+      color: #171318;
+      font-weight: 500;
+    }
+
+    .footer-credit-dot {
+      color: #d2cfd5;
+      font-size: 0.7em;
     }
 
     @media (max-width: 760px) {
@@ -2569,8 +2626,10 @@
       }
 
       .tool-stack {
-        gap: 20px;
-        padding: 30px 16px 32px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        padding: 30px 18px 32px;
       }
 
       .tool-stack h2 {
@@ -2578,32 +2637,39 @@
       }
 
       .tool-icons {
+        width: 100%;
+        justify-content: flex-start;
         padding-left: 0;
       }
 
       .tool-icon {
-        width: 48px;
-        height: 48px;
-        margin-left: -9px;
+        width: 44px;
+        height: 44px;
+        margin-left: -8px;
       }
 
       .tool-logo {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
       }
 
       .tool-logo.codex-logo {
+        width: 30px;
+        height: 30px;
+      }
+
+      .tool-logo.antigravity-logo {
         width: 32px;
         height: 32px;
       }
 
-      .tool-logo.antigravity-logo {
-        width: 34px;
-        height: 34px;
-      }
-
       .tool-logo.cursor-logo,
       .tool-logo.framer-logo {
+        width: 25px;
+        height: 25px;
+      }
+
+      .tool-logo.wispr-logo {
         width: 27px;
         height: 27px;
       }
@@ -2901,34 +2967,49 @@
       }
 
       .footer {
-        padding: 48px 24px 30px;
+        --footer-inline: 24px;
+        padding: 40px var(--footer-inline) 24px;
         text-align: left;
       }
 
-      .footer-top,
-      .footer-bottom {
-        align-items: flex-start;
-        flex-direction: column;
+      .footer-contact {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-bottom: 36px;
       }
 
-      .footer-top {
-        gap: 24px;
-        padding-bottom: 28px;
+      .footer-intro {
+        gap: 18px;
+      }
+
+      .footer-title {
+        font-size: clamp(1.6rem, 8vw, 2.35rem);
       }
 
       .footer-links {
         justify-content: flex-start;
-        gap: 24px;
+        gap: 18px 24px;
         flex-wrap: wrap;
       }
 
-      .footer-bottom {
-        gap: 12px;
-        padding-top: 20px;
+      .footer-signoff {
+        min-height: 158px;
+        padding-top: 26px;
+        gap: 16px;
       }
 
-      .footer-location {
-        text-align: left;
+      .footer-signature-image {
+        width: min(210px, 64vw);
+      }
+
+      .footer-credit-line {
+        flex-direction: column;
+        gap: 5px;
+        font-size: 0.9rem;
+      }
+
+      .footer-credit-dot {
+        display: none;
       }
 
     }
@@ -2938,7 +3019,6 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
-  <script defer src="assets/footer-conditions.js"></script>
 </head>
 <body>
   <main class="shell">
@@ -3070,6 +3150,15 @@
         </span>
         <span class="tool-icon" aria-label="Framer" tabindex="0">
           <img class="tool-logo framer-logo" src="https://cdn.simpleicons.org/framer/050505" alt="">
+        </span>
+        <span class="tool-icon" aria-label="pen.dev" tabindex="0">
+          <img class="tool-logo" src="assets/pen-dev.ico" alt="">
+        </span>
+        <span class="tool-icon" aria-label="Aside" tabindex="0">
+          <img class="tool-logo" src="assets/aside.ico" alt="">
+        </span>
+        <span class="tool-icon" aria-label="Wispr Flow" tabindex="0">
+          <img class="tool-logo wispr-logo" src="assets/wispr-flow.png" alt="">
         </span>
       </div>
     </section>
@@ -3927,21 +4016,37 @@
       </section>
     </section>
 
-    <footer class="footer" aria-label="Portfolio footer">
-      <div class="footer-top">
-        <p class="footer-name">Prachi Pandey</p>
+    <footer class="footer" id="contact" aria-label="Get in touch">
+      <div class="footer-contact">
+        <div class="footer-intro">
+          <p class="footer-kicker">GET IN TOUCH</p>
+          <h2 class="footer-title">Let&rsquo;s build something <span>thoughtful.</span></h2>
+        </div>
         <nav class="footer-links" aria-label="Contact links">
-          <a href="mailto:prachipande.506@gmail.com">Email ↗</a>
-          <a href="https://www.linkedin.com/in/prachi-pandey-506/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-          <a href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">Resume ↗</a>
+          <a href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.75h7.5L19 8.25v12H7z"></path><path d="M14.5 3.75v4.5H19M9.75 12h6.5M9.75 15.25h6.5"></path></svg>
+            <span>Resume</span>
+          </a>
+          <a href="mailto:prachipande.506@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>
+            <span>Mail</span>
+          </a>
+          <a href="https://www.linkedin.com/in/prachi-pandey-506/" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><path d="M8 10v6M8 7.75v.1M11.5 16v-3.4a2.6 2.6 0 0 1 5.2 0V16M11.5 10v6"></path></svg>
+            <span>LinkedIn</span>
+          </a>
         </nav>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 Prachi Pandey · Lead Product Designer</p>
-        <p class="footer-location">
-          <span>Bengaluru, India</span>
-          <span class="footer-conditions" data-footer-conditions hidden aria-live="polite"></span>
-        </p>
+      <div class="footer-divider" aria-hidden="true"></div>
+      <div class="footer-signoff" aria-label="Portfolio credits">
+        <img class="footer-signature-image" src="assets/prachi-pandey-signature.png" width="1981" height="793" alt="Prachi Pandey signature" loading="lazy" decoding="async">
+        <div class="footer-credit-line">
+          <p>Built with <strong>Codex + Claude</strong></p>
+          <span class="footer-credit-dot" aria-hidden="true">●</span>
+          <p>Made with <strong>a lot of coffee</strong></p>
+          <span class="footer-credit-dot" aria-hidden="true">●</span>
+          <p>© 2026 Prachi Pandey</p>
+        </div>
       </div>
     </footer>
   </main>
@@ -4233,7 +4338,7 @@
             }
           })
             .fromTo(
-              footer.querySelectorAll(".footer-top > *"),
+              footer.querySelectorAll(".footer-intro > *"),
               { autoAlpha: 0, y: 18 },
               {
                 autoAlpha: 1,
@@ -4244,7 +4349,7 @@
               }
             )
             .fromTo(
-              footer.querySelectorAll(".footer-bottom > *"),
+              footer.querySelectorAll(".footer-links > *"),
               { autoAlpha: 0, y: 12 },
               {
                 autoAlpha: 1,
@@ -4254,6 +4359,18 @@
                 clearProps: "opacity,visibility,transform"
               },
               "-=0.24"
+            )
+            .fromTo(
+              footer.querySelectorAll(".footer-signoff > *"),
+              { autoAlpha: 0, y: 14 },
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.46,
+                stagger: 0.08,
+                clearProps: "opacity,visibility,transform"
+              },
+              "-=0.18"
             )
         );
       }
