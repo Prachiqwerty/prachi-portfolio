@@ -3199,7 +3199,7 @@
 
       <a class="work-card" href="varsity-storyblok-case-study-editorial.html" aria-label="Open the Varsity Program-Page System case study">
         <div class="mockup case-image varsity-motion" aria-hidden="true">
-          <img class="varsity-preview-gif" src="assets/varsity-case-study-preview-august-2026.webp" width="1280" height="761" alt="" loading="lazy" decoding="async">
+          <video class="varsity-preview-gif work-preview-video" width="1440" height="856" muted loop playsinline preload="none" poster="assets/varsity-case-study-preview-poster.webp" data-src="assets/varsity-case-study-preview-1080p.mp4" aria-hidden="true" tabindex="-1"></video>
         </div>
         <div class="work-meta">
           <span class="project">Varsity Program-Page System</span>
@@ -3216,7 +3216,7 @@
 
       <a class="work-card" href="scaler-ai-lms-case-study-editorial.html" aria-label="Open the Scaler AI LMS case study">
         <div class="mockup scaler-lms">
-          <img class="scaler-lms-gif" src="assets/scaler-ai-lms-case-study-preview.gif" width="1664" height="1080" alt="" loading="lazy" decoding="async">
+          <video class="scaler-lms-gif work-preview-video" width="1440" height="934" muted loop playsinline preload="none" poster="assets/scaler-ai-lms-case-study-preview-poster.webp" data-src="assets/scaler-ai-lms-case-study-preview-1080p.mp4" aria-hidden="true" tabindex="-1"></video>
         </div>
         <div class="work-meta">
           <span class="project">Scaler AI LMS</span>
@@ -3688,10 +3688,10 @@
               <td colspan="2" class="case-figma-cell">
                 <figure class="case-figma-frame" aria-label="Varsity home page desktop and mobile Figma screens">
                   <div class="case-figma-stack">
-                    <img src="assets/figma-home-page-01.png" alt="Varsity home page desktop and mobile Figma screens, part 1">
-                    <img src="assets/figma-home-page-02.png" alt="Varsity home page desktop and mobile Figma screens, part 2">
-                    <img src="assets/figma-home-page-03.png" alt="Varsity home page desktop and mobile Figma screens, part 3">
-                    <img src="assets/figma-home-page-04.png" alt="Varsity home page desktop and mobile Figma screens, part 4">
+                    <img src="assets/figma-home-page-01-2800.webp" width="2800" height="2249" alt="Varsity home page desktop and mobile Figma screens, part 1" loading="lazy" decoding="async">
+                    <img src="assets/figma-home-page-02-2800.webp" width="2800" height="2249" alt="Varsity home page desktop and mobile Figma screens, part 2" loading="lazy" decoding="async">
+                    <img src="assets/figma-home-page-03-2800.webp" width="2800" height="2249" alt="Varsity home page desktop and mobile Figma screens, part 3" loading="lazy" decoding="async">
+                    <img src="assets/figma-home-page-04-2800.webp" width="2800" height="1140" alt="Varsity home page desktop and mobile Figma screens, part 4" loading="lazy" decoding="async">
                   </div>
                 </figure>
               </td>
@@ -3701,12 +3701,12 @@
               <td colspan="2" class="case-figma-cell">
                 <figure class="case-figma-frame" aria-label="Varsity program page desktop and mobile Figma screens">
                   <div class="case-figma-stack">
-                    <img src="assets/figma-program-page-01.png" alt="Varsity program page desktop and mobile Figma screens, part 1">
-                    <img src="assets/figma-program-page-02.png" alt="Varsity program page desktop and mobile Figma screens, part 2">
-                    <img src="assets/figma-program-page-03.png" alt="Varsity program page desktop and mobile Figma screens, part 3">
-                    <img src="assets/figma-program-page-04.png" alt="Varsity program page desktop and mobile Figma screens, part 4">
-                    <img src="assets/figma-program-page-05.png" alt="Varsity program page desktop and mobile Figma screens, part 5">
-                    <img src="assets/figma-program-page-06.png" alt="Varsity program page desktop and mobile Figma screens, part 6">
+                    <img src="assets/figma-program-page-01-2800.webp" width="2800" height="3194" alt="Varsity program page desktop and mobile Figma screens, part 1" loading="lazy" decoding="async">
+                    <img src="assets/figma-program-page-02-2800.webp" width="2800" height="3194" alt="Varsity program page desktop and mobile Figma screens, part 2" loading="lazy" decoding="async">
+                    <img src="assets/figma-program-page-03-2800.webp" width="2800" height="3194" alt="Varsity program page desktop and mobile Figma screens, part 3" loading="lazy" decoding="async">
+                    <img src="assets/figma-program-page-04-2800.webp" width="2800" height="3194" alt="Varsity program page desktop and mobile Figma screens, part 4" loading="lazy" decoding="async">
+                    <img src="assets/figma-program-page-05-2800.webp" width="2800" height="3194" alt="Varsity program page desktop and mobile Figma screens, part 5" loading="lazy" decoding="async">
+                    <img src="assets/figma-program-page-06-2800.webp" width="2800" height="1474" alt="Varsity program page desktop and mobile Figma screens, part 6" loading="lazy" decoding="async">
                   </div>
                 </figure>
               </td>
@@ -4584,6 +4584,36 @@
       });
     };
 
+    const installPreviewVideos = () => {
+      const previewVideos = Array.from(document.querySelectorAll("video.work-preview-video[data-src]"));
+      if (!previewVideos.length) return;
+
+      const loadPreview = (video) => {
+        if (!video.dataset.src) return;
+        video.src = video.dataset.src;
+        delete video.dataset.src;
+        video.load();
+        if (!reducedMotion.matches) {
+          video.play().catch(() => {});
+        }
+      };
+
+      if (!("IntersectionObserver" in window)) {
+        previewVideos.forEach(loadPreview);
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          loadPreview(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: "320px 0px" });
+
+      previewVideos.forEach((video) => observer.observe(video));
+    };
+
     const setPortfolioRoute = (shouldAnimate = true) => {
       const hashId = window.location.hash.slice(1);
       const hashTarget = hashId ? document.getElementById(hashId) : null;
@@ -4626,17 +4656,30 @@
       }
     };
 
-    window.addEventListener("hashchange", () => setPortfolioRoute(true));
-    window.addEventListener("load", () => {
+    const initializePortfolio = () => {
       installHeroSystemGrid();
       installCustomCursor();
       installHoverMotion();
-      setPortfolioRoute(true);
-      if (!document.body.classList.contains("case-open")) {
+      installPreviewVideos();
+
+      const activeCase = getActiveCase();
+      if (activeCase) {
+        revealCaseStudy(activeCase);
+      } else {
         revealLanding();
       }
-    });
+
+      window.ScrollTrigger?.refresh();
+    };
+
+    window.addEventListener("hashchange", () => setPortfolioRoute(true));
     setPortfolioRoute(false);
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializePortfolio, { once: true });
+    } else {
+      initializePortfolio();
+    }
   </script>
 </body>
 </html>
