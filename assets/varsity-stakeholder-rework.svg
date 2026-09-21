@@ -1,0 +1,114 @@
+<svg width="1440" height="880" viewBox="0 0 1440 880" xmlns="http://www.w3.org/2000/svg" role="img">
+  <style>
+    .f { font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .eyebrow { font-size: 19px; font-weight: 700; letter-spacing: 2.4px; }
+    .colhead { font-size: 31px; font-weight: 650; fill: #242424; letter-spacing: -0.5px; }
+    .node { font-size: 23px; font-weight: 600; fill: #242424; letter-spacing: -0.2px; }
+    .nodesub { font-size: 18px; font-weight: 400; fill: #8a8a8a; }
+    .loop { font-size: 18px; font-weight: 600; fill: #df4b13; letter-spacing: 0.6px; }
+    .statnum { font-size: 44px; font-weight: 700; letter-spacing: -1.3px; }
+    .statlbl { font-size: 20px; font-weight: 400; fill: #747474; }
+    .box { fill: #ffffff; stroke: #dedede; stroke-width: 1.5; }
+    .boxkey { fill: #fff1e9; stroke: #df4b13; stroke-width: 1.5; }
+  </style>
+
+  <g class="f">
+    <!-- divider -->
+    <line x1="720" y1="40" x2="720" y2="800" stroke="#e8e8e8" stroke-width="1.5"/>
+
+    <!-- ============ BEFORE ============ -->
+    <text class="eyebrow" x="140" y="52" fill="#8a8a8a">BEFORE</text>
+    <text class="colhead" x="140" y="100">Every page was a new project</text>
+
+    <g>
+      <rect class="box" x="140" y="146" width="452" height="72" rx="9"/>
+      <text class="node" x="168" y="190">Program brief</text>
+    </g>
+    <path d="M366 218 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M359 241 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="box" x="140" y="252" width="452" height="72" rx="9"/>
+      <text class="node" x="168" y="296">Design</text>
+    </g>
+    <path d="M366 324 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M359 347 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="box" x="140" y="358" width="452" height="72" rx="9"/>
+      <text class="node" x="168" y="402">Engineering</text>
+    </g>
+    <path d="M366 430 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M359 453 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="box" x="140" y="464" width="452" height="72" rx="9"/>
+      <text class="node" x="168" y="508">Hand-built program page</text>
+    </g>
+    <path d="M366 536 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M359 559 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="box" x="140" y="570" width="452" height="72" rx="9"/>
+      <text class="node" x="168" y="614">Review and changes</text>
+    </g>
+
+    <!-- rework loop back to Design -->
+    <path d="M140 606 H 96 Q 78 606 78 588 V 306 Q 78 288 96 288 H 132"
+          fill="none" stroke="#df4b13" stroke-width="2" stroke-dasharray="7 6"/>
+    <path d="M124 281 l10 7 -10 7" fill="none" stroke="#df4b13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="loop" x="62" y="447" text-anchor="middle" transform="rotate(-90 62 447)">REWORK</text>
+
+    <line x1="140" y1="694" x2="592" y2="694" stroke="#dedede" stroke-width="1.5"/>
+    <text class="statnum" x="140" y="756" fill="#242424">3 to 4 days</text>
+    <text class="statlbl" x="140" y="792">per page, and every change</text>
+    <text class="statlbl" x="140" y="820">restarts the chain</text>
+
+    <!-- ============ AFTER ============ -->
+    <text class="eyebrow" x="848" y="52" fill="#df4b13">AFTER</text>
+    <text class="colhead" x="848" y="100">One governed launch system</text>
+
+    <g>
+      <rect class="box" x="848" y="146" width="452" height="72" rx="9"/>
+      <text class="node" x="876" y="190">Approved program brief</text>
+    </g>
+    <path d="M1074 218 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M1067 241 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="boxkey" x="848" y="252" width="452" height="88" rx="9"/>
+      <text class="node" x="876" y="290">Storyblok component system</text>
+      <text class="nodesub" x="876" y="318">Fixed page order · Reusable blocks · Guardrails</text>
+    </g>
+    <path d="M1074 340 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M1067 363 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="box" x="848" y="374" width="452" height="72" rx="9"/>
+      <text class="node" x="876" y="418">Marketing and SEO publish</text>
+    </g>
+    <path d="M1074 446 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M1067 469 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="box" x="848" y="480" width="452" height="72" rx="9"/>
+      <text class="node" x="876" y="524">Repeatable pre-launch checks</text>
+    </g>
+    <path d="M1074 552 v30" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M1067 575 l7 9 7 -9" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g>
+      <rect class="box" x="848" y="586" width="452" height="72" rx="9"/>
+      <text class="node" x="876" y="630">Live program page</text>
+    </g>
+
+    <!-- maintenance lane -->
+    <path d="M1320 252 H 1344 V 658 H 1320" fill="none" stroke="#c9c9c9" stroke-width="1.5"/>
+    <text class="loop" x="1384" y="455" text-anchor="middle" fill="#8a8a8a" transform="rotate(-90 1384 455)">DESIGN + ENGINEERING MAINTAIN</text>
+
+    <line x1="848" y1="694" x2="1300" y2="694" stroke="#dedede" stroke-width="1.5"/>
+    <text class="statnum" x="848" y="756" fill="#df4b13">3 to 4 hours</text>
+    <text class="statlbl" x="848" y="792">including approvals, with no new</text>
+    <text class="statlbl" x="848" y="820">design and engineering cycle</text>
+  </g>
+</svg>
