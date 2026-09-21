@@ -1,0 +1,83 @@
+<svg width="1440" height="680" viewBox="0 0 1440 680" xmlns="http://www.w3.org/2000/svg" role="img">
+  <style>
+    .f { font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .eyebrow { font-size: 19px; font-weight: 700; letter-spacing: 2.4px; fill: #8a8a8a; }
+    .h { font-size: 36px; font-weight: 650; fill: #242424; letter-spacing: -0.6px; }
+    .row { font-size: 23px; font-weight: 500; fill: #3d3d3d; }
+    .gate { font-size: 27px; font-weight: 650; fill: #242424; letter-spacing: -0.3px; }
+    .gatesub { font-size: 19px; font-weight: 400; fill: #8a8a8a; }
+    .foot { font-size: 24px; font-weight: 600; fill: #242424; }
+  </style>
+
+  <g class="f">
+    <text class="eyebrow" x="66" y="52">WORK THAT DID NOT</text>
+    <text class="h" x="66" y="108">Work that could be repeated safely</text>
+
+    <!-- input rows -->
+    <g>
+      <line x1="66" y1="176" x2="520" y2="176" stroke="#dedede" stroke-width="1.5"/>
+      <circle cx="78" cy="206" r="4" fill="#9a9a9a"/>
+      <text class="row" x="102" y="214">Page structure</text>
+      <line x1="66" y1="236" x2="520" y2="236" stroke="#ececec" stroke-width="1.5"/>
+      <circle cx="78" cy="266" r="4" fill="#9a9a9a"/>
+      <text class="row" x="102" y="274">Component layout</text>
+      <line x1="66" y1="296" x2="520" y2="296" stroke="#ececec" stroke-width="1.5"/>
+      <circle cx="78" cy="326" r="4" fill="#9a9a9a"/>
+      <text class="row" x="102" y="334">Image rules</text>
+      <line x1="66" y1="356" x2="520" y2="356" stroke="#ececec" stroke-width="1.5"/>
+      <circle cx="78" cy="386" r="4" fill="#9a9a9a"/>
+      <text class="row" x="102" y="394">Metadata checks</text>
+      <line x1="66" y1="416" x2="520" y2="416" stroke="#ececec" stroke-width="1.5"/>
+      <circle cx="78" cy="446" r="4" fill="#9a9a9a"/>
+      <text class="row" x="102" y="454">CTA and form checks</text>
+      <line x1="66" y1="476" x2="520" y2="476" stroke="#ececec" stroke-width="1.5"/>
+      <circle cx="78" cy="506" r="4" fill="#9a9a9a"/>
+      <text class="row" x="102" y="514">Live-page verification</text>
+      <line x1="66" y1="536" x2="520" y2="536" stroke="#dedede" stroke-width="1.5"/>
+    </g>
+
+    <!-- converging lines -->
+    <g fill="none" stroke="#d6d6d6" stroke-width="1.5">
+      <path d="M520 206 C 600 206, 620 290, 700 356"/>
+      <path d="M520 266 C 600 266, 630 310, 700 356"/>
+      <path d="M520 326 C 600 326, 640 340, 700 356"/>
+      <path d="M520 386 C 600 386, 640 372, 700 356"/>
+      <path d="M520 446 C 600 446, 630 400, 700 356"/>
+      <path d="M520 506 C 600 506, 620 420, 700 356"/>
+    </g>
+
+    <!-- engine -->
+    <rect x="700" y="298" width="330" height="116" rx="10" fill="#ffffff" stroke="#242424" stroke-width="1.5"/>
+    <text class="gate" x="730" y="346">Repeatable checks</text>
+    <text class="gatesub" x="730" y="378">Same rules, run every launch</text>
+
+    <path d="M1030 356 H 1090" stroke="#c9c9c9" stroke-width="2"/>
+    <path d="M1083 349 l9 7 -9 7" fill="none" stroke="#c9c9c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- three identical output pages -->
+    <g fill="#ffffff" stroke="#dedede" stroke-width="1.5">
+      <rect x="1104" y="268" width="84" height="176" rx="7"/>
+      <rect x="1200" y="268" width="84" height="176" rx="7"/>
+      <rect x="1296" y="268" width="84" height="176" rx="7"/>
+    </g>
+    <g fill="#e3e3e3">
+      <rect x="1116" y="284" width="60" height="9" rx="4.5"/><rect x="1116" y="302" width="42" height="7" rx="3.5"/>
+      <rect x="1212" y="284" width="60" height="9" rx="4.5"/><rect x="1212" y="302" width="42" height="7" rx="3.5"/>
+      <rect x="1308" y="284" width="60" height="9" rx="4.5"/><rect x="1308" y="302" width="42" height="7" rx="3.5"/>
+    </g>
+    <g fill="#f1f1f1">
+      <rect x="1116" y="322" width="60" height="44" rx="5"/>
+      <rect x="1212" y="322" width="60" height="44" rx="5"/>
+      <rect x="1308" y="322" width="60" height="44" rx="5"/>
+    </g>
+    <g fill="#df4b13">
+      <rect x="1116" y="378" width="60" height="12" rx="6"/>
+      <rect x="1212" y="378" width="60" height="12" rx="6"/>
+      <rect x="1308" y="378" width="60" height="12" rx="6"/>
+    </g>
+    <text class="gatesub" x="1104" y="478">Consistent program pages</text>
+
+    <line x1="66" y1="600" x2="1374" y2="600" stroke="#dedede" stroke-width="1.5"/>
+    <text class="foot" x="66" y="648">Launch quality should not depend on memory.</text>
+  </g>
+</svg>
