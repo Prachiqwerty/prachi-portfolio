@@ -3966,6 +3966,17 @@
     .landing-view .work-card h2 {
       font-weight: 600;
     }
+
+    /* No grey bands: every full-width background uses the page colour
+       (#fdfdfc, same as the hero) instead of #f9f9f9 / #fbfbfb. */
+    .landing-view .stack-strip,
+    .landing-view .stack-ticker,
+    .landing-view .work::before,
+    .landing-view .initiatives::before,
+    .landing-view .experience::before,
+    .shell > .footer::before {
+      background: var(--page);
+    }
   </style>
   <!-- Vercel Web Analytics -->
   <script>
