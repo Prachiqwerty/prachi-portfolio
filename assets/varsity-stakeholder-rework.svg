@@ -60,7 +60,7 @@
     <text class="loop" x="62" y="447" text-anchor="middle" transform="rotate(-90 62 447)">REWORK</text>
 
     <line x1="140" y1="694" x2="592" y2="694" stroke="#dedede" stroke-width="1.5"/>
-    <text class="statnum" x="140" y="756" fill="#242424">3 to 4 days</text>
+    <text class="statnum" x="140" y="756" fill="#242424">10 to 12 days</text>
     <text class="statlbl" x="140" y="792">per page, and every change</text>
     <text class="statlbl" x="140" y="820">restarts the chain</text>
 

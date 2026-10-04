@@ -73,7 +73,7 @@
 
     <!-- bottom stats -->
     <line x1="66" y1="492" x2="1374" y2="492" stroke="#dedede" stroke-width="1.5"/>
-    <text class="statnum" x="66" y="558">3 to 4 days</text>
+    <text class="statnum" x="66" y="558">10 to 12 days</text>
     <text class="statlbl" x="66" y="594">per launch, including approvals</text>
     <text class="statnum" x="760" y="558">6 programs</text>
     <text class="statlbl" x="760" y="594">the same five jobs, every time</text>
