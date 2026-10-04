@@ -3977,6 +3977,16 @@
     .shell > .footer::before {
       background: var(--page);
     }
+
+    /* Varsity automation thumbnail: full 16:9 frame, no crop, no tint */
+    .initiative-shot.is-thumbnail {
+      aspect-ratio: 16 / 9;
+      background: #1d1c1d;
+    }
+    .initiative-shot.is-thumbnail img {
+      object-fit: cover;
+      object-position: center;
+    }
   </style>
   <!-- Vercel Web Analytics -->
   <script>
@@ -4286,8 +4296,8 @@
       </article>
 
       <article class="initiative-card">
-        <figure class="initiative-shot">
-          <img src="assets/varsity-page-automation-preview.webp" width="1816" height="1545" loading="lazy" decoding="async" alt="The automation's Slack reply for the IIM Trichy programme: a link to the Storyblok draft it created, the facts it took from the brochure, and the EMI details it flagged as missing.">
+        <figure class="initiative-shot is-thumbnail">
+          <img src="assets/varsity-automation-thumbnail.webp" width="2400" height="1350" loading="lazy" decoding="async" alt="Varsity page automation in Slack: the New Varsity page form on the left, and the automation's thread on the right confirming the request, then posting the content doc for review.">
         </figure>
         <div class="initiative-detail">
           <div class="initiative-meta">
