@@ -1,768 +1,998 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="CARS24 Warranty Bulk Selling case study by Prachi Pandey: reframing warranty as dealer inventory that can be purchased in bulk and activated when needed.">
-  <title>CARS24 Warranty Bulk Selling: From one-car checkout to dealer inventory</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CARS24 warranty selling: from one-car transactions to dealer inventory | Prachi Pandey</title>
+  <meta name="description" content="How Prachi Pandey redesigned CARS24 warranty selling around dealer-owned inventory, replacing a repeated 14-step workflow and supporting 500+ monthly warranty sales.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Geist:wght@400;450;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Caveat:wght@500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* Homepage case-study system, with CARS24 blue as the project accent */
     :root {
       --page: #fdfdfc;
-      --ink: #282438;
-      --text: #54545c;
-      --muted: #9699a2;
-      --line: #e9e8e5;
-      --accent: #0055ff;
-      --accent-dark: #011845;
-      --soft: #eef4ff;
-      --soft-2: #f7f9ff;
-      --panel: #ffffff;
-      --sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --serif: "Cormorant Garamond", Georgia, serif;
+      --ink: #2a2438;
+      --ink-strong: #1d1828;
+      --text: #5e5865;
+      --muted: #706c72;
+      --quiet: #9da1aa;
+      --line: #ece9ee;
+      --rule: #ededed;
+      --chip-line: #e4dde6;
+      --panel: #fcf8fa;
+      --accent: #e31c79;
+      --accent-ink: #b01060;
+      --accent-name: #c8146a;
+      --accent-soft: #fdeff6;
+      --blue-soft: #fbe3ee;
+      --green: #0e7a00;
+      --green-soft: #eef7ea;
+      --lavender: #f8d6e6;
+      --black: #1a1620;
+      --display: "Bricolage Grotesque", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+      --sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+      --ui: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono: "Geist Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --hand: "Caveat", "Segoe Print", cursive;
+      --shell: 1112px;
+      --nav-col: 196px;
+      --gutter: 48px;
+      --radius: 14px;
+      --body-size: 1.0625rem;
     }
-
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--page);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-kerning: normal;
-    }
+    [id] { scroll-margin-top: 84px; }
+    body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+    img, video { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
-    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-    img { display: block; max-width: 100%; }
-    p, h1, h2, h3, h4 { margin: 0; }
+    button { font: inherit; }
+    strong { font-weight: 600; color: var(--ink); }
 
-    .reading-progress {
-      position: fixed;
-      z-index: 20;
-      inset: 0 auto auto 0;
-      width: 100%;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left center;
-      pointer-events: none;
+    /* Shell with vertical rails, as on the homepage */
+    .shell { width: min(100%, var(--shell)); margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); background: var(--page); }
+    .bleed-line { position: relative; }
+    .bleed-line::after { content: ""; position: absolute; left: calc(50% - 50vw); right: calc(50% - 50vw); bottom: 0; border-bottom: 1px solid var(--rule); pointer-events: none; }
+
+    /* Homepage nav */
+    .nav { position: sticky; top: 0; z-index: 50; height: 52px; background: var(--page); border-bottom: 1px solid var(--rule); }
+    .nav__inner { width: min(100%, var(--shell)); height: 100%; margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+    .brand { justify-self: start; color: var(--accent-ink); font-family: var(--mono); font-size: 14px; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 22px; font-family: var(--ui); font-size: 14px; color: var(--muted); }
+    .nav-links a:hover, .nav-social a:hover { color: var(--ink); }
+    .nav-links .slash { color: var(--quiet); }
+    .nav-links .is-current { color: var(--ink); }
+    .nav-social { justify-self: end; display: flex; align-items: center; gap: 28px; font-family: var(--ui); font-size: 14px; color: var(--muted); }
+    .nav-social .linkedin-link { display: inline-flex; align-items: center; gap: 8px; }
+    .linkedin-icon { width: 18px; height: 18px; color: #0a66c2; }
+
+    /* Hero */
+    .hero { position: relative; padding: 64px var(--gutter) 64px; text-align: left; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 505px; background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 101px 101px; background-position: -1px -1px; -webkit-mask-image: linear-gradient(90deg, #000 0 20%, transparent 34% 66%, #000 80% 100%), linear-gradient(#000, #000); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, #000 0 20%, transparent 34% 66%, #000 80% 100%); pointer-events: none; }
+    .hero::after { content: ""; position: absolute; top: 505px; left: 0; right: 0; border-top: 1px solid var(--rule); pointer-events: none; opacity: 0; }
+    .hero__sq { position: absolute; width: 12px; height: 12px; background: rgba(227, 28, 121, .28); pointer-events: none; }
+    .hero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; }
+    .hero__pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border: 1px solid var(--chip-line); border-radius: 999px; background: rgba(255, 255, 255, .82); color: var(--ink); font-size: 14px; font-weight: 600; letter-spacing: -.01em; line-height: 1; }
+    .hero__pill i { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); }
+    .hero h1 { max-width: 20em; margin: 28px 0 0; color: var(--ink); font-family: var(--display); font-size: clamp(2rem, 3.4vw, 2.75rem); font-weight: 750; line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
+    .hero h1 em { font-style: normal; color: var(--accent-name); }
+    .hero__meta { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 10px 28px; margin: 26px 0 0; padding: 0; list-style: none; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: rgba(38, 38, 38, .48); }
+    .hero__meta b { font-weight: 400; color: var(--accent); }
+    .hero__frame { position: relative; width: 100%; margin: 52px 0 0; }
+    .hero__crop { position: relative; aspect-ratio: 2400 / 1350; overflow: hidden; border-radius: var(--radius); background: var(--accent-soft); }
+    .hero__crop img, .hero__crop video { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* Layout: nav rail + article column inside the shell */
+    .case-layout { display: grid; grid-template-columns: var(--nav-col) minmax(0, 1fr); align-items: stretch; }
+    .section-rail { border-right: 1px solid var(--line); }
+    .section-nav { position: sticky; top: 52px; display: grid; gap: 40px; padding: 40px 24px 40px 28px; }
+    .section-nav__back { display: inline-flex; align-items: center; gap: 8px; width: fit-content; height: 38px; padding: 0 14px; border: 1px solid var(--rule); border-radius: 10px; background: #fff; color: rgba(38, 38, 38, .64); font-family: var(--ui); font-size: 14px; font-weight: 500; transition: color .15s, border-color .15s; }
+    .section-nav__back:hover { color: var(--ink); border-color: var(--chip-line); }
+    .section-nav__back svg { width: 15px; height: 15px; }
+    .section-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .section-nav li a { position: relative; display: flex; align-items: baseline; gap: 12px; padding: 8px 0; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; line-height: 16px; color: rgba(38, 38, 38, .42); transition: color .15s; }
+    .section-nav li a i { font-style: normal; color: rgba(38, 38, 38, .24); }
+    .section-nav li a:hover { color: rgba(38, 38, 38, .72); }
+    .section-nav li a.is-active { color: var(--ink); }
+    .section-nav li a.is-active i { color: var(--accent); }
+    .section-nav li a.is-active::before { content: ""; position: absolute; top: 8px; left: -29px; width: 2px; height: 16px; background: var(--accent); }
+
+    .case-article { min-width: 0; padding: 0 var(--gutter) 96px; }
+
+    /* Band counter, homepage pattern */
+    .band { position: relative; display: flex; align-items: center; gap: 32px; margin: 0 calc(-1 * var(--gutter)) 56px; padding: 22px var(--gutter); border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 12px; line-height: 16px; }
+    .chapter > .band:first-child, section > .band:first-child, div[data-section] > .band:first-child { margin-top: 0; }
+    .band:not(:first-child), [data-section]:not(:first-child) > .band { border-top: 1px solid var(--rule); }
+    .band-tick { position: absolute; left: -1px; top: 50%; width: 2px; height: 16px; background: var(--accent); transform: translateY(-50%); }
+    .band-code { color: rgba(38, 38, 38, .24); letter-spacing: .02em; }
+    .band-code b { font-weight: 400; color: var(--accent); }
+    .band-name { color: rgba(38, 38, 38, .48); letter-spacing: .06em; text-transform: uppercase; }
+
+    /* Shared type */
+    .h2 { margin: 0; color: var(--ink); font-family: var(--display); font-size: clamp(1.75rem, 2.7vw, 2.125rem); font-weight: 750; line-height: 1.06; letter-spacing: -.025em; text-wrap: balance; }
+    .lead-p, .body-p { max-width: 44rem; margin: 20px 0 0; color: var(--text); font-size: var(--body-size); line-height: 1.65; }
+    .body-p + .body-p { margin-top: 16px; }
+    .h3 { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.25; }
+    .abbr { text-decoration: underline dotted rgba(42, 36, 56, .45); text-underline-offset: .22em; cursor: help; }
+    .chapter { margin: 0 0 104px; }
+    .eyebrow { margin: 0 0 10px; color: var(--accent-ink); font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .08em; line-height: 1.3; text-transform: uppercase; }
+
+    /* Overview */
+    .overview { padding-top: 0; }
+    .overview__intro { display: grid; gap: 30px; }
+    .overview p { max-width: 44rem; margin: 10px 0 0; color: var(--text); font-size: var(--body-size); line-height: 1.65; }
+    .overview__details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; margin-top: 44px; padding-top: 36px; border-top: 1px solid var(--line); }
+    .overview__role { white-space: pre-line; }
+    .team { display: grid; gap: 12px; margin-top: 14px; }
+    .team__member { display: flex; align-items: flex-start; gap: 10px; color: var(--ink); font-size: 1rem; line-height: 1.4; }
+    .team__member b { font-weight: 600; }
+    .team__member small { color: var(--muted); font-size: 1rem; }
+    .team__avatar { flex: none; display: grid; place-items: center; width: 26px; height: 22px; margin-top: 0; border: 1px solid rgba(227, 28, 121, .22); border-radius: 6px; background: var(--accent-soft); color: var(--accent-ink); font-family: var(--mono); font-size: 9.5px; letter-spacing: .02em; }
+    .team__member:nth-child(2) .team__avatar { border-color: rgba(176, 16, 96, .16); background: var(--blue-soft); color: var(--accent-ink); }
+    .team__member:nth-child(3) .team__avatar { border-color: rgba(42, 36, 56, .14); background: #f2eef3; color: var(--ink); }
+    .outcomes { margin-top: 48px; }
+    .outcome-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .outcome { padding: 22px 22px 24px 0; }
+    .outcome + .outcome { padding-left: 22px; border-left: 1px solid var(--line); }
+    .outcome__value { margin: 0 !important; color: var(--ink) !important; font-family: var(--display); font-size: 1.625rem !important; font-weight: 700; letter-spacing: -.025em; line-height: 1.1 !important; }
+    .outcome:first-child .outcome__value { color: var(--accent-name) !important; }
+    .outcome__label { margin: 8px 0 0 !important; color: var(--muted) !important; font-size: .9375rem !important; line-height: 1.5 !important; }
+
+    /* Context story */
+    .users { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 44px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+    .user { padding: 36px 28px 32px; text-align: center; }
+    .user + .user { border-left: 1px solid var(--line); }
+    .user__icon { display: grid; place-items: center; width: 108px; height: 108px; margin-inline: auto; border: 1px solid rgba(227, 28, 121, .18); border-radius: 999px; background: var(--accent-soft); }
+    .user:nth-child(2) .user__icon { border-color: rgba(176, 16, 96, .14); background: var(--blue-soft); }
+    .user__icon svg { width: 56px; height: 56px; }
+    .user__icon svg [stroke] , .user__icon svg { stroke: var(--ink); }
+    .user__name { margin: 18px 0 0; color: var(--ink); font-family: var(--display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+    .user__desc { max-width: 28ch; margin: 6px auto 0; color: var(--muted); font-size: .9375rem; line-height: 1.55; }
+    .problems { margin-top: 56px; }
+    .problems__lead { margin: 0 0 22px; color: var(--ink); font-family: var(--display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+    .problem { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 20px; padding: 16px 0; border-top: 1px solid var(--line); }
+    .problem + .problem { margin-top: 0; }
+    .problem p { margin: 0; color: var(--text); font-size: var(--body-size); line-height: 1.6; }
+    .problem .problem__name { margin: 0; color: var(--ink); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; line-height: 1.9; }
+    .bordered-figure { margin: 24px 0 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; }
+    .bordered-figure img { width: 100%; height: auto; }
+    .cost-lead { max-width: 44rem; margin: 56px 0 0; color: var(--text); font-size: var(--body-size); line-height: 1.65; }
+
+    /* Time comparison */
+    .pull { margin: 64px 0 0; padding: 2px 0 2px 22px; border-left: 2px solid var(--accent); color: var(--ink); font-family: var(--display); font-size: 1.375rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.35; }
+
+    /* Launch timeline: one page, start to live, on one time scale */
+    .span { margin: 32px 0 0; }
+    .span__frame { padding: 28px 32px 30px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+    .span__grid { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); column-gap: 28px; }
+    .span__axis { grid-column: 2; display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 14px; color: var(--quiet); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .span__axis span { padding-left: 8px; border-left: 1px solid var(--line); }
+    .span__row { display: contents; }
+    .span__who { padding: 22px 0; border-top: 1px solid var(--line); }
+    .span__who small { display: block; color: var(--muted); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .span__who strong { display: block; margin-top: 6px; color: var(--ink); font-family: var(--display); font-size: 1.625rem; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+    .span__row--after .span__who small { color: var(--accent-ink); }
+    .span__row--after .span__who strong { color: var(--accent-name); }
+    .span__lane { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 10px; min-height: 104px; padding: 22px 0; border-top: 1px solid var(--line); background-image: linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 25% 100%; }
+    .span__track { display: flex; gap: 3px; width: 91.7%; height: 40px; }
+    .span__seg { display: flex; align-items: center; flex: 1; min-width: 0; padding: 0 10px; border-radius: 6px; background: #f1edf2; color: var(--ink); font-size: .75rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .span__seg--loop { background: repeating-linear-gradient(135deg, #f1edf2 0 6px, #e6e0e8 6px 12px); }
+    .span__loop { display: flex; align-items: center; gap: 6px; width: max-content; max-width: 91.7%; margin-left: auto; margin-right: 8.3%; padding: 2px 6px; background: #fff; justify-content: flex-end; color: var(--muted); font-size: .75rem; line-height: 1.3; }
+    .span__loop svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .span__fast { display: flex; gap: 3px; width: 91.7%; height: 40px; }
+    .span__bar { flex: none; width: 4.5%; min-width: 30px; border-radius: 6px; background: var(--accent); box-shadow: 0 10px 22px -14px rgba(227, 28, 121, .9); }
+    .span__live { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid rgba(227, 28, 121, .28); border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+    .span__live i { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); }
+    .span__free { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; padding: 0 10px; border: 1px dashed rgba(227, 28, 121, .45); border-radius: 6px; background: rgba(253, 239, 246, .92); color: var(--accent-ink); font-size: .75rem; font-weight: 500; white-space: nowrap; overflow: hidden; }
+    .span__loop--after { color: var(--muted); }
+    /* Admissions and payment states */
+    .shot__frame.states { display: grid; gap: 40px; max-height: min(82vh, 820px); padding: 24px; }
+    .state__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0 0 12px; }
+    .state__num { color: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; }
+    .state__head h4 { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.0625rem; font-weight: 600; letter-spacing: -.01em; }
+    .state__head p { flex-basis: 100%; margin: 0; padding-left: 30px; color: var(--muted); font-size: .9375rem; line-height: 1.5; }
+    .state__screens { display: grid; grid-template-columns: minmax(0, 3.46fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+    .state__shot { display: block; padding: 0; border: 0; border-radius: 8px; background: #fff; cursor: zoom-in; overflow: hidden; box-shadow: 0 0 0 1px rgba(42, 36, 56, .08), 0 14px 30px -20px rgba(42, 36, 56, .35); }
+    .state__shot img { display: block; width: 100%; height: auto; }
+    .state__shot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    /* Shipped screens (vertical stack) */
+    .shots--principles { margin-top: 48px; }
+    .shots--principles .shots__lead { margin: 0; }
+    .shots--states { margin-top: 48px; }
+    .shots--single { margin-top: 32px; }
+    .shots--single .shot { margin-top: 0; }
+    .shots--states .shot__frame { padding: 28px; }
+    .shots { margin-top: 64px; }
+    .shots__lead { margin: 8px 0 0; max-width: 38rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+    .shot { margin: 40px 0 0; }
+    .shot__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin: 0 0 14px; }
+    .shot__num { display: block; margin: 0 0 6px; color: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; }
+    .shot__head h4 { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.125rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+    .shot__head p { margin: 4px 0 0; color: var(--muted); font-size: .9375rem; line-height: 1.55; }
+    .shot__expand { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid rgba(227, 28, 121, .28); border-radius: 999px; background: #fff; color: var(--accent-ink); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; cursor: zoom-in; transition: background .15s, color .15s; }
+    .shot__expand:hover, .shot__expand:focus-visible { background: var(--accent-ink); border-color: var(--accent-ink); color: #fff; }
+    .shot__expand svg { width: 13px; height: 13px; }
+    .shot__frame { position: relative; max-height: min(78vh, 760px); overflow-y: auto; padding: 18px; border: 1px solid rgba(227, 28, 121, .18); border-radius: var(--radius); background: var(--accent-soft); scrollbar-width: thin; scrollbar-color: rgba(176, 16, 96, .35) transparent; }
+    .shot__frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .shot__frame img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(42, 36, 56, .06), 0 14px 30px -20px rgba(42, 36, 56, .35); }
+    .shot__hint { display: none; position: sticky; bottom: 0; z-index: 1; width: max-content; margin: -44px auto 0; padding: 6px 12px; border-radius: 999px; background: rgba(26, 22, 32, .82); color: #fff; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; pointer-events: none; transition: opacity .2s; }
+    .shot__frame.is-scrollable .shot__hint { display: block; }
+    .shot__frame.is-scrolled .shot__hint { opacity: 0; }
+    .round-btn { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid var(--rule); border-radius: 999px; background: #fff; color: var(--ink); cursor: pointer; transition: background .15s, color .15s, opacity .15s; }
+    .round-btn:hover:not(:disabled) { background: var(--black); border-color: var(--black); color: #fff; }
+    .round-btn:disabled { opacity: .35; cursor: default; }
+    .round-btn svg { width: 16px; height: 16px; }
+
+    /* Media */
+    .feature { margin: 28px 0 72px; }
+    .feature__frame { position: relative; display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; overflow: hidden; cursor: zoom-in; }
+    .feature__frame img, .feature__frame video { width: 100%; height: auto; }
+    .feature__frame--copper { padding: 22px 22px 0; border-color: rgba(227, 28, 121, .18); background: var(--accent-soft); }
+    .feature__frame--copper img { border-radius: 8px 8px 0 0; box-shadow: 0 0 0 1px rgba(42, 36, 56, .06), 0 18px 40px -24px rgba(42, 36, 56, .35); }
+    .feature__frame--plain { border-color: rgba(227, 28, 121, .18); background: var(--accent-soft); }
+    .feature__frame--crop img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+    .feature__scroll { display: block; height: 34rem; overflow-y: auto; padding: 22px; border: 1px solid rgba(227, 28, 121, .18); border-radius: var(--radius); background: var(--accent-soft); overscroll-behavior: contain; }
+    .feature__scroll img { width: 100%; height: auto; border-radius: 8px; background: #fff; }
+    .feature__hint { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; background: var(--black); color: #fff; opacity: 0; transform: scale(.92); transition: opacity .15s, transform .15s; }
+    .feature__frame:hover .feature__hint, .feature__frame:focus-visible .feature__hint { opacity: 1; transform: scale(1); }
+    .feature__hint svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    figcaption.caption, .caption { margin-top: 12px; color: var(--quiet); font-size: .875rem; line-height: 1.55; }
+
+    /* Problem story */
+    .problem-story { margin: 20px 0 96px; }
+    .statement { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 16px; margin: 64px 0; }
+    .statement__avatar { display: grid; place-items: center; width: 104px; aspect-ratio: 1; border-radius: 999px; background: var(--accent); color: #fff; }
+    .statement__avatar svg { width: 52%; height: 52%; }
+    .statement__bubble { position: relative; min-height: 10.5rem; display: flex; flex-direction: column; justify-content: center; padding: 24px 36px; border: 1px solid rgba(227, 28, 121, .2); border-radius: 18px; background: var(--accent-soft); }
+    .statement__bubble::before { content: ""; position: absolute; top: 50%; left: -9px; width: 16px; height: 16px; background: var(--accent-soft); border-left: 1px solid rgba(227, 28, 121, .2); border-bottom: 1px solid rgba(227, 28, 121, .2); transform: translateY(-50%) rotate(45deg); }
+    .statement__text { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.375rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; text-wrap: pretty; }
+    .statement__source { margin: 10px 0 0; color: var(--muted); font-size: .8125rem; }
+    .issues-title { margin: 64px 0 22px; color: var(--ink); font-family: var(--display); font-size: 1.375rem; font-weight: 650; letter-spacing: -.015em; line-height: 1.3; }
+    .issues { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px 24px; }
+    .issue { margin: 0; }
+    .issue__media { position: relative; aspect-ratio: 3152 / 2187; display: flex; flex-direction: column; align-items: center; padding: 18px 20px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); overflow: hidden; }
+    .issue .issue__label { align-self: stretch; margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); color: rgba(38, 38, 38, .48); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; text-align: left; }
+    .issue h4 { margin: 18px 0 0; color: var(--ink); font-family: var(--display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.25; }
+    .issue p { margin: 8px 0 0; color: var(--text); font-size: 1rem; line-height: 1.6; }
+    .mini-card { width: 100%; background: #fff; border: 1px solid var(--line); border-radius: 8px; font-size: .7rem; color: var(--ink); }
+    .mini-flow { display: grid; gap: 7px; width: 100%; }
+    .mini-flow__row { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; }
+    .mini-flow__row span:last-child { color: var(--accent-ink); font-weight: 600; }
+    .mini-pages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; flex: 1; }
+    .mini-page { display: grid; align-content: start; gap: 5px; padding: 8px; }
+    .mini-page b { margin-bottom: 2px; color: var(--muted); font-size: .62rem; font-weight: 600; }
+    .mini-page i { display: block; padding: 4px 6px; border-radius: 4px; background: #f5f1f6; font-style: normal; font-size: .6rem; }
+    .mini-page i.hl { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 1px rgba(227, 28, 121, .2); }
+    .mini-list { display: grid; width: 100%; }
+    .mini-list__row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+    .mini-list__row:last-child { border-bottom: 0; }
+    .mini-pill { flex: none; padding: 2px 8px; border: 1px solid rgba(227, 28, 121, .2); border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-size: .58rem; font-weight: 600; }
+    .mini-pill.is-bad { border-color: rgba(180, 35, 24, .18); background: #fdeeed; color: #b42318; }
+    .mini-head { display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid var(--line); color: var(--ink); font-weight: 600; }
+    .mini-head span { color: var(--quiet); font-weight: 500; }
+
+    /* Research */
+    .research-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 24px; margin: 36px 0 64px; }
+    .research-group__title { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+    .notes { display: grid; gap: 14px; margin-top: 18px; }
+    .note { padding: 20px 22px 22px; border: 1px solid rgba(227, 28, 121, .16); background: var(--accent-soft); box-shadow: 0 14px 28px -20px rgba(42, 36, 56, .25); }
+    .research-group:nth-child(2) .note { border-color: rgba(176, 16, 96, .12); background: var(--blue-soft); }
+    .note:nth-child(1) { transform: rotate(-.4deg); }
+    .note:nth-child(2) { transform: rotate(.3deg); }
+    .research-group:nth-child(2) .note:nth-child(1) { transform: rotate(.35deg); }
+    .research-group:nth-child(2) .note:nth-child(2) { transform: rotate(-.3deg); }
+    .note__label { margin: 0; color: rgba(38, 38, 38, .48); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .note__text { margin: 10px 0 0; color: var(--ink); font-family: var(--hand); font-size: 1.5rem; font-weight: 500; line-height: 1.15; letter-spacing: -.005em; }
+    .quote { margin: 48px 0; padding: 2px 0 2px 22px; border-left: 2px solid var(--accent); }
+    .quote p { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.375rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.35; }
+
+    /* Constraints and principles: hairline cells */
+    .constraints { margin: 0 0 96px; }
+    .constraints__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 22px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .constraint { padding: 24px 24px 28px 0; }
+    .constraint + .constraint { padding-left: 24px; border-left: 1px solid var(--line); }
+    .constraint__num { margin: 0; color: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; }
+    .constraint h4 { margin: 12px 0 0; color: var(--ink); font-family: var(--display); font-size: 1.1875rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.25; }
+    .constraint p:last-child { margin: 12px 0 0; color: var(--text); font-size: .9688rem; line-height: 1.6; }
+    .principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .principle { padding: 22px 22px 26px 0; }
+    .principle + .principle { padding-left: 22px; border-left: 1px solid var(--line); }
+    .principle b { display: block; color: var(--accent); font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: .06em; }
+    .principle p { margin: 10px 0 0; color: var(--ink); font-family: var(--display); font-size: 1.1875rem; font-weight: 600; letter-spacing: -.015em; line-height: 1.25; }
+
+    /* Iterations, no grey band (homepage rule) */
+    .iterations { margin: 104px 0 104px; }
+    .iterations .h2 { margin-bottom: 8px; }
+    .iteration { margin-top: 56px; }
+    .iteration + .iteration { padding-top: 56px; border-top: 1px dashed var(--line); }
+    .iteration h3 { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.375rem; font-weight: 650; letter-spacing: -.015em; }
+    .iteration h3 .x { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-left: 6px; vertical-align: -.1em; border-radius: 999px; background: #fdeeed; color: #d92d20; }
+    .iteration h3 .x svg { width: 11px; height: 11px; }
+    .iteration > p { max-width: 44rem; margin: 12px 0 0; color: var(--text); font-size: var(--body-size); line-height: 1.6; }
+    .iteration__stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 18px 14px; margin-top: 24px; }
+    .iteration__stage > .feature, .iteration__stage > .canvas-mock, .iteration__stage > figure { grid-column: 1 / -1; margin-bottom: 6px !important; }
+    .bubble { position: static !important; width: auto; }
+    .bubble__card { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+    .bubble__card p.eyebrow { margin-bottom: 6px; color: #d92d20; font-size: 11px; font-weight: 400; }
+    .bubble__card p { margin: 0; color: var(--ink); font-size: .9688rem; font-weight: 500; line-height: 1.45; }
+    .bubble__who { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+    .bubble__avatar { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(227, 28, 121, .2); border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-family: var(--mono); font-size: 10px; }
+    .bubble__who span:last-child { color: var(--muted); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .bubble--e .bubble__avatar, .bubble--d .bubble__avatar { border-color: rgba(176, 16, 96, .14); background: var(--blue-soft); color: var(--accent-ink); }
+    .bubble--p .bubble__avatar { border-color: rgba(42, 36, 56, .14); background: #f2eef3; color: var(--ink); }
+    .canvas-mock { display: grid; grid-template-columns: 1.1fr 2fr; gap: 14px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .canvas-mock__picker { padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: .78rem; }
+    .canvas-mock__picker b { display: block; margin-bottom: 8px; font-family: var(--display); font-size: .95rem; font-weight: 600; }
+    .canvas-mock__picker span { display: flex; justify-content: space-between; padding: 7px 9px; margin-top: 6px; border: 1px dashed var(--chip-line); border-radius: 6px; color: var(--text); }
+    .canvas-mock__picker span::after { content: "+"; color: var(--accent); font-weight: 700; }
+    .canvas-mock .mini-page { font-size: .72rem; }
+    .canvas-mock .mini-page i { padding: 5px 7px; font-size: .66rem; }
+    .canvas-mock .mini-page i.c1 { background: var(--accent-soft); }
+    .canvas-mock .mini-page i.c2 { background: var(--blue-soft); }
+    .canvas-mock .mini-page i.c3 { background: #f2eef3; }
+    .canvas-mock .mini-page i.c4 { background: var(--lavender); }
+
+    /* Final design */
+    .sub { margin: 72px 0 14px; color: var(--ink); font-family: var(--display); font-size: 1.375rem; font-weight: 650; letter-spacing: -.015em; line-height: 1.25; }
+    .breakdown-title + .sub { margin-top: 48px; }
+    .solution { max-width: 44rem; margin: 0; padding: 0; list-style: none; }
+    .solution li { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 18px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .solution li:last-child { border-bottom: 1px solid var(--line); }
+    .solution__label { margin: 0; color: rgba(38, 38, 38, .52); font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; line-height: 1.75rem; }
+    .solution li p:not(.solution__label) { margin: 0; color: var(--text); font-size: var(--body-size); line-height: 1.65; }
+    code { padding: 1px 6px; border: 1px solid rgba(227, 28, 121, .18); border-radius: 5px; background: var(--accent-soft); color: var(--accent-ink); font-family: var(--mono); font-size: .82em; }
+    .structure { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .structure__group { padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .structure__group small { display: block; color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; }
+    .structure__group b { display: block; margin-top: 6px; color: var(--ink); font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; }
+    .structure__group p { margin: 6px 0 12px; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+    .structure__group span { display: block; margin-top: 5px; padding: 6px 8px; border-radius: 6px; background: #f7f4f8; color: var(--ink); font-size: .76rem; }
+    .playbooks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .playbook { display: flex; flex-direction: column; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .playbook:first-child { border-color: rgba(227, 28, 121, .35); box-shadow: 0 0 0 3px rgba(227, 28, 121, .08); }
+    .playbook small { color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .playbook b { margin-top: 6px; color: var(--ink); font-family: var(--display); font-size: 1.0625rem; font-weight: 600; }
+    .playbook code { align-self: flex-start; margin-top: 8px; font-size: .7rem; }
+    .playbook p { margin: 10px 0 0; color: var(--muted); font-size: .82rem; line-height: 1.45; }
+    .playbook.is-dim { opacity: .55; }
+    .beyond-title { margin-top: 112px; padding-top: 56px; border-top: 1px solid var(--line); }
+    .beyond-intro { margin-top: 20px; }
+
+    /* Impact */
+    .impact { margin-top: 28px; padding: 44px 0 40px; border-radius: var(--radius); background: var(--black); color: #fff; }
+    .impact__group + .impact__group { margin-top: 36px; padding-top: 36px; border-top: 1px solid rgba(255, 255, 255, .1); }
+    .impact__label { margin: 0 0 22px; padding: 0 36px; color: rgba(255, 255, 255, .48); font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; }
+    .impact__metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; padding: 0 36px; }
+    .impact__metric { padding-right: 22px; }
+    .impact__metric + .impact__metric { padding-left: 22px; border-left: 1px solid rgba(255, 255, 255, .12); }
+    .impact__metric strong { display: block; color: #fff; font-family: var(--display); font-size: 2.125rem; font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
+    .impact__group:first-child .impact__metric:first-child strong { color: #ff7ab5; }
+    .impact__metric strong.sm { font-size: 1.5rem; line-height: 1.4; }
+    .impact__metric p { margin: 10px 0 0; color: rgba(255, 255, 255, .64); font-size: .9688rem; line-height: 1.5; }
+    .impact__metrics--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .impact__metric--hidden .redact { display: flex; align-items: center; justify-content: center; width: 7.5rem; height: 2.25rem; border-radius: 8px; background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .1) 0 6px, rgba(255, 255, 255, .04) 6px 12px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
+    .impact__metric--hidden .redact svg { width: 15px; height: 15px; fill: none; stroke: #ff7ab5; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .impact__metric--hidden small { display: block; margin-top: 8px; color: #ff7ab5; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .impact__metrics .impact__metric:nth-child(3n+1) { padding-left: 0; border-left: 0; }
+    .impact__metrics--four .impact__metric:nth-child(3n+1) { padding-left: 22px; border-left: 1px solid rgba(255, 255, 255, .12); }
+    .impact__metrics--four .impact__metric:first-child { padding-left: 0; border-left: 0; }
+    .impact-note { max-width: 44rem; margin: 14px 0 0; color: var(--quiet); font-size: .875rem; line-height: 1.55; }
+    .reflection { max-width: 44rem; margin: 24px 0 0; padding: 0; list-style: none; counter-reset: r; }
+    .reflection li { position: relative; padding: 16px 0 16px 44px; border-top: 1px solid var(--line); color: var(--text); font-size: var(--body-size); line-height: 1.65; counter-increment: r; }
+    .reflection li:last-child { border-bottom: 1px solid var(--line); }
+    .reflection li::before { content: counter(r, decimal-leading-zero); position: absolute; left: 0; top: 19px; color: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; }
+    .reflection strong { color: var(--ink); }
+
+    /* Next project, homepage work card */
+    .full-band { position: relative; display: flex; align-items: center; gap: 32px; padding: 22px 32px; font-family: var(--mono); font-size: 12px; line-height: 16px; }
+    .full-band::before, .full-band::after { content: ""; position: absolute; left: calc(50% - 50vw); right: calc(50% - 50vw); border-top: 1px solid var(--rule); }
+    .full-band::before { top: 0; }
+    .full-band::after { bottom: 0; }
+    .work-card { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 56px; align-items: start; padding: 52px 32px 72px; color: inherit; }
+    .mockup { border-radius: var(--radius); overflow: hidden; background: #1d1828; }
+    .mockup img { width: 100%; height: auto; }
+    .work-meta { display: flex; justify-content: space-between; gap: 16px; font-size: 12px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; }
+    .work-meta .project { color: #706c72; }
+    .work-meta .year { color: var(--quiet); }
+    .work-card h2 { margin: 14px 0 0; color: var(--ink); font-family: var(--display); font-size: 1.75rem; font-weight: 600; line-height: 1.1; letter-spacing: -.02em; }
+    .work-title-number { color: var(--accent-name); }
+    .work-card p { margin: 16px 0 0; color: var(--muted); font-size: 1rem; line-height: 1.58; }
+    .work-card-cta { display: inline-flex; align-items: center; gap: 14px; margin-top: 28px; padding: 7px 8px 7px 20px; border: 1px solid var(--chip-line); border-radius: 999px; color: var(--ink); font-size: 15px; font-weight: 600; line-height: 1; transition: border-color .15s; }
+    .work-card:hover .work-card-cta { border-color: var(--ink); }
+    .work-card-arrow { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--black); color: #fff; font-size: 18px; transition: transform .2s; }
+    .work-card:hover .work-card-arrow { transform: translateX(3px); }
+
+    /* Footer, homepage */
+    .footer-contact { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 64px 32px; }
+    .footer-title { max-width: 600px; margin: 0; color: var(--ink-strong); font-family: var(--display); font-size: clamp(1.9rem, 3vw, 2.08rem); font-weight: 700; line-height: 1; letter-spacing: -.055em; }
+    .footer-title span { display: block; color: var(--accent); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .footer-links a { display: inline-flex; align-items: center; gap: 9px; height: 38px; padding: 0 14px; border: 1px solid var(--rule); border-radius: 10px; background: #fff; color: rgba(38, 38, 38, .64); font-family: var(--ui); font-size: 14px; font-weight: 500; transition: color .15s, border-color .15s; }
+    .footer-links a:hover { color: var(--ink); border-color: var(--chip-line); }
+    .footer-links svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .footer-divider { position: relative; height: 0; }
+    .footer-divider::before { content: ""; position: absolute; left: calc(50% - 50vw); right: calc(50% - 50vw); top: 0; border-top: 1px solid var(--rule); }
+    .footer-signoff { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 32px 40px; }
+    .footer-signature-image { width: 150px; height: auto; }
+    .footer-credit-line { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; color: rgba(38, 38, 38, .32); font-family: var(--mono); font-size: 11px; letter-spacing: .04em; line-height: 1.5; text-transform: uppercase; }
+    .footer-credit-line p { margin: 0; }
+    .footer-credit-line strong { font-weight: 400; color: rgba(38, 38, 38, .64); }
+    .footer-credit-dot { color: var(--accent); font-size: 8px; }
+
+    /* Lightbox */
+    .lightbox { width: min(96vw, 1600px); max-width: none; max-height: 92vh; padding: 0; border: 0; border-radius: var(--radius); background: #fff; }
+    .lightbox::backdrop { background: rgba(26, 22, 32, .78); }
+    .lightbox__scroll { max-height: 92vh; overflow: auto; }
+    .lightbox img { width: 100%; height: auto; }
+    .lightbox__close { position: fixed; top: 20px; right: 20px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); cursor: pointer; }
+
+    /* ---------- Skill Test components, drawn in the portfolio system ---------- */
+    /* Baseline funnel: stepped cards narrowing toward payment, matched to the live Skill Test page */
+    .funnel-strip { display: flex; flex-direction: column; align-items: center; padding-left: 48px; counter-reset: funnel; }
+    .funnel-step { counter-increment: funnel; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) clamp(186px, 17vw, 250px); gap: 3px 0; width: var(--w, 100%); min-width: 0; padding: 18px 26px 20px 30px; border: 1px solid #dedee3; border-radius: 13px; background: #fff; box-shadow: inset 3px 0 0 var(--edge, #f2b9d3), 0 1px 2px rgb(90 20 55 / .03), 0 12px 26px rgb(90 20 55 / .05); }
+    .funnel-step::before { content: counter(funnel, decimal-leading-zero); position: absolute; top: 27px; left: -44px; color: #777983; font: 700 11px/1 var(--sans); font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+    .funnel-step::after { content: ""; position: absolute; top: 32px; left: -24px; width: 14px; height: 1px; background: #dedee3; }
+    .funnel-step span { grid-column: 1; align-self: end; display: block; color: #777983; font: 800 10.5px/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+    .funnel-step strong { grid-column: 1; align-self: start; display: block; margin-top: 8px; color: var(--ink); font: 750 33px/1 var(--display); letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
+    .funnel-step p { grid-area: 1 / 2 / 3; display: flex; align-items: center; justify-content: flex-end; min-width: 0; margin: 0 0 0 clamp(18px, 2.6vw, 34px); padding-left: clamp(18px, 2.6vw, 34px); border-left: 1px solid #dedee3; color: #57575d; font: 400 13.5px/1.5 var(--sans); text-align: right; text-wrap: balance; }
+    .funnel-step--final { border-color: #f2c2da; background: var(--accent-soft); }
+    .funnel-step--final strong { color: var(--accent-ink); }
+    .funnel-step--final p { border-left-color: #f2c2da; }
+    .funnel-drop { position: relative; display: grid; place-items: center; width: 100%; margin: 0; padding: 13px 0; }
+    .funnel-drop::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #dedee3; }
+    .funnel-drop span { position: relative; padding: 6px 15px 5px; border: 1px solid #dedee3; border-radius: 99px; background: #fff; color: #777983; font: 800 10px/1.3 var(--sans); letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
+    .funnel-drop b { color: var(--accent); font-weight: 800; }
+    .funnel .caption { margin-top: 18px; padding-left: 48px; text-align: center; }
+    @media (max-width: 1000px) { .funnel .caption { padding-left: 0; } }
+    @media (max-width: 1000px) { .funnel-strip { padding-left: 0; } .funnel-step { width: 100%; } .funnel-step::before, .funnel-step::after { display: none; } }
+    @media (max-width: 700px) {
+      .funnel-step { grid-template-columns: 1fr; padding: 18px 22px 20px 26px; }
+      .funnel-step p { grid-area: auto / 1; margin: 12px 0 0; padding: 0; border-left: 0; justify-content: flex-start; text-align: left; }
+      .funnel-drop span { white-space: normal; text-align: center; }
+    }
+    .funnel { margin: 32px 0 0; }
+
+    /* Business side of the problem */
+    .problems--business { margin-top: 72px; }
+
+    /* Four survey notes: keep the paper tilt on every note */
+    .note:nth-child(3) { transform: rotate(.25deg); }
+    .note:nth-child(4) { transform: rotate(-.35deg); }
+
+    /* IA: four stages, then the split at the 90% bar */
+    .structure-wrap { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .structure-wrap .structure { padding: 0; border: 0; background: none; }
+    .split__label { position: relative; margin: 22px 0 12px; color: var(--accent-ink); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+    .split__label::before { content: ""; display: block; width: 1px; height: 18px; margin: 0 auto 8px; background: var(--accent); }
+    .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .split__branch { padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .split__branch--pass { border-color: rgba(227, 28, 121, .35); box-shadow: 0 0 0 3px rgba(227, 28, 121, .08); }
+    .split__branch small { display: block; color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .split__branch b { display: block; margin-top: 6px; color: var(--ink); font-family: var(--display); font-size: 1.0625rem; font-weight: 600; letter-spacing: -.01em; }
+    .split__branch p { margin: 8px 0 0; color: var(--muted); font-size: .875rem; line-height: 1.5; }
+
+    /* Scoring table */
+    .table-card { padding: 4px 24px 8px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; overflow-x: auto; }
+    .score-table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+    .score-table__cap { padding: 18px 0 6px; color: var(--ink); font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; text-align: left; caption-side: top; }
+    .score-table th { padding: 14px 14px 10px 0; border-bottom: 1px solid var(--line); color: rgba(38, 38, 38, .48); font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .08em; text-align: left; text-transform: uppercase; white-space: nowrap; }
+    .score-table td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); color: var(--text); line-height: 1.4; white-space: nowrap; }
+    .score-table td:first-child { color: var(--ink); font-weight: 600; }
+    .score-table tr.is-total td { border-bottom: 0; color: var(--ink); font-weight: 600; }
+    .score-table tr.is-total td:nth-child(5), .score-table tr.is-total td:last-child { color: var(--accent-name); }
+
+    /* Iteration mocks */
+    .iteration__stage > .result-mock, .iteration__stage > .fine-mock { grid-column: 1 / -1; margin-bottom: 6px; }
+    .result-mock { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .result-mock__card { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 18px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .result-mock__card small { color: var(--muted); font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
+    .result-mock__card b { color: var(--ink); font-family: var(--display); font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
+    .result-mock__card--fail b { color: #b42318; }
+    .result-mock__card i { color: var(--muted); font-size: .8125rem; font-style: normal; }
+    .result-mock__score { padding: 3px 9px; border-radius: 999px; background: #f2eef3; color: var(--quiet); font-size: .75rem; font-weight: 600; }
+    .result-mock__badge { padding: 3px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-size: .75rem; font-weight: 600; }
+    .result-mock__btn { margin-top: 6px; padding: 8px 14px; border-radius: 8px; background: var(--black); color: #fff; font-size: .75rem; font-weight: 600; }
+    .result-mock__btn.is-off { background: #f2eef3; color: var(--quiet); }
+    .fine-mock { position: relative; display: grid; grid-template-columns: minmax(0, 26rem) auto; justify-content: center; align-items: end; gap: 14px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .fine-mock__card { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .fine-mock__card small { color: var(--muted); font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
+    .fine-mock__card b { color: var(--ink); font-family: var(--display); font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
+    .fine-mock__meta { color: var(--muted); font-size: .8125rem; }
+    .fine-mock__btn { margin-top: 6px; padding: 10px 18px; border-radius: 8px; background: var(--black); color: #fff; font-size: .8125rem; font-weight: 600; }
+    .fine-mock__print { margin: 10px 0 0; padding: 6px 8px; border: 1.5px dashed #d92d20; border-radius: 6px; color: var(--quiet); font-size: .5625rem; line-height: 1.45; }
+    .fine-mock__note { margin: 0 0 8px; color: #d92d20; font-family: var(--hand); font-size: 1.5rem; font-weight: 600; line-height: 1; }
+
+    /* Card states (beyond the brief) */
+    .card-states { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 18px; padding: 24px; border: 1px solid rgba(227, 28, 121, .18); border-radius: var(--radius); background: var(--accent-soft); }
+    .card-state .state__head p { padding-left: 0; }
+    .card-state .state__shot { width: 100%; }
+
+    /* Handover spec */
+    .handover { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 12px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .handover > div { padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .handover small { display: block; color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .handover__stat b { display: block; margin-top: 8px; color: var(--ink); font-family: var(--display); font-size: 1.5rem; font-weight: 700; letter-spacing: -.025em; line-height: 1.1; }
+    .handover__stat p { margin: 8px 0 0; color: var(--muted); font-size: .8125rem; line-height: 1.45; }
+    .handover__bps ol { display: grid; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+    .handover__bps li { display: grid; grid-template-columns: minmax(0, 1fr) 3rem; align-items: center; gap: 10px; }
+    .handover__bps i { display: block; width: var(--w); height: 10px; border-radius: 3px; background: var(--accent-soft); box-shadow: inset 0 0 0 1px rgba(227, 28, 121, .3); }
+    .handover__bps span { color: var(--ink); font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-align: right; }
+
+    /* Small and tall source images: centre them instead of stretching */
+    .feature__frame--small, .feature__frame--tall { padding: 28px; }
+    .feature__frame--small img { max-width: 560px; margin: 0 auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(42, 36, 56, .06), 0 14px 30px -20px rgba(42, 36, 56, .35); }
+    .feature__frame--tall img { max-width: 320px; margin: 0 auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(42, 36, 56, .06), 0 14px 30px -20px rgba(42, 36, 56, .35); }
+
+    @media (max-width: 760px) {
+      .split, .result-mock, .fine-mock, .card-states, .handover { grid-template-columns: 1fr; }
+      .card-states { padding: 14px; }
+      .table-card { padding: 4px 14px 8px; }
     }
 
-    .page {
-      display: grid;
-      grid-template-columns: 250px minmax(0, 1fr);
-      width: min(100%, 1500px);
-      min-height: 100dvh;
-      margin: 0 auto;
+    /* Responsive */
+    @media (max-width: 1000px) {
+      :root { --gutter: 28px; }
+      .case-layout { display: block; }
+      .section-rail { border-right: 0; border-bottom: 1px solid var(--rule); position: sticky; top: 52px; z-index: 40; background: var(--page); }
+      .section-nav { position: static; display: flex; align-items: center; gap: 20px; padding: 12px var(--gutter); overflow-x: auto; scrollbar-width: none; }
+      .section-nav::-webkit-scrollbar { display: none; }
+      .section-nav__back { flex: none; height: 32px; }
+      .section-nav ul { display: flex; gap: 18px; }
+      .section-nav li a { white-space: nowrap; padding: 4px 0; }
+      .section-nav li a.is-active::before { display: none; }
+      [id] { scroll-margin-top: 112px; }
+      .work-card { grid-template-columns: 1fr; gap: 28px; }
     }
+    @media (max-width: 760px) {
+      :root { --gutter: 20px; --body-size: 1rem; }
+      .nav__inner { padding: 0 20px; grid-template-columns: 1fr auto; }
+      .nav-links { display: none; }
+      .hero { padding-top: 44px; }
+      .hero::before { -webkit-mask-image: linear-gradient(#000 0 30%, transparent 70%); mask-image: linear-gradient(#000 0 30%, transparent 70%); }
+      .hero h1 { font-size: min(1.875rem, 8vw); }
+      .hero__sq { display: none; }
+      .hero__pill { font-size: 13px; text-align: left; }
+      .band { gap: 20px; }
+      .overview__details, .outcome-grid, .users, .issues, .research-groups, .constraints__grid, .principles, .structure, .playbooks, .canvas-mock, .impact__metrics, .iteration__stage { grid-template-columns: 1fr; }
+      .outcome, .outcome + .outcome, .constraint, .constraint + .constraint, .principle, .principle + .principle { padding: 18px 0; border-left: 0; }
+      .outcome + .outcome, .constraint + .constraint, .principle + .principle { border-top: 1px solid var(--line); }
+      .user + .user { border-left: 0; border-top: 1px solid var(--line); }
+      .problem, .solution li { grid-template-columns: 1fr; gap: 4px; }
+      .span__frame { padding: 20px 18px 22px; }
+      .span__grid { grid-template-columns: 1fr; }
+      .span__axis { grid-column: 1; }
+      .span__who { padding-bottom: 6px; }
+      .span__lane { border-top: 0; padding-top: 8px; }
+      .span__seg { padding: 0 6px; font-size: .625rem; }
+      .span__free > span:last-child { display: none; }
+      .shot__head { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .shot__frame { max-height: 70vh; padding: 10px; }
+      .impact__metric, .impact__metric + .impact__metric, .impact__metrics--four .impact__metric:nth-child(3n+1) { padding: 0; border-left: 0; }
+      .impact__metrics--four { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+      .statement { grid-template-columns: 64px minmax(0, 1fr); }
+      .statement__avatar { width: 64px; }
+      .statement__bubble { padding: 20px; }
+      .h2 br { display: none; }
+      .note:nth-child(n) { transform: none; }
+      .feature__scroll { height: 26rem; }
+      .footer-contact, .footer-signoff { flex-direction: column; align-items: flex-start; padding-inline: 20px; }
+      .work-card { padding-inline: 20px; }
+      .full-band { padding-inline: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 
-    .side-nav {
-      position: sticky;
-      top: 0;
-      align-self: start;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100dvh;
-      padding: 54px 32px 40px;
-      border-right: 1px solid var(--line);
-      background: rgba(253, 253, 252, .94);
-      backdrop-filter: blur(16px);
-    }
+    /* CARS24 warranty variant: same editorial system, project-specific colour and evidence */
+    :root { --accent:#0055ff; --accent-ink:#003bb3; --accent-name:#0055e5; --accent-soft:#eef4ff; --blue-soft:#e4edff; --lavender:#dce8ff; --panel:#f7f9ff; --chip-line:#dce5f5; }
+    .hero__sq { background:rgba(0,85,255,.22); }
+    
+    .hero__crop img { object-fit:cover; }
+    .team__avatar, .user__icon, .feature__frame--plain, .shot__frame { border-color:rgba(0,85,255,.18); }
+    .shot__expand { border-color:rgba(0,85,255,.25); }
+    .impact__group:first-child .impact__metric:first-child strong { color:#83acff; }
+    .warranty-evidence { margin-top:28px; margin-bottom:50px; }
+    .warranty-evidence .feature__frame { background:#f7f9ff; }
+    .warranty-evidence--portrait .feature__frame { padding:24px; }
+    .warranty-evidence--portrait img { max-width:390px; margin:auto; border-radius:8px; box-shadow:0 0 0 1px rgba(42,36,56,.06),0 15px 30px -23px rgba(42,36,56,.4); }
+    .warranty-evidence .caption { max-width:44rem; }
+    .warranty-decision + .warranty-decision { padding-top:12px; border-top:1px solid var(--line); }
+    .warranty-decision .sub { margin-top:52px; }
+    .warranty-decision .feature { margin-top:24px; }
+    .warranty-flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:28px; }
+    .warranty-flow__step { padding:20px 16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); }
+    .warranty-flow__step span { color:var(--accent); font:12px var(--mono); }
+    .warranty-flow__step strong { display:block; margin-top:10px; font:700 1.1rem/1.2 var(--display); }
+    .warranty-flow__step p { margin:8px 0 0; color:var(--muted); font-size:.86rem; line-height:1.48; }
+    .warranty-economics { margin:34px 0 48px; }
+    .warranty-economics .score-table td { white-space:normal; }
+    .warranty-economics .score-table td:last-child { text-align:right; font-weight:600; color:var(--ink); }
+    .warranty-economics .score-table tr.is-total td:last-child { color:var(--accent-name); }
+    .warranty-note { max-width:44rem; margin:30px 0 0; padding:18px 22px; border-left:2px solid var(--accent); background:var(--accent-soft); color:var(--text); font-size:.94rem; line-height:1.6; }
+    .warranty-note strong { display:block; margin-bottom:4px; }
+    @media(max-width:760px) { .warranty-flow { grid-template-columns:repeat(2,minmax(0,1fr)); } .warranty-evidence--portrait .feature__frame { padding:14px; } }
+    @media(max-width:430px) { .warranty-flow { grid-template-columns:1fr; } }
 
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      width: fit-content;
-      min-height: 44px;
-      color: #8f939b;
-      font-size: .875rem;
-      font-weight: 450;
-      transition: color 180ms ease, transform 180ms ease;
-    }
-    .back-link:hover { color: var(--ink); transform: translateX(-2px); }
-    .toc { display: grid; gap: 11px; margin-top: 46px; }
-    .toc a {
-      position: relative;
-      color: #929296;
-      font-size: .8125rem;
-      line-height: 1.25;
-      transition: color 180ms ease, transform 180ms ease;
-    }
-    .toc a::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: -15px;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0;
-      transform: translateY(-50%) scale(.5);
-      transition: opacity 180ms ease, transform 180ms ease;
-    }
-    .toc a:hover,
-    .toc a.active { color: #303036; transform: translateX(2px); }
-    .toc a.active::before { opacity: 1; transform: translateY(-50%) scale(1); }
-    .side-note { max-width: 155px; color: #a5a8af; font-size: .75rem; line-height: 1.5; }
+    /* Three-act design journey: editorial map, then actual Figma evidence */
+    .journey-map { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:38px 0 66px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .journey-map a { position:relative; display:block; min-width:0; padding:20px 18px 22px 0; }
+    .journey-map a + a { padding-left:18px; border-left:1px solid var(--line); }
+    .journey-map span { display:block; margin-bottom:12px; color:var(--accent-ink); font:11px/1.4 var(--mono); letter-spacing:.05em; text-transform:uppercase; }
+    .journey-map strong { display:block; color:var(--ink); font:650 1.125rem/1.2 var(--display); }
+    .journey-map small { display:block; margin-top:7px; color:var(--muted); font-size:.8125rem; line-height:1.4; }
+    .journey-map a:hover strong, .journey-map a:focus-visible strong { color:var(--accent-ink); }
+    .journey-stage { display:grid; grid-template-columns:112px minmax(0,1fr); gap:24px; align-items:start; margin:64px 0 28px; padding-top:24px; border-top:1px solid var(--line); }
+    .journey-stage__index { color:var(--accent-ink); font:500 1.5rem/1.1 var(--display); letter-spacing:-.05em; }
+    .journey-stage__index span { color:var(--quiet); font:12px var(--mono); letter-spacing:0; }
+    .journey-stage__label { margin:0 0 8px; color:var(--accent-ink); font:11px/1.5 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+    .journey-stage h3 { margin:0 0 10px; color:var(--ink); font:650 1.5rem/1.25 var(--display); letter-spacing:-.015em; }
+    .journey-stage p:not(.journey-stage__label) { max-width:43rem; margin:0; color:var(--text); font-size:var(--body-size); line-height:1.65; }
+    .journey-screens { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin:24px 0 72px; }
+    .journey-screens .feature { min-width:0; margin:0; }
+    .journey-screens .feature__frame { display:grid; place-items:center; min-height:440px; padding:20px; background:#f7f9ff; }
+    .journey-screens .feature__frame img { width:auto; max-height:470px; max-width:100%; border-radius:5px; box-shadow:0 0 0 1px rgba(30,40,60,.08),0 16px 30px -24px rgba(30,40,60,.3); }
+    .journey-screens .caption b { color:var(--ink); font-weight:600; }
+    .journey-handoff { display:grid; grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:38px; align-items:center; margin:10px 0 72px; padding:26px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .journey-handoff .feature { min-width:0; margin:0; }
+    .journey-handoff .feature__frame { display:grid; place-items:center; padding:18px; background:#f7f9ff; }
+    .journey-handoff .feature__frame img { width:auto; max-width:100%; max-height:430px; border-radius:5px; box-shadow:0 0 0 1px rgba(30,40,60,.08),0 16px 30px -24px rgba(30,40,60,.3); }
+    .journey-handoff__copy h4 { margin:0 0 12px; color:var(--ink); font:650 1.5rem/1.2 var(--display); }
+    .journey-handoff__copy p:not(.journey-stage__label) { margin:0; color:var(--text); font-size:var(--body-size); line-height:1.65; }
+    #final-design .warranty-decision .sub { margin-top:40px; }
+    @media(max-width:760px) { .journey-map { margin-bottom:48px; } .journey-map a { padding:16px 10px 18px 0; } .journey-map a + a { padding-left:10px; } .journey-map small { font-size:.72rem; } .journey-stage { grid-template-columns:1fr; gap:12px; } .journey-screens { gap:12px; } .journey-screens .feature__frame { min-height:300px; padding:12px; } .journey-screens .feature__frame img { max-height:340px; } .journey-handoff { grid-template-columns:1fr; gap:20px; } .journey-handoff .feature__frame img { max-height:390px; } }
+    @media(max-width:520px) { .journey-map { grid-template-columns:1fr; } .journey-map a, .journey-map a + a { padding:15px 0; border-left:0; } .journey-map a + a { border-top:1px solid var(--line); } .journey-map span { margin-bottom:4px; } .journey-map small { margin-top:3px; font-size:.8rem; } .journey-screens { grid-template-columns:1fr; gap:34px; } .journey-screens .feature__frame { min-height:0; } .journey-screens .feature__frame img { max-height:470px; } }
 
-    .content {
-      width: min(100%, 1160px);
-      margin: 0 auto;
-      padding: 54px 56px 80px;
-    }
-    .project-kicker,
-    .eyebrow {
-      color: #9a9ea7;
-      font-size: .75rem;
-      font-weight: 400;
-      line-height: 1.2;
-      text-transform: uppercase;
-    }
-    .project-kicker { margin: 18px 0 30px; }
-    .eyebrow { display: block; margin-bottom: 16px; }
-    .hero-title {
-      max-width: 880px;
-      font-family: var(--serif);
-      font-size: clamp(2.125rem, 3.2vw, 2.75rem);
-      font-weight: 500;
-      line-height: 1.07;
-      text-wrap: balance;
-    }
-    .hero-title .hero-number {
-      color: var(--accent);
-      font-family: var(--sans);
-      font-size: .78em;
-      font-weight: 500;
-      letter-spacing: -.035em;
-      vertical-align: .05em;
-      white-space: nowrap;
-    }
-    .hero-title .accent-title { color: var(--accent); font-weight: 600; }
-    .hero-copy {
-      max-width: 740px;
-      margin-top: 24px;
-      color: #4f4f56;
-      font-size: .875rem;
-      line-height: 1.65;
-      text-wrap: pretty;
-    }
-
-    .meta-grid {
-      display: grid;
-      grid-template-columns: .9fr .75fr 1.45fr 1.25fr .65fr;
-      gap: 28px;
-      margin-top: 38px;
-      padding-top: 20px;
-      border-top: 1px solid var(--line);
-    }
-    .meta-label {
-      display: block;
-      margin-bottom: 9px;
-      color: #a1a5ae;
-      font-size: .6875rem;
-      font-weight: 450;
-      text-transform: uppercase;
-    }
-    .meta-grid p { color: #55535c; font-size: .875rem; line-height: 1.48; }
-    .meta-tool-icon {
-      position: relative;
-      display: grid;
-      place-items: center;
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      background: var(--panel);
-    }
-    .meta-tool-icon img { width: 22px; height: 22px; object-fit: contain; }
-
-    .hero-media {
-      margin-top: 38px;
-      padding: 30px;
-      overflow: hidden;
-      border: 1px solid #dfe7f6;
-      background: var(--soft);
-    }
-    .hero-media-window {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(1, 24, 69, .12);
-      background: var(--panel);
-    }
-    .hero-screen-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      padding: 12px;
-      background: var(--panel);
-    }
-
-    .impact-strip {
-      display: grid;
-      grid-template-columns: 1.3fr repeat(4, minmax(0, 1fr));
-      margin-top: 48px;
-      padding: 28px 0;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-    .impact-intro { padding-right: 28px; border-right: 1px solid var(--line); }
-    .impact-intro p { max-width: 190px; margin-top: 10px; color: #62616a; font-size: .8125rem; line-height: 1.5; }
-    .impact-intro a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      color: var(--accent);
-      font-size: .75rem;
-      font-weight: 600;
-    }
-    .impact-item { padding: 0 20px; border-right: 1px solid var(--line); }
-    .impact-item:last-child { padding-right: 0; border-right: 0; }
-    .impact-item strong {
-      display: block;
-      color: var(--accent);
-      font-size: clamp(1.375rem, 1.7vw, 1.6875rem);
-      font-weight: 500;
-      line-height: 1;
-      letter-spacing: -.035em;
-      font-variant-numeric: tabular-nums;
-    }
-    .impact-item span { display: block; margin-top: 12px; color: #56545d; font-size: .8125rem; line-height: 1.45; }
-
-    .case-section {
-      padding: 96px 0;
-      border-top: 1px solid var(--line);
-      scroll-margin-top: 20px;
-    }
-    .case-section:first-of-type { margin-top: 76px; }
-    .section-title {
-      max-width: 830px;
-      font-family: var(--serif);
-      font-size: clamp(1.875rem, 3.2vw, 2.625rem);
-      font-weight: 700;
-      line-height: 1.08;
-      text-wrap: balance;
-    }
-    .section-copy {
-      max-width: 740px;
-      margin-top: 20px;
-      color: #4f4f56;
-      font-size: .9375rem;
-      line-height: 1.6;
-      text-wrap: pretty;
-    }
-    .section-copy strong { color: var(--ink); font-weight: 550; }
-
-    .context-line {
-      display: grid;
-      grid-template-columns: 160px minmax(0, 1fr);
-      gap: 32px;
-      margin-top: 42px;
-      padding: 26px 0;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-    .context-line > span { color: var(--accent); font-size: .75rem; font-weight: 600; text-transform: uppercase; }
-    .context-line p { max-width: 700px; font-family: var(--serif); font-size: 1.75rem; font-weight: 600; line-height: 1.12; }
-
-    .problem-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: 42px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-    .problem-item { min-height: 208px; padding: 28px 30px; border-right: 1px solid var(--line); }
-    .problem-item:first-child { padding-left: 0; }
-    .problem-item:last-child { padding-right: 0; border-right: 0; }
-    .problem-item > span { color: var(--accent); font-size: .75rem; font-weight: 600; }
-    .problem-item h3 { margin-top: 20px; font-family: var(--serif); font-size: 1.5rem; font-weight: 600; line-height: 1.08; }
-    .problem-item p { margin-top: 12px; color: #65636a; font-size: .875rem; line-height: 1.58; }
-
-    .model-shift {
-      display: grid;
-      grid-template-columns: 1fr 72px 1fr;
-      align-items: stretch;
-      margin-top: 44px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-    .model-side { padding: 32px 34px; }
-    .model-side:first-child { padding-left: 0; }
-    .model-side:last-child { padding-right: 0; background: var(--soft-2); }
-    .model-side span { color: #9998a0; font-size: .75rem; text-transform: uppercase; }
-    .model-side h3 { margin-top: 14px; font-family: var(--serif); font-size: 1.75rem; line-height: 1.08; }
-    .model-side p { margin-top: 12px; color: #5e5c64; font-size: .875rem; line-height: 1.55; }
-    .model-arrow { display: grid; place-items: center; color: var(--accent); font-size: 1.75rem; border-right: 1px solid var(--line); border-left: 1px solid var(--line); }
-
-    .principle-list { margin-top: 40px; border-top: 1px solid var(--line); }
-    .principle {
-      display: grid;
-      grid-template-columns: 72px 270px minmax(0, 1fr);
-      gap: 28px;
-      padding: 26px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .principle > span { color: var(--accent); font-size: 1.125rem; font-weight: 600; }
-    .principle strong { font-family: var(--serif); font-size: 1.375rem; font-weight: 600; line-height: 1.12; }
-    .principle p { color: #56545c; font-size: .90625rem; line-height: 1.58; }
-
-    .flow-gallery { display: grid; gap: 52px; margin-top: 48px; }
-    .flow-step {
-      display: grid;
-      grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr);
-      gap: 42px;
-      align-items: center;
-    }
-    .flow-step:nth-child(even) .flow-copy { order: 2; }
-    .flow-step:nth-child(even) .screen-shell { order: 1; }
-    .flow-number { display: block; color: var(--accent); font-size: .75rem; font-weight: 600; }
-    .flow-copy h3 { margin-top: 14px; font-family: var(--serif); font-size: 1.75rem; font-weight: 600; line-height: 1.08; }
-    .flow-copy p { margin-top: 14px; color: #5a5860; font-size: .90625rem; line-height: 1.62; }
-    .flow-copy ul { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
-    .flow-copy li { position: relative; padding-left: 17px; color: #5a5860; font-size: .8125rem; line-height: 1.5; }
-    .flow-copy li::before { content: ""; position: absolute; top: .55em; left: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
-    .screen-shell {
-      width: min(100%, 430px);
-      padding: 24px;
-      overflow: hidden;
-      border: 1px solid #dfe7f6;
-      background: var(--soft);
-      justify-self: center;
-    }
-    .screen-crop { position: relative; aspect-ratio: 529 / 1174; overflow: hidden; background: var(--panel); }
-    .screen-crop img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 453.686%;
-      max-width: none;
-      height: 100%;
-      object-fit: fill;
-      transform: translateX(var(--screen-offset));
-    }
-    .screen-one { --screen-offset: 0%; }
-    .screen-two { --screen-offset: -25.958%; }
-    .screen-three { --screen-offset: -51.958%; }
-    .screen-four { --screen-offset: -77.958%; }
-
-    .decision-table { margin-top: 42px; border-top: 1px solid var(--line); }
-    .decision-head,
-    .decision-row {
-      display: grid;
-      grid-template-columns: 42px minmax(0, .9fr) 38px minmax(0, .9fr) minmax(0, 1.15fr);
-      gap: 20px;
-      align-items: start;
-    }
-    .decision-head { padding: 0 0 13px; color: #97969e; font-size: .6875rem; font-weight: 600; text-transform: uppercase; }
-    .decision-row { padding: 26px 0; border-top: 1px solid var(--line); }
-    .decision-number { color: var(--accent); font-size: .875rem; font-weight: 600; }
-    .decision-from { color: #88868d; font-size: .875rem; line-height: 1.5; }
-    .decision-arrow { color: var(--accent); font-size: 1rem; }
-    .decision-to { color: var(--ink); font-family: var(--serif); font-size: 1.25rem; font-weight: 600; line-height: 1.14; }
-    .decision-intent { color: #57555d; font-size: .875rem; line-height: 1.55; }
-
-    .pricing-proof {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 52px;
-      align-items: center;
-      margin-top: 44px;
-    }
-    .pricing-visual { padding: 24px; overflow: hidden; border: 1px solid #dfe7f6; background: var(--soft); }
-    .pricing-visual { width: min(100%, 430px); justify-self: center; }
-    .proof-list { border-top: 1px solid var(--line); }
-    .proof-item { padding: 22px 0; border-bottom: 1px solid var(--line); }
-    .proof-item span { color: var(--accent); font-size: .75rem; font-weight: 600; }
-    .proof-item strong { display: block; margin-top: 8px; font-family: var(--serif); font-size: 1.375rem; line-height: 1.1; }
-    .proof-item p { margin-top: 8px; color: #626067; font-size: .8125rem; line-height: 1.52; }
-
-    .outcome-layout {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 70px;
-      align-items: start;
-      margin-top: 44px;
-    }
-    .outcome-stat { padding: 8px 0 32px; border-bottom: 1px solid var(--line); }
-    .outcome-stat strong { display: block; color: var(--accent); font-size: clamp(3rem, 7vw, 5rem); font-weight: 500; line-height: .9; letter-spacing: -.055em; }
-    .outcome-stat span { display: block; max-width: 420px; margin-top: 18px; font-family: var(--serif); font-size: 1.625rem; font-weight: 600; line-height: 1.12; }
-    .outcome-note { padding: 28px; background: var(--soft-2); }
-    .outcome-note h3 { font-family: var(--serif); font-size: 1.625rem; line-height: 1.1; }
-    .outcome-note p { margin-top: 14px; color: #5d5860; font-size: .875rem; line-height: 1.6; }
-    .measurement-boundary { margin-top: 24px; padding-top: 20px; border-top: 1px solid #dce6f7; }
-    .measurement-boundary strong { display: block; color: var(--accent-dark); font-size: .75rem; text-transform: uppercase; }
-    .measurement-boundary p { margin-top: 8px; }
-
-    .learning-list { margin-top: 40px; border-top: 1px solid var(--line); }
-    .learning-item {
-      display: grid;
-      grid-template-columns: 56px 310px minmax(0, 1fr);
-      gap: 28px;
-      padding: 26px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .learning-item > span { color: var(--accent); font-size: 1.125rem; font-weight: 600; }
-    .learning-item strong { font-family: var(--serif); font-size: 1.375rem; font-weight: 600; line-height: 1.12; }
-    .learning-item p { color: #5b5960; font-size: .875rem; line-height: 1.58; }
-
-    .case-footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding-top: 42px;
-      color: #92949b;
-      font-size: .75rem;
-    }
-    .case-footer a { min-height: 44px; color: var(--accent); font-weight: 600; }
-
-    [data-reveal] { opacity: 0; transform: translateY(18px); }
-    .no-js [data-reveal] { opacity: 1; transform: none; }
-
-    @media (max-width: 1020px) {
-      .page { display: block; }
-      .side-nav { position: static; height: auto; padding: 24px; border-right: 0; border-bottom: 1px solid var(--line); }
-      .toc, .side-note { display: none; }
-      .content { padding: 36px 24px 64px; }
-      .meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .impact-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .impact-intro { grid-column: 1 / -1; padding: 0 0 20px; border-right: 0; border-bottom: 1px solid var(--line); }
-      .impact-item { min-height: 130px; padding: 24px 20px 0 0; border-bottom: 1px solid var(--line); }
-      .impact-item:nth-child(odd) { padding-left: 20px; border-right: 0; }
-      .impact-item:nth-last-child(-n+2) { border-bottom: 0; }
-      .principle { grid-template-columns: 56px 220px minmax(0, 1fr); }
-      .flow-step { gap: 30px; }
-      .decision-head, .decision-row { grid-template-columns: 36px minmax(0, .8fr) 28px minmax(0, 1fr) minmax(0, 1.15fr); gap: 14px; }
-    }
-
-    @media (max-width: 680px) {
-      .content { padding-right: 18px; padding-left: 18px; }
-      .hero-title { font-size: clamp(2.125rem, 10vw, 3rem); }
-      .hero-copy, .section-copy { font-size: .875rem; }
-      .meta-grid { grid-template-columns: 1fr; gap: 18px; }
-      .hero-media { margin-top: 30px; padding: 10px; }
-      .hero-media-window { overflow-x: auto; }
-      .hero-screen-grid { grid-template-columns: repeat(4, 230px); width: max-content; }
-      .impact-strip { margin-top: 40px; }
-      .case-section { padding: 64px 0; }
-      .case-section:first-of-type { margin-top: 54px; }
-      .context-line { grid-template-columns: 1fr; gap: 12px; }
-      .context-line p { font-size: 1.5rem; }
-      .problem-list { grid-template-columns: 1fr; }
-      .problem-item, .problem-item:first-child, .problem-item:last-child { min-height: 0; padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .problem-item:last-child { border-bottom: 0; }
-      .model-shift { grid-template-columns: 1fr; }
-      .model-side, .model-side:first-child, .model-side:last-child { padding: 26px 0; }
-      .model-side:last-child { padding-right: 18px; padding-left: 18px; }
-      .model-arrow { min-height: 54px; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: rotate(90deg); }
-      .principle { grid-template-columns: 38px minmax(0, 1fr); gap: 14px; }
-      .principle p { grid-column: 2; }
-      .flow-gallery { gap: 58px; }
-      .flow-step { grid-template-columns: 1fr; gap: 24px; }
-      .flow-step:nth-child(even) .flow-copy, .flow-step:nth-child(even) .screen-shell { order: initial; }
-      .screen-shell { padding: 10px; }
-      .decision-head { display: none; }
-      .decision-row { grid-template-columns: 34px minmax(0, 1fr); gap: 8px 14px; }
-      .decision-number { grid-row: 1 / span 4; }
-      .decision-from, .decision-arrow, .decision-to, .decision-intent { grid-column: 2; }
-      .decision-arrow { transform: rotate(90deg); }
-      .decision-from::before, .decision-to::before, .decision-intent::before { display: block; margin-bottom: 5px; color: #99969d; font-family: var(--sans); font-size: .625rem; font-weight: 600; text-transform: uppercase; }
-      .decision-from::before { content: "Before"; }
-      .decision-to::before { content: "Design shift"; }
-      .decision-intent::before { content: "Why it mattered"; }
-      .pricing-proof, .outcome-layout { grid-template-columns: 1fr; gap: 38px; }
-      .pricing-visual { padding: 10px; }
-      .learning-item { grid-template-columns: 38px minmax(0, 1fr); gap: 12px; }
-      .learning-item p { grid-column: 2; }
-      .case-footer { flex-direction: column; }
-    }
-
-    @media (pointer: coarse) {
-      .toc a, .case-footer a { min-height: 44px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      [data-reveal] { opacity: 1; transform: none; }
-    }
-  </style>
-  <!-- Vercel Web Analytics -->
-  <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/insights/script.js"></script>
+    .ia-jump { margin:16px 0 0; color:var(--accent-ink); font:600 .875rem/1.4 var(--sans); }
+    .ia-jump a { border-bottom:1px solid currentColor; padding-bottom:2px; }
+    .ia-jump a:hover, .ia-jump a:focus-visible { color:var(--ink); }
+    /* Reference-style node map: pages, actions, checks and attributes */
+    .ia-map { margin:72px 0 68px; padding-top:34px; border-top:1px solid var(--line); }
+    .ia-map__intro { max-width:43rem; margin-bottom:28px; }
+    .ia-map__eyebrow { margin:0 0 9px; color:var(--accent-ink); font:11px/1.5 var(--mono); letter-spacing:.07em; text-transform:uppercase; }
+    .ia-map__intro h3 { margin:0 0 12px; color:var(--ink); font:650 1.5rem/1.25 var(--display); letter-spacing:-.015em; }
+    .ia-map__intro > p:last-child { margin:0; color:var(--text); font-size:var(--body-size); line-height:1.65; }
+    .ia-diagram { margin:0; }
+    .ia-diagram__viewport { overflow-x:auto; border:1px solid var(--line); border-radius:9px; background-color:#fff; background-image:radial-gradient(#dce1e8 .8px,transparent .8px); background-size:10px 10px; scrollbar-color:#b8c1ce transparent; }
+    .ia-diagram__svg { display:block; width:100%; height:auto; font-family:var(--sans); }
+    .ia-diagram__headings text { fill:#24242a; font-size:13px; font-weight:700; }
+    .ia-diagram__edges path { fill:none; stroke:#9ca3ab; stroke-width:1.6; stroke-linejoin:round; marker-end:url(#iaArrow); }
+    .ia-edge-label rect { fill:#fff; stroke:#dde2e8; }
+    .ia-edge-label text { fill:#5b6370; font-size:10.5px; font-weight:500; }
+    .ia-node rect { stroke:none; }
+    .ia-node text { fill:#2b2930; font-size:13px; font-weight:500; }
+    .ia-node--object rect { fill:#e4ceff; }
+    .ia-node--action rect { fill:#ffd4a4; }
+    .ia-node--screen rect { fill:#fff0ab; }
+    .ia-node--attribute rect { fill:#bfe6ff; }
+    .ia-diagram figcaption { margin:11px 0 0; color:var(--quiet); font-size:.8125rem; line-height:1.5; }
+    .ia-diagram__hint { display:none; }
+    .ia-outline { margin-top:20px; padding-top:13px; border-top:1px solid var(--line); color:var(--text); }
+    .ia-outline summary { width:max-content; max-width:100%; color:var(--accent-ink); cursor:pointer; font-size:.875rem; font-weight:600; }
+    .ia-outline ol { max-width:44rem; margin:16px 0 0; padding-left:22px; }
+    .ia-outline li { margin:0 0 11px; line-height:1.6; }
+    @media(max-width:640px) { .ia-diagram__svg { min-width:960px; } .ia-diagram__hint { display:block; margin:9px 0 0; color:var(--muted); font:11px/1.5 var(--mono); } }
+    /* Final design: every Figma screen, grouped by state */
+    .state-group { margin:30px 0 64px; }
+    .state-group__head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+    .state-group__head h4 { margin:0; color:var(--ink); font:650 1.0625rem/1.35 var(--display); letter-spacing:-.005em; }
+    .state-group__head span { flex:none; color:var(--quiet); font:11px/1.5 var(--mono); letter-spacing:.06em; text-transform:uppercase; }
+    .state-group > p { max-width:44rem; margin:6px 0 20px; color:var(--muted); font-size:.9375rem; line-height:1.6; }
+    .screen-strip { display:grid; grid-template-columns:repeat(auto-fill,minmax(178px,1fr)); gap:38px 26px; margin:0; padding:38px 30px 32px; list-style:none; border-radius:14px; background:#eef1f6; }
+    .screen-tile { min-width:0; container-type:inline-size; }
+    /* Phone body: graphite shell, thin bezel, side keys, punch-hole camera */
+    .screen-tile button { position:relative; display:block; width:100%; padding:3.6cqw; border:0; border-radius:12cqw; background:linear-gradient(145deg,#3a3b41,#17181c 55%,#26272c); box-shadow:inset 0 0 0 .7cqw #4a4b52, inset 0 0 0 1.4cqw #111215, 0 18px 30px -18px rgba(20,24,40,.55), 0 4px 10px -6px rgba(20,24,40,.35); cursor:zoom-in; transition:transform .2s ease, box-shadow .2s ease; }
+    .screen-tile button::before { content:""; position:absolute; top:22%; right:-1.3cqw; width:1.6cqw; height:13%; border-radius:0 1cqw 1cqw 0; background:#2b2c31; box-shadow:0 -21cqw 0 #2b2c31; }
+    .screen-tile button::after { content:""; position:absolute; top:6.2cqw; left:50%; width:4.6cqw; height:4.6cqw; margin-left:-2.3cqw; border-radius:50%; background:#0b0c0e; box-shadow:0 0 0 .6cqw rgba(255,255,255,.06), inset .8cqw -.6cqw 1cqw rgba(90,120,200,.35); z-index:2; }
+    .screen-tile button:hover, .screen-tile button:focus-visible { transform:translateY(-4px); box-shadow:inset 0 0 0 .7cqw #4a4b52, inset 0 0 0 1.4cqw #111215, 0 26px 36px -18px rgba(20,24,40,.6), 0 6px 12px -6px rgba(20,24,40,.35); outline:none; }
+    .screen-tile button:focus-visible { box-shadow:0 0 0 3px var(--accent), 0 26px 36px -18px rgba(20,24,40,.6); }
+    .screen-tile img { position:relative; width:100%; height:auto; aspect-ratio:720 / 1600; object-fit:cover; object-position:top; border-radius:8.4cqw; background:#fff; }
+    .screen-tile p { margin:14px 2px 0; color:var(--muted); font-size:.8125rem; line-height:1.45; }
+    .screen-tile p b { display:block; margin-bottom:3px; color:var(--ink); font-weight:600; font-size:.8125rem; }
+    #final-design .warranty-decision + .state-group, #final-design .table-card + .state-group { margin-top:36px; }
+    @media(max-width:520px) { .screen-strip { grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 16px; padding:24px 16px; } }
+    /* Single-phone viewer for Final Design screens */
+    .phone-viewer { width:100vw; height:100dvh; max-width:none; max-height:none; margin:0; padding:0; border:0; background:transparent; overflow:hidden; }
+    .phone-viewer[open] { display:grid; grid-template-rows:1fr auto; place-items:center; gap:14px; padding:clamp(16px,3vh,32px) 16px clamp(18px,3vh,28px); }
+    .phone-viewer::backdrop { background:rgba(16,18,26,.88); backdrop-filter:blur(6px); }
+    .phone-viewer__stage { display:flex; align-items:center; justify-content:center; gap:clamp(12px,3vw,40px); min-height:0; height:100%; }
+    .phone-viewer__device { --pw:min(84vw, calc(min(80dvh, 820px) * .4655)); position:relative; flex:none; width:var(--pw); aspect-ratio:.4655; margin:0; padding:calc(var(--pw) * .03); border-radius:calc(var(--pw) * .12); background:linear-gradient(145deg,#3d3e45,#16171b 55%,#28292e); box-shadow:inset 0 0 0 2px #4b4c53, inset 0 0 0 5px #0f1013, 0 40px 80px -30px rgba(0,0,0,.7); }
+    .phone-viewer__device::before { content:""; position:absolute; top:22%; right:-4px; width:5px; height:12%; border-radius:0 3px 3px 0; background:#2c2d32; box-shadow:0 calc(var(--pw) * -.24) 0 #2c2d32; }
+    .phone-viewer__device::after { content:""; position:absolute; top:calc(var(--pw) * .058); left:50%; width:calc(var(--pw) * .042); aspect-ratio:1; transform:translateX(-50%); border-radius:50%; background:#0a0b0d; box-shadow:0 0 0 2px rgba(255,255,255,.06), inset 3px -2px 4px rgba(90,120,200,.35); z-index:3; pointer-events:none; }
+    .phone-viewer__screen { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; border-radius:calc(var(--pw) * .075); background:#fff; }
+    .phone-viewer__body { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; scrollbar-width:none; outline:none; }
+    .phone-viewer__body::-webkit-scrollbar { display:none; }
+    .phone-viewer__crop { overflow:hidden; }
+    .phone-viewer__head { flex:none; width:100%; background-repeat:no-repeat; background-size:100% auto; background-position:center top; position:relative; z-index:2; transition:box-shadow .15s; }
+    .phone-viewer__head.is-scrolled { box-shadow:0 1px 0 rgba(0,0,0,.06), 0 6px 12px -8px rgba(0,0,0,.25); }
+    .phone-viewer__foot { flex:none; width:100%; background-repeat:no-repeat; background-size:100% auto; background-position:center bottom; }
+    .screen-tile__foot { position:absolute; left:3.6cqw; right:3.6cqw; bottom:3.6cqw; z-index:1; background-repeat:no-repeat; background-size:100% auto; background-position:center bottom; border-radius:0 0 8.4cqw 8.4cqw; pointer-events:none; }
+    .phone-viewer__screen img { display:block; width:100%; height:auto; }
+    .phone-viewer__nav, .phone-viewer__close { display:grid; place-items:center; flex:none; width:44px; height:44px; padding:0; border:1px solid rgba(255,255,255,.18); border-radius:999px; background:rgba(255,255,255,.08); color:#fff; cursor:pointer; transition:background .15s, opacity .15s; }
+    .phone-viewer__nav:hover, .phone-viewer__close:hover { background:rgba(255,255,255,.2); }
+    .phone-viewer__nav:disabled { opacity:.25; cursor:default; background:transparent; }
+    .phone-viewer__nav svg, .phone-viewer__close svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .phone-viewer__close { position:fixed; top:18px; right:18px; z-index:4; }
+    .phone-viewer__meta { max-width:min(560px,92vw); color:rgba(255,255,255,.66); font-size:.875rem; line-height:1.5; text-align:center; }
+    .phone-viewer__meta b { color:#fff; font-weight:600; }
+    .phone-viewer__meta span { display:block; margin-bottom:4px; color:rgba(255,255,255,.5); font:11px/1.5 var(--mono); letter-spacing:.06em; text-transform:uppercase; }
+    .phone-viewer__hint { display:inline-block; margin-left:6px; color:#9fbaff; }
+    @media(max-width:640px) { .phone-viewer__device { --pw:min(78vw, calc(min(72dvh, 820px) * .4655)); } .phone-viewer__nav { position:fixed; bottom:22px; z-index:4; } .phone-viewer__nav--prev { left:16px; } .phone-viewer__nav--next { right:16px; } .phone-viewer__meta { padding:0 56px; } }
+    </style>
 </head>
 <body>
-  <div class="reading-progress" aria-hidden="true"></div>
-  <div class="page">
-    <aside class="side-nav" aria-label="Case study navigation">
-      <div>
-        <a class="back-link" href="index.html#work" aria-label="Back to selected work">← Back to work</a>
-        <nav class="toc" aria-label="On this page">
-          <a class="active" href="#overview">Overview</a>
-          <a href="#problem">The Problem</a>
-          <a href="#reframe">Product Reframe</a>
-          <a href="#principles">Design Principles</a>
-          <a href="#flow">Solution Flow</a>
-          <a href="#decisions">Design Decisions</a>
-          <a href="#outcome">Outcome</a>
-          <a href="#learnings">Learnings</a>
+  <header class="nav" aria-label="Primary navigation">
+    <div class="nav__inner">
+      <a class="brand" href="index.html">PRACHI</a>
+      <nav class="nav-links" aria-label="Site">
+        <a href="index.html">Home</a>
+        <span class="slash" aria-hidden="true">/</span>
+        <a class="is-current" href="index.html#work" aria-current="page">Work</a>
+      </nav>
+      <div class="nav-social">
+        <a href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">Resume</a>
+        <a class="linkedin-link" href="https://www.linkedin.com/in/prachi-pandey-506/" target="_blank" rel="noreferrer">
+          <svg class="linkedin-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="2.5" fill="currentColor"></rect><path fill="#ffffff" d="M19.23 19.24h-3.04v-4.76c0-1.14-.02-2.6-1.59-2.6-1.58 0-1.83 1.24-1.83 2.52v4.84H9.73V9.45h2.92v1.34h.04c.41-.77 1.4-1.58 2.88-1.58 3.08 0 3.66 2.03 3.66 4.66v5.37ZM6.29 8.12a1.76 1.76 0 1 1 0-3.53 1.76 1.76 0 0 1 0 3.53Zm1.52 11.12H4.77V9.45h3.04v9.79Z"></path></svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <main class="shell">
+    <section class="hero bleed-line" aria-labelledby="caseTitle">
+      <span class="hero__sq" style="top:101px;left:101px" aria-hidden="true"></span><span class="hero__sq" style="top:303px;left:24px" aria-hidden="true"></span><span class="hero__sq" style="top:202px;right:101px" aria-hidden="true"></span>
+      <div class="hero__inner">
+        <p class="hero__pill"><i aria-hidden="true"></i>CARS24 · Warranty selling</p>
+        <h1 id="caseTitle">A warranty sale used to restart with every car. I turned it into <em>dealer-owned inventory.</em></h1>
+        <ul class="hero__meta" aria-label="Project details"><li><b>●</b> Product Design, 2025</li><li>Dealer platform and activation</li><li>500+ warranties in a month</li></ul>
+        <div class="hero__frame"><div class="hero__crop"><img src="assets/cars24-hero-banner.webp" width="2400" height="1350" fetchpriority="high" alt="Three CARS24 dealer app screens on phones: a five-unit budget plan added to the order, Purchased Plans showing units left, and the activation checklist for a car"></div></div>
+      </div>
+    </section>
+    <div class="case-layout">
+      <div class="section-rail"><nav class="section-nav" aria-label="Case study navigation">
+        <a class="section-nav__back" href="index.html#work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>Go back</a>
+        <ul><li><a href="#overview" data-nav="overview"><i>01</i><span>Overview</span></a></li><li><a href="#context" data-nav="context"><i>02</i><span>Context</span></a></li><li><a href="#problem" data-nav="problem"><i>03</i><span>Problem</span></a></li><li><a href="#approach" data-nav="approach"><i>04</i><span>Approach</span></a></li><li><a href="#final-design" data-nav="final-design"><i>05</i><span>Final Design</span></a></li><li><a href="#impact" data-nav="impact"><i>06</i><span>Impact</span></a></li></ul>
+      </nav></div>
+      <article class="case-article">
+        <section class="chapter overview" id="overview" data-section="overview" aria-label="Overview">
+          <div class="band" aria-hidden="true"><span class="band-tick"></span><span class="band-code">[ <b>01</b> / 06 ]</span><span class="band-name">Overview</span></div>
+          <div class="overview__intro"><div><h3 class="h3">About CARS24</h3><p>CARS24 sells cars through a network of dealer partners. Alongside a vehicle, a dealer can sell value-added services such as extended warranty, roadside assistance, buyer protection and maintenance packages.</p></div><div><h3 class="h3">Overview</h3><p>Warranty was bought one car at a time, after a sale, through a Relationship Manager. I redesigned the experience so dealers could purchase plans in volume, hold them as stock and activate each unit against a car later. The two halves had to remain legible as one transaction.</p></div></div>
+          <div class="overview__details"><div><h3 class="h3">My role</h3><p>I was the product designer on the project in 2025. I owned product thinking, the dealer journey, interaction design, final UI and engineering handover.</p></div><div><h3 class="h3">Team</h3><div class="team"><div class="team__member"><span class="team__avatar">P</span><span><b>Product</b> <small>· scope and prioritisation</small></span></div><div class="team__member"><span class="team__avatar">E</span><span><b>Engineering</b> <small>· platform and integrations</small></span></div><div class="team__member"><span class="team__avatar">B</span><span><b>Business and dealer operations</b> <small>· sales and fulfilment</small></span></div></div></div></div>
+          <div class="outcomes"><h3 class="h3">Outcomes at a glance</h3><div class="outcome-grid"><div class="outcome"><p class="outcome__value">500+</p><p class="outcome__label">Warranty sales supported in one month after release</p></div><div class="outcome"><p class="outcome__value">14 steps</p><p class="outcome__label">In the old per-car workflow that the new model replaced</p></div><div class="outcome"><p class="outcome__value">2 flows</p><p class="outcome__label">Bulk purchase and car-level activation, joined by a unit of stock</p></div></div></div>
+        </section>
+        <section class="chapter" id="context" data-section="context" aria-labelledby="contextTitle"><div class="band" aria-hidden="true"><span class="band-tick"></span><span class="band-code">[ <b>02</b> / 06 ]</span><span class="band-name">Context</span></div>
+          <h2 class="h2" id="contextTitle">The dealer was buying one policy at a time. The business ran in batches.</h2>
+          <p class="lead-p">A dealer might know roughly how many cars would be sold that month, but could not buy warranty capacity ahead of time. Each car reopened a long process across the dealer, a Relationship Manager and Warranty Operations.</p>
+          <div class="problems"><p class="problems__lead">Three groups had to make one sale work.</p><div class="problem"><p class="problem__name">Dealer</p><p>Sold the car, requested cover, checked what was available and needed the policy active before delivery.</p></div><div class="problem"><p class="problem__name">Relationship Manager</p><p>Bridged the dealer and internal teams, including balance lookups, inspection dependencies and status questions.</p></div><div class="problem"><p class="problem__name">Warranty Ops</p><p>Checked eligibility, processed requests and completed the operational steps needed for issuance.</p></div></div>
+          <p class="pull">The design problem was not how to make the same 14 steps look shorter. It was how to stop repeating the purchase for every car.</p>
+        </section>
+        <section class="chapter" id="problem" data-section="problem" aria-labelledby="problemTitle"><div class="band" aria-hidden="true"><span class="band-tick"></span><span class="band-code">[ <b>03</b> / 06 ]</span><span class="band-name">Problem</span></div>
+          <h2 class="h2" id="problemTitle">Four points of friction sat between a dealer and an active warranty.</h2>
+          <div class="problems"><div class="problem"><p class="problem__name">Repetition</p><p>Buying after every sale meant the commercial decision had to be made again for each vehicle.</p></div><div class="problem"><p class="problem__name">Invisible stock</p><p>Dealers tracked what they believed they owned in spreadsheets, not in the product where they would use it.</p></div><div class="problem"><p class="problem__name">Lookups</p><p>Relationship Managers answered questions about balance and status that the interface could have answered directly.</p></div><div class="problem"><p class="problem__name">Timing</p><p>Eligibility, inspection and customer registration still had to happen before a car was delivered. A bulk order alone could not solve activation.</p></div></div>
+          <h3 class="sub">What informed the model</h3><p class="body-p">Dealer and internal-team inputs pointed in the same direction: dealers planned for monthly volume, stock lived in spreadsheets, RM calls often asked for balances, and activation had to finish before delivery. I don't have a recorded participant count for this work, so I treat these as directional themes.</p>
+          <div class="constraints"><div class="constraints__grid"><div class="constraint"><p class="constraint__num">01 / Scope</p><h4>Warranty first</h4><p>The commerce model could later serve other value-added services, but warranty had to work end to end first.</p></div><div class="constraint"><p class="constraint__num">02 / Coverage</p><h4>Underwriter rules stay intact</h4><p>Bulk stock could not promise cover for a car that failed plan eligibility.</p></div><div class="constraint"><p class="constraint__num">03 / Inspection</p><h4>Inspection is the source of truth</h4><p>The interface had to read the inspection record, not replace it with dealer-entered eligibility.</p></div></div></div>
+        </section>
+        <section class="chapter" id="approach" data-section="approach" aria-labelledby="approachTitle"><div class="band" aria-hidden="true"><span class="band-tick"></span><span class="band-code">[ <b>04</b> / 06 ]</span><span class="band-name">Approach</span></div>
+          <h2 class="h2" id="approachTitle">Treat the plan as stock, then spend a unit on a car.</h2><p class="lead-p">The product model separates the commercial commitment from fulfilment. The journey starts when warranty is discovered in Miles. The bulk-sale screens connect a selected dealership, plan, quantity and payment handoff. Purchased units then become visible in the dealer app, where an eligible unit is assigned to a car and activated after inspection and customer details are complete.</p>
+          <div class="warranty-flow" role="list" aria-label="Warranty lifecycle"><div class="warranty-flow__step" role="listitem"><span>01 / Buy</span><strong>Purchase plans</strong><p>Choose coverage, tenure and quantity; confirm the order.</p></div><div class="warranty-flow__step" role="listitem"><span>02 / Hold</span><strong>See inventory</strong><p>Available, added to car and activated counts stay visible.</p></div><div class="warranty-flow__step" role="listitem"><span>03 / Assign</span><strong>Match a car</strong><p>Start from a car or from a purchased plan, with eligibility checked.</p></div><div class="warranty-flow__step" role="listitem"><span>04 / Activate</span><strong>Finish issuance</strong><p>Inspection, car verification and customer details complete the policy.</p></div></div>
+
+          <section class="ia-map" id="warranty-ia" aria-labelledby="iaTitle">
+            <div class="ia-map__intro"><p class="ia-map__eyebrow">Information architecture / flow</p><h3 id="iaTitle">How one order becomes cover for individual cars.</h3><p>Follow the arrows from discovery and payment to dealer stock. The two redemption paths meet at eligibility before one purchased unit becomes cover for one car.</p></div>
+            <figure class="ia-diagram"><div class="ia-diagram__viewport"><svg class="ia-diagram__svg" viewBox="0 0 960 730" role="img" aria-labelledby="iaSvgTitle iaSvgDesc" xmlns="http://www.w3.org/2000/svg"><title id="iaSvgTitle">Warranty selling information architecture</title><desc id="iaSvgDesc">Five connected rows: Miles discovery, the bulk order, dealer stock with two entry points that meet at eligibility, redemption and activation, and the Pending Activation loop that returns to the activation checklist.</desc><defs><marker id="iaArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0.8 L9.5 5 L0 9.2 Z" fill="#9ca3ab"/></marker></defs><g class="ia-diagram__headings"><text x="30" y="80">Objects (pages)</text><text x="210" y="80">Actions</text><text x="390" y="80">Screens / checks</text><text x="580" y="80">Actions</text><text x="780" y="80">Attributes</text></g><g class="ia-diagram__edges"><path d="M170 136 L210 136"/><path d="M350 136 L390 136"/><path d="M540 136 L580 136"/><path d="M730 136 L780 136"/><path d="M655 162 L655 181 Q655 191 645 191 L110 191 Q100 191 100 201 L100 220"/><path d="M170 246 L210 246"/><path d="M350 246 L390 246"/><path d="M540 246 L580 246"/><path d="M730 246 L780 246"/><path d="M655 272 L655 291 Q655 301 645 301 L110 301 Q100 301 100 311 L100 330"/><path d="M170 356 L210 356"/><path d="M170 436 L210 436"/><path d="M350 356 L360 356 Q370 356 370 366 L370 386 Q370 396 380 396 L390 396"/><path d="M350 436 L360 436 Q370 436 370 426 L370 406 Q370 396 380 396 L390 396"/><path d="M540 396 L580 396"/><path d="M730 396 L745 396 Q755 396 755 386 L755 366 Q755 356 765 356 L780 356"/><path d="M730 396 L745 396 Q755 396 755 406 L755 426 Q755 436 765 436 L780 436"/><path d="M655 422 L655 476 Q655 486 645 486 L110 486 Q100 486 100 496 L100 510"/><path d="M170 536 L210 536"/><path d="M350 536 L390 536"/><path d="M540 536 L580 536"/><path d="M730 536 L780 536"/><path d="M500 562 L500 636 Q500 646 510 646 L580 646"/><path d="M350 646 L420 646 Q430 646 430 636 L430 562"/><path d="M730 646 L780 646"/><path d="M655 672 L655 692 Q655 702 645 702 L110 702 Q100 702 100 692 L100 672"/><path d="M170 646 L210 646"/></g><g class="ia-edge-label"><rect x="313" y="181" width="134" height="20" rx="10"/><text x="380" y="195" text-anchor="middle">Dealership selected</text></g><g class="ia-edge-label"><rect x="322" y="291" width="116" height="20" rx="10"/><text x="380" y="305" text-anchor="middle">Payment complete</text></g><g class="ia-edge-label"><rect x="331.5" y="476" width="97" height="20" rx="10"/><text x="380" y="490" text-anchor="middle">Unit assigned</text></g><g class="ia-edge-label"><rect x="325" y="692" width="110" height="20" rx="10"/><text x="380" y="706" text-anchor="middle">Saved for later</text></g><g class="ia-node ia-node--object"><rect x="30" y="110" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="100" y="140.5">Miles app</tspan></text></g><g class="ia-node ia-node--action"><rect x="210" y="110" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="280" y="140.5">Open Warranty</tspan></text></g><g class="ia-node ia-node--screen"><rect x="390" y="110" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="465" y="140.5">Dealership picker</tspan></text></g><g class="ia-node ia-node--action"><rect x="580" y="110" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="655" y="140.5">Select dealership</tspan></text></g><g class="ia-node ia-node--attribute"><rect x="780" y="110" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="855" y="140.5">Dealership</tspan></text></g><g class="ia-node ia-node--object"><rect x="30" y="220" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="100" y="250.5">Bulk order</tspan></text></g><g class="ia-node ia-node--action"><rect x="210" y="220" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="280" y="242.5">Choose plan</tspan><tspan x="280" y="258.5">and quantity</tspan></text></g><g class="ia-node ia-node--screen"><rect x="390" y="220" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="465" y="250.5">Order summary</tspan></text></g><g class="ia-node ia-node--action"><rect x="580" y="220" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="655" y="250.5">Share payment link</tspan></text></g><g class="ia-node ia-node--attribute"><rect x="780" y="220" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="855" y="242.5">Order total,</tspan><tspan x="855" y="258.5">payment status</tspan></text></g><g class="ia-node ia-node--object"><rect x="30" y="330" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="100" y="360.5">Purchased Plans</tspan></text></g><g class="ia-node ia-node--object"><rect x="30" y="410" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="100" y="440.5">Car detail</tspan></text></g><g class="ia-node ia-node--action"><rect x="210" y="330" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="280" y="360.5">Choose a plan</tspan></text></g><g class="ia-node ia-node--action"><rect x="210" y="410" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="280" y="432.5">Redeem</tspan><tspan x="280" y="448.5">purchased plan</tspan></text></g><g class="ia-node ia-node--screen"><rect x="390" y="370" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="465" y="400.5">Eligibility check</tspan></text></g><g class="ia-node ia-node--action"><rect x="580" y="370" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="655" y="400.5">Assign unit to car</tspan></text></g><g class="ia-node ia-node--attribute"><rect x="780" y="330" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="855" y="360.5">Available units</tspan></text></g><g class="ia-node ia-node--attribute"><rect x="780" y="410" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="855" y="440.5">Car, inspection</tspan></text></g><g class="ia-node ia-node--object"><rect x="30" y="510" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="100" y="540.5">Redemption cart</tspan></text></g><g class="ia-node ia-node--action"><rect x="210" y="510" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="280" y="540.5">Review ₹0 bill</tspan></text></g><g class="ia-node ia-node--screen"><rect x="390" y="510" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="465" y="532.5">Activation</tspan><tspan x="465" y="548.5">checklist</tspan></text></g><g class="ia-node ia-node--action"><rect x="580" y="510" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="655" y="540.5">Issue policy</tspan></text></g><g class="ia-node ia-node--attribute"><rect x="780" y="510" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="855" y="540.5">Policy status</tspan></text></g><g class="ia-node ia-node--object"><rect x="30" y="620" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="100" y="642.5">Pending</tspan><tspan x="100" y="658.5">Activation</tspan></text></g><g class="ia-node ia-node--action"><rect x="210" y="620" width="140" height="52" rx="5"/><text text-anchor="middle"><tspan x="280" y="650.5">Resume activation</tspan></text></g><g class="ia-node ia-node--action"><rect x="580" y="620" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="655" y="650.5">Activate Later</tspan></text></g><g class="ia-node ia-node--attribute"><rect x="780" y="620" width="150" height="52" rx="5"/><text text-anchor="middle"><tspan x="855" y="650.5">Pending status</tspan></text></g></svg></div><figcaption>Each row is one stage. A labelled connector carries the result of one stage into the next, and the bottom loop shows how Pending Activation returns to the checklist.</figcaption></figure>
+            <p class="ia-diagram__hint">Scroll sideways to explore the full map.</p>
+            <details class="ia-outline"><summary>Read the flow as steps</summary><ol><li><strong>Miles app:</strong> Open Warranty from Service add-ons and select the dealership.</li><li><strong>Bulk sale:</strong> Choose the plan and quantity, review the order and share the payment link. Paid units appear in Purchased Plans.</li><li><strong>Dealer app:</strong> Start from Purchased Plans or from a car. Choose one unit and one eligible car.</li><li><strong>Issuance:</strong> Check the inspection record, open the redemption cart and review the ₹0 bill, then complete the activation checklist and issue the policy.</li><li><strong>Exceptions:</strong> Inspection failure shows a removal or reinspection path. Activate Later moves the car to Pending Activation, where the dealer can resume.</li></ol></details>
+          </section>
+          <h3 class="sub">The rules behind the screens</h3><div class="principles"><div class="principle"><b>01</b><p>Separate buying from activation without losing the link between them.</p></div><div class="principle"><b>02</b><p>Keep quantity, total, savings and unit price together.</p></div><div class="principle"><b>03</b><p>Show what is available, assigned and still waiting.</p></div></div>
+          <p class="warranty-note"><strong>The critical distinction</strong>Buying five warranties does not mean five cars are covered. Each unit becomes a policy only after it is assigned to an eligible car and activation is completed.</p>
+        </section>
+        <section id="final-design" data-section="final-design" aria-labelledby="finalTitle"><div class="band" aria-hidden="true"><span class="band-tick"></span><span class="band-code">[ <b>05</b> / 06 ]</span><span class="band-name">Final Design</span></div>
+          <h2 class="h2" id="finalTitle">From discovery to issued cover.</h2><p class="lead-p">The Figma work has three connected parts: Miles app discovery, the bulk-sale order and payment handoff, then dealer-app issuance against a specific car. The order buys capacity; issuance turns one unit into cover.</p><p class="ia-jump"><a href="#warranty-ia">View the full flow map</a></p>
+          <nav class="journey-map" aria-label="Design journey"><a href="#miles-discovery"><span>01 / Discover</span><strong>Miles app</strong><small>Find warranty and choose a dealership</small></a><a href="#bulk-sales-designs"><span>02 / Purchase</span><strong>Bulk sales</strong><small>Choose units, review price, hand off payment</small></a><a href="#dealer-issuance"><span>03 / Issue</span><strong>Dealer app</strong><small>Assign a unit and activate it for a car</small></a></nav>
+          <div class="journey-stage" id="miles-discovery"><div class="journey-stage__index">01 <span>/ 03</span></div><div><p class="journey-stage__label">Miles App Discovery</p><h3>Put warranty where the journey starts.</h3><p>The Miles home screen lists warranty among the service add-ons and describes it as something that can be sold in advance or in bulk. Choosing a dealership gives the following order a clear owner.</p></div></div>
+          <div class="state-group"><div class="state-group__head"><h4>Discovery in Miles</h4><span>03 screens</span></div><p>The RM finds warranty among dealer services and chooses which dealership the order is for.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/miles-discovery-in-miles-1.webp" aria-label="Expand Discovery in Miles: Home"><img src="assets/cars24-screens/miles-discovery-in-miles-1.webp" loading="lazy" width="720" height="1600" alt="Home. Warranty sits under Service add-ons as &quot;Sell in advance / bulk&quot;."></button><p><b>01 / Home</b>Warranty sits under Service add-ons as &quot;Sell in advance / bulk&quot;.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/miles-discovery-in-miles-2.webp" aria-label="Expand Discovery in Miles: Dealership picker"><img src="assets/cars24-screens/miles-discovery-in-miles-2.webp" loading="lazy" width="720" height="1600" alt="Dealership picker. Search or scroll the RM's dealerships before anything is selected."></button><p><b>02 / Dealership picker</b>Search or scroll the RM's dealerships before anything is selected.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/miles-discovery-in-miles-3.webp" aria-label="Expand Discovery in Miles: Dealership selected"><img src="assets/cars24-screens/miles-discovery-in-miles-3.webp" loading="lazy" width="720" height="1600" alt="Dealership selected. The chosen dealership enables the next step."></button><p><b>03 / Dealership selected</b>The chosen dealership enables the next step.</p></li></ol></div>
+          <div class="journey-stage" id="bulk-sales-designs"><div class="journey-stage__index">02 <span>/ 03</span></div><div><p class="journey-stage__label">Bulk Sales – Designs</p><h3>Make the volume decision and payment handoff legible.</h3><p>Coverage, tenure, quantity and effective unit price belong together. The bulk-sale board also shows a payment link shared with the dealership through the dealer app, WhatsApp and SMS, so the commercial step has a visible handoff rather than disappearing into the next flow.</p></div></div>
+          <div class="warranty-decision"><h3 class="sub">A plan card makes the threshold visible</h3><ul class="solution"><li><p class="solution__label">Problem identified</p><p>A dealer comparing plans could not evaluate a discount without knowing how many units were required.</p></li><li><p class="solution__label">What I did</p><p>The plan comparison places the quantity threshold with coverage and tenure. The dealer can assess the offer before entering the cart.</p></li></ul></div>
+          <div class="state-group"><div class="state-group__head"><h4>Budget plans</h4><span>05 screens</span></div><p>Plans are listed with the five-pack discount banner. The quantity decision happens in a sheet.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-budget-plans-1.webp" aria-label="Expand Budget plans: Plan list"><img src="assets/cars24-screens/bulk-budget-plans-1.webp" loading="lazy" width="720" height="3120" alt="Plan list. Budget plans with the discount threshold above the cards."></button><p><b>01 / Plan list</b>Budget plans with the discount threshold above the cards.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-budget-plans-2.webp" aria-label="Expand Budget plans: Quantity sheet"><img src="assets/cars24-screens/bulk-budget-plans-2.webp" loading="lazy" width="720" height="1600" alt="Quantity sheet. No quantity selected, so Confirm stays disabled."></button><p><b>02 / Quantity sheet</b>No quantity selected, so Confirm stays disabled.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-budget-plans-3.webp" aria-label="Expand Budget plans: Five units selected"><img src="assets/cars24-screens/bulk-budget-plans-3.webp" loading="lazy" width="720" height="1600" alt="Five units selected. Total, unit price and 50% saving update together."></button><p><b>03 / Five units selected</b>Total, unit price and 50% saving update together.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-budget-plans-4.webp" aria-label="Expand Budget plans: Added to order"><img src="assets/cars24-screens/bulk-budget-plans-4.webp" loading="lazy" width="720" height="1600" alt="Added to order. The card switches to a stepper and the cart bar shows the total."></button><p><b>04 / Added to order</b>The card switches to a stepper and the cart bar shows the total.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-budget-plans-5.webp" aria-label="Expand Budget plans: Payment in progress"><img src="assets/cars24-screens/bulk-budget-plans-5.webp" loading="lazy" width="720" height="1600" alt="Payment in progress. The cart locks while an earlier payment is pending."></button><p><b>05 / Payment in progress</b>The cart locks while an earlier payment is pending.</p></li></ol></div>
+          <div class="state-group"><div class="state-group__head"><h4>Premium plans</h4><span>04 screens</span></div><p>The same pattern for premium cover, so a mixed order reads the same way.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-premium-plans-1.webp" aria-label="Expand Premium plans: Plan list"><img src="assets/cars24-screens/bulk-premium-plans-1.webp" loading="lazy" width="720" height="3120" alt="Plan list. Premium plans for a specific model and tenure."></button><p><b>01 / Plan list</b>Premium plans for a specific model and tenure.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-premium-plans-2.webp" aria-label="Expand Premium plans: Quantity sheet"><img src="assets/cars24-screens/bulk-premium-plans-2.webp" loading="lazy" width="720" height="1600" alt="Quantity sheet. Default state before a quantity is chosen."></button><p><b>02 / Quantity sheet</b>Default state before a quantity is chosen.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-premium-plans-3.webp" aria-label="Expand Premium plans: One unit selected"><img src="assets/cars24-screens/bulk-premium-plans-3.webp" loading="lazy" width="720" height="1600" alt="One unit selected. A single unit keeps the full unit price."></button><p><b>03 / One unit selected</b>A single unit keeps the full unit price.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-premium-plans-4.webp" aria-label="Expand Premium plans: Mixed order"><img src="assets/cars24-screens/bulk-premium-plans-4.webp" loading="lazy" width="720" height="1600" alt="Mixed order. Two services in the cart with a combined total."></button><p><b>04 / Mixed order</b>Two services in the cart with a combined total.</p></li></ol></div>
+          <div class="state-group"><div class="state-group__head"><h4>Coverage details</h4><span>02 screens</span></div><p>Each plan opens a coverage page before purchase.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-coverage-details-1.webp" aria-label="Expand Coverage details: Budget coverage"><img src="assets/cars24-screens/bulk-coverage-details-1.webp" loading="lazy" width="720" height="1600" alt="Budget coverage. Claim limit, tenure, cool-off period and covered parts."></button><p><b>01 / Budget coverage</b>Claim limit, tenure, cool-off period and covered parts.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-coverage-details-2.webp" aria-label="Expand Coverage details: Premium coverage"><img src="assets/cars24-screens/bulk-coverage-details-2.webp" loading="lazy" width="720" height="1600" alt="Premium coverage. The same structure for premium plans."></button><p><b>02 / Premium coverage</b>The same structure for premium plans.</p></li></ol></div>
+          <div class="warranty-decision"><h3 class="sub">Quantity is a deliberate decision</h3><ul class="solution"><li><p class="solution__label">Problem identified</p><p>The unit price changes with volume. A premature confirmation would hide the maths of the order.</p></li><li><p class="solution__label">What I did</p><p>A quantity sheet makes selection explicit. The selected quantity, total, savings and effective unit price stay connected on the order and in the persistent cart.</p></li></ul></div>
+          <div class="state-group"><div class="state-group__head"><h4>Cart and payment link</h4><span>04 screens</span></div><p>The RM reviews the order and sends the dealership a link to pay.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-cart-and-payment-link-1.webp" data-footer="152" aria-label="Expand Cart and payment link: Cart"><img src="assets/cars24-screens/bulk-cart-and-payment-link-1.webp" loading="lazy" width="720" height="1870" alt="Cart. Selected add-ons, bill details and GST in one view."><span class="screen-tile__foot" style="aspect-ratio:720 / 152;background-image:url('assets/cars24-screens/bulk-cart-and-payment-link-1.webp')" aria-hidden="true"></span></button><p><b>01 / Cart</b>Selected add-ons, bill details and GST in one view.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-cart-and-payment-link-2.webp" aria-label="Expand Cart and payment link: Empty cart"><img src="assets/cars24-screens/bulk-cart-and-payment-link-2.webp" loading="lazy" width="720" height="1600" alt="Empty cart. A prompt to add plans when nothing is selected."></button><p><b>02 / Empty cart</b>A prompt to add plans when nothing is selected.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-cart-and-payment-link-3.webp" aria-label="Expand Cart and payment link: Link shared"><img src="assets/cars24-screens/bulk-cart-and-payment-link-3.webp" loading="lazy" width="720" height="1600" alt="Link shared. Sent to the dealer app, WhatsApp and SMS, with a validity timer."></button><p><b>03 / Link shared</b>Sent to the dealer app, WhatsApp and SMS, with a validity timer.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-cart-and-payment-link-4.webp" aria-label="Expand Cart and payment link: Payment declined"><img src="assets/cars24-screens/bulk-cart-and-payment-link-4.webp" loading="lazy" width="720" height="1600" alt="Payment declined. A loading state while a declined request is processed."></button><p><b>04 / Payment declined</b>A loading state while a declined request is processed.</p></li></ol></div>
+          <div class="state-group"><div class="state-group__head"><h4>Dealer pays the request</h4><span>04 screens</span></div><p>On the dealer side, the payment request appears in the partner app.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-dealer-pays-the-request-1.webp" aria-label="Expand Dealer pays the request: Payment request card"><img src="assets/cars24-screens/bulk-dealer-pays-the-request-1.webp" loading="lazy" width="720" height="1600" alt="Payment request card. Accept or decline from the Add-ons home."></button><p><b>01 / Payment request card</b>Accept or decline from the Add-ons home.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-dealer-pays-the-request-3.webp" aria-label="Expand Dealer pays the request: Request details"><img src="assets/cars24-screens/bulk-dealer-pays-the-request-3.webp" loading="lazy" width="720" height="1600" alt="Request details. Every plan, quantity and price before paying."></button><p><b>02 / Request details</b>Every plan, quantity and price before paying.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-dealer-pays-the-request-4.webp" aria-label="Expand Dealer pays the request: Request summary"><img src="assets/cars24-screens/bulk-dealer-pays-the-request-4.webp" loading="lazy" width="720" height="1600" alt="Request summary. The validity timer sits above Decline Request and Pay Now."></button><p><b>03 / Request summary</b>The validity timer sits above Decline Request and Pay Now.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-dealer-pays-the-request-5.webp" aria-label="Expand Dealer pays the request: Decline confirmation"><img src="assets/cars24-screens/bulk-dealer-pays-the-request-5.webp" loading="lazy" width="720" height="1600" alt="Decline confirmation. Declining means the RM has to send a new link."></button><p><b>04 / Decline confirmation</b>Declining means the RM has to send a new link.</p></li></ol></div>
+          <div class="state-group"><div class="state-group__head"><h4>Purchased Plans in Miles</h4><span>02 screens</span></div><p>After payment, the RM can see what the dealership holds.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-purchased-plans-in-miles-1.webp" aria-label="Expand Purchased Plans in Miles: Stock by plan"><img src="assets/cars24-screens/bulk-purchased-plans-in-miles-1.webp" loading="lazy" width="720" height="1600" alt="Stock by plan. Units left, added to car and activated for each plan."></button><p><b>01 / Stock by plan</b>Units left, added to car and activated for each plan.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/bulk-purchased-plans-in-miles-2.webp" aria-label="Expand Purchased Plans in Miles: Nothing sold yet"><img src="assets/cars24-screens/bulk-purchased-plans-in-miles-2.webp" loading="lazy" width="720" height="1600" alt="Nothing sold yet. The empty state for a dealership with no purchased plans."></button><p><b>02 / Nothing sold yet</b>The empty state for a dealership with no purchased plans.</p></li></ol></div>
+          <p class="warranty-note"><strong>Payment is not activation.</strong>The link can reach the dealership in the dealer app, WhatsApp and SMS. Only after the order is paid do purchased units become stock to use against cars. The next screens answer what remains available and what has actually been issued.</p>
+          <div class="journey-stage" id="dealer-issuance"><div class="journey-stage__index">03 <span>/ 03</span></div><div><p class="journey-stage__label">Dealer App Issuance Journey</p><h3>Turn one purchased unit into cover for one car.</h3><p>The dealer can start from Purchased Plans or from a car. Both routes meet at unit redemption, then move through eligibility, a ₹0 bill for the already-paid unit and the steps needed to activate the policy. Blocked and pending states keep the unfinished work visible.</p></div></div>
+          <div class="state-group"><div class="state-group__head"><h4>Dealer app entry points</h4><span>05 screens</span></div><p>Purchased plans are reachable from the services home, with cars and pending work in tabs.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-dealer-app-entry-points-1.webp" aria-label="Expand Dealer app entry points: Add-ons home"><img src="assets/cars24-screens/dealer-dealer-app-entry-points-1.webp" loading="lazy" width="720" height="1600" alt="Add-ons home. Warranty sits beside the other partner services."></button><p><b>01 / Add-ons home</b>Warranty sits beside the other partner services.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-dealer-app-entry-points-2.webp" data-footer="152" aria-label="Expand Dealer app entry points: Car Care Services"><img src="assets/cars24-screens/dealer-dealer-app-entry-points-2.webp" loading="lazy" width="720" height="1612" alt="Car Care Services. Claim purchased plans, then finish purchases by car."><span class="screen-tile__foot" style="aspect-ratio:720 / 152;background-image:url('assets/cars24-screens/dealer-dealer-app-entry-points-2.webp')" aria-hidden="true"></span></button><p><b>02 / Car Care Services</b>Claim purchased plans, then finish purchases by car.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-dealer-app-entry-points-3.webp" aria-label="Expand Dealer app entry points: Your cars"><img src="assets/cars24-screens/dealer-dealer-app-entry-points-3.webp" loading="lazy" width="720" height="1600" alt="Your cars. Cars ready for an add-on, listed below the claim banner."></button><p><b>03 / Your cars</b>Cars ready for an add-on, listed below the claim banner.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-dealer-app-entry-points-4.webp" aria-label="Expand Dealer app entry points: Pending Activations"><img src="assets/cars24-screens/dealer-dealer-app-entry-points-4.webp" loading="lazy" width="720" height="1600" alt="Pending Activations. Cars with a unit assigned but no active policy yet."></button><p><b>04 / Pending Activations</b>Cars with a unit assigned but no active policy yet.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-dealer-app-entry-points-5.webp" data-footer="152" aria-label="Expand Dealer app entry points: Blocked car in list"><img src="assets/cars24-screens/dealer-dealer-app-entry-points-5.webp" loading="lazy" width="720" height="1624" alt="Blocked car in list. The inspection issue and a removal action appear on the card."><span class="screen-tile__foot" style="aspect-ratio:720 / 152;background-image:url('assets/cars24-screens/dealer-dealer-app-entry-points-5.webp')" aria-hidden="true"></span></button><p><b>05 / Blocked car in list</b>The inspection issue and a removal action appear on the card.</p></li></ol></div>
+          <div class="warranty-decision"><h3 class="sub">Inventory answers the next question</h3><ul class="solution"><li><p class="solution__label">Problem identified</p><p>After the order, the dealer still needs to know what is left and what has happened to each unit. A single purchased count is not enough.</p></li><li><p class="solution__label">What I did</p><p>The Purchased Plans view separates available units from those added to cars and those activated. Expiry and count-drop rules are explained where the balance is shown.</p></li></ul></div>
+          <div class="state-group"><div class="state-group__head"><h4>Purchased Plans</h4><span>05 screens</span></div><p>The plan-level view answers what has been bought and what is left.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-purchased-plans-1.webp" aria-label="Expand Purchased Plans: Plan inventory"><img src="assets/cars24-screens/dealer-purchased-plans-1.webp" loading="lazy" width="720" height="1600" alt="Plan inventory. Budget and premium filters with unit counts and Add units to car."></button><p><b>01 / Plan inventory</b>Budget and premium filters with unit counts and Add units to car.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-purchased-plans-2.webp" aria-label="Expand Purchased Plans: Service tabs"><img src="assets/cars24-screens/dealer-purchased-plans-2.webp" loading="lazy" width="720" height="1870" alt="Service tabs. Warranty, annual servicing and roadside assistance in one place."></button><p><b>02 / Service tabs</b>Warranty, annual servicing and roadside assistance in one place.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-purchased-plans-3.webp" aria-label="Expand Purchased Plans: Filter applied"><img src="assets/cars24-screens/dealer-purchased-plans-3.webp" loading="lazy" width="720" height="1870" alt="Filter applied. Budget plans only."></button><p><b>03 / Filter applied</b>Budget plans only.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-purchased-plans-4.webp" aria-label="Expand Purchased Plans: Completed orders"><img src="assets/cars24-screens/dealer-purchased-plans-4.webp" loading="lazy" width="720" height="1600" alt="Completed orders. Past bulk orders filtered to purchased plans."></button><p><b>04 / Completed orders</b>Past bulk orders filtered to purchased plans.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-purchased-plans-5.webp" aria-label="Expand Purchased Plans: Order summary"><img src="assets/cars24-screens/dealer-purchased-plans-5.webp" loading="lazy" width="720" height="1600" alt="Order summary. Order ID, payment date, GST and the amount paid."></button><p><b>05 / Order summary</b>Order ID, payment date, GST and the amount paid.</p></li></ol></div>
+          <div class="state-group"><div class="state-group__head"><h4>Add units to cars</h4><span>06 screens</span></div><p>The stock-first path: pick eligible cars against a plan's remaining units.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-add-units-to-cars-1.webp" aria-label="Expand Add units to cars: Select cars"><img src="assets/cars24-screens/dealer-add-units-to-cars-1.webp" loading="lazy" width="720" height="1600" alt="Select cars. No cars selected, 0 of 5 units used."></button><p><b>01 / Select cars</b>No cars selected, 0 of 5 units used.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-add-units-to-cars-2.webp" aria-label="Expand Add units to cars: Cars selected"><img src="assets/cars24-screens/dealer-add-units-to-cars-2.webp" loading="lazy" width="720" height="1600" alt="Cars selected. Three cars checked and Add Warranty enabled."></button><p><b>02 / Cars selected</b>Three cars checked and Add Warranty enabled.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-add-units-to-cars-3.webp" aria-label="Expand Add units to cars: Added"><img src="assets/cars24-screens/dealer-add-units-to-cars-3.webp" loading="lazy" width="720" height="1600" alt="Added. A confirmation toast after units are assigned."></button><p><b>03 / Added</b>A confirmation toast after units are assigned.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-add-units-to-cars-4.webp" aria-label="Expand Add units to cars: All units used"><img src="assets/cars24-screens/dealer-add-units-to-cars-4.webp" loading="lazy" width="720" height="1600" alt="All units used. 5 of 5 selected, so no more cars can be added."></button><p><b>04 / All units used</b>5 of 5 selected, so no more cars can be added.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-add-units-to-cars-5.webp" aria-label="Expand Add units to cars: No units left"><img src="assets/cars24-screens/dealer-add-units-to-cars-5.webp" loading="lazy" width="720" height="1600" alt="No units left. A prompt to buy more before claiming."></button><p><b>05 / No units left</b>A prompt to buy more before claiming.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-add-units-to-cars-6.webp" aria-label="Expand Add units to cars: How claiming works"><img src="assets/cars24-screens/dealer-add-units-to-cars-6.webp" loading="lazy" width="720" height="1600" alt="How claiming works. Counts drop only on confirmation, and units expire."></button><p><b>06 / How claiming works</b>Counts drop only on confirmation, and units expire.</p></li></ol></div>
+          <div class="state-group"><div class="state-group__head"><h4>Status per car</h4><span>05 screens</span></div><p>The Add Ons Added tab tracks each assigned unit until it is active.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-status-per-car-1.webp" aria-label="Expand Status per car: Nothing added"><img src="assets/cars24-screens/dealer-status-per-car-1.webp" loading="lazy" width="720" height="1600" alt="Nothing added. The empty state before any unit is assigned."></button><p><b>01 / Nothing added</b>The empty state before any unit is assigned.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-status-per-car-2.webp" aria-label="Expand Status per car: Awaiting activation"><img src="assets/cars24-screens/dealer-status-per-car-2.webp" loading="lazy" width="720" height="1600" alt="Awaiting activation. Three cars with Complete Activation actions."></button><p><b>02 / Awaiting activation</b>Three cars with Complete Activation actions.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-status-per-car-3.webp" aria-label="Expand Status per car: All units assigned"><img src="assets/cars24-screens/dealer-status-per-car-3.webp" loading="lazy" width="720" height="2082" alt="All units assigned. Five cars added and none activated yet."></button><p><b>03 / All units assigned</b>Five cars added and none activated yet.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-status-per-car-4.webp" aria-label="Expand Status per car: One activated"><img src="assets/cars24-screens/dealer-status-per-car-4.webp" loading="lazy" width="720" height="1600" alt="One activated. An Activation Completed badge on the finished car."></button><p><b>04 / One activated</b>An Activation Completed badge on the finished car.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-status-per-car-5.webp" aria-label="Expand Status per car: All activated"><img src="assets/cars24-screens/dealer-status-per-car-5.webp" loading="lazy" width="720" height="1696" alt="All activated. Every unit has become an active policy."></button><p><b>05 / All activated</b>Every unit has become an active policy.</p></li></ol></div>
+          <div class="warranty-decision"><h3 class="sub">Two entry points meet at the same redemption</h3><ul class="solution"><li><p class="solution__label">Problem identified</p><p>Some dealers start with a sold car. Others start from the warranty units they have already bought.</p></li><li><p class="solution__label">What I did</p><p>The car detail page offers Redeem Purchased Plans, while inventory offers an eligible-car route. Both lead to selecting a unit for a particular car.</p></li></ul></div>
+          <div class="warranty-decision"><h3 class="sub">A zero-rupee bill explains itself</h3><ul class="solution"><li><p class="solution__label">Problem identified</p><p>A redeemed unit has already been paid for. Showing ₹0 without context could look like a pricing error.</p></li><li><p class="solution__label">What I did</p><p>The redemption cart shows zero cost and says the plan was already purchased. The bill closes the loop between the earlier bulk order and this car.</p></li></ul></div>
+          <div class="state-group"><div class="state-group__head"><h4>Car-first redemption</h4><span>04 screens</span></div><p>From a car, the dealer redeems a unit already paid for.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-car-first-redemption-1.webp" aria-label="Expand Car-first redemption: Car detail"><img src="assets/cars24-screens/dealer-car-first-redemption-1.webp" loading="lazy" width="720" height="1600" alt="Car detail. Purchased plans offered first, with units remaining."></button><p><b>01 / Car detail</b>Purchased plans offered first, with units remaining.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-car-first-redemption-2.webp" aria-label="Expand Car-first redemption: Plan added"><img src="assets/cars24-screens/dealer-car-first-redemption-2.webp" loading="lazy" width="720" height="1600" alt="Plan added. The cart bar shows one service at ₹0."></button><p><b>02 / Plan added</b>The cart bar shows one service at ₹0.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-car-first-redemption-3.webp" aria-label="Expand Car-first redemption: ₹0 cart"><img src="assets/cars24-screens/dealer-car-first-redemption-3.webp" loading="lazy" width="720" height="1600" alt="₹0 cart. The bill explains there is no cost for a redeemed plan."></button><p><b>03 / ₹0 cart</b>The bill explains there is no cost for a redeemed plan.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-car-first-redemption-4.webp" aria-label="Expand Car-first redemption: Order summary"><img src="assets/cars24-screens/dealer-car-first-redemption-4.webp" loading="lazy" width="720" height="1600" alt="Order summary. A car-level summary with a ₹0 total."></button><p><b>04 / Order summary</b>A car-level summary with a ₹0 total.</p></li></ol></div>
+          <div class="warranty-decision"><h3 class="sub">Activation is a checklist, not one long form</h3><ul class="solution"><li><p class="solution__label">Problem identified</p><p>Inspection, vehicle verification and customer details depend on one another. A half-finished form makes it hard to see what remains.</p></li><li><p class="solution__label">What I did</p><p>Three named steps show the work in order. Verification reads the inspection record and asks only for the odometer; customer details finish registration.</p></li></ul></div>
+          <div class="state-group"><div class="state-group__head"><h4>Activation</h4><span>07 screens</span></div><p>Three named steps turn the assigned unit into a policy.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-activation-1.webp" aria-label="Expand Activation: Checklist"><img src="assets/cars24-screens/dealer-activation-1.webp" loading="lazy" width="720" height="1600" alt="Checklist. Verify car details, then add customer details."></button><p><b>01 / Checklist</b>Verify car details, then add customer details.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-activation-2.webp" aria-label="Expand Activation: Checklist with bill"><img src="assets/cars24-screens/dealer-activation-2.webp" loading="lazy" width="720" height="1600" alt="Checklist with bill. The same checklist with order and bill details below."></button><p><b>02 / Checklist with bill</b>The same checklist with order and bill details below.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-activation-3.webp" data-footer="160" aria-label="Expand Activation: Verify car details"><img src="assets/cars24-screens/dealer-activation-3.webp" loading="lazy" width="720" height="2078" alt="Verify car details. Inspection data is read in; odometer and chassis are added."><span class="screen-tile__foot" style="aspect-ratio:720 / 160;background-image:url('assets/cars24-screens/dealer-activation-3.webp')" aria-hidden="true"></span></button><p><b>03 / Verify car details</b>Inspection data is read in; odometer and chassis are added.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-activation-4.webp" aria-label="Expand Activation: Car details saved"><img src="assets/cars24-screens/dealer-activation-4.webp" loading="lazy" width="720" height="1600" alt="Car details saved. Save and continue moves to the next step."></button><p><b>04 / Car details saved</b>Save and continue moves to the next step.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-activation-5.webp" data-footer="176" aria-label="Expand Activation: Customer details"><img src="assets/cars24-screens/dealer-activation-5.webp" loading="lazy" width="720" height="1984" alt="Customer details. Aadhaar, PAN, name and mobile number."><span class="screen-tile__foot" style="aspect-ratio:720 / 176;background-image:url('assets/cars24-screens/dealer-activation-5.webp')" aria-hidden="true"></span></button><p><b>05 / Customer details</b>Aadhaar, PAN, name and mobile number.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-activation-6.webp" aria-label="Expand Activation: Documents uploaded"><img src="assets/cars24-screens/dealer-activation-6.webp" loading="lazy" width="720" height="1600" alt="Documents uploaded. Upload states for each document."></button><p><b>06 / Documents uploaded</b>Upload states for each document.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-activation-7.webp" aria-label="Expand Activation: Activation complete"><img src="assets/cars24-screens/dealer-activation-7.webp" loading="lazy" width="720" height="1600" alt="Activation complete. Confirmation that customer registration is done."></button><p><b>07 / Activation complete</b>Confirmation that customer registration is done.</p></li></ol></div>
+          <h3 class="sub">The exception states are part of the flow</h3><p class="body-p">A blocked car names the inspection issue and offers removal so the unit is not stranded. “Activate Later” leaves the car in a Pending Activation queue, where the dealer can return to finish the policy.</p>
+          <div class="state-group"><div class="state-group__head"><h4>Exceptions</h4><span>06 screens</span></div><p>Inspection problems and removals keep the unit recoverable.</p><ol class="screen-strip"><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-exceptions-1.webp" aria-label="Expand Exceptions: Failed inspection"><img src="assets/cars24-screens/dealer-exceptions-1.webp" loading="lazy" width="720" height="1600" alt="Failed inspection. The car cannot take warranty; Remove warranty from car."></button><p><b>01 / Failed inspection</b>The car cannot take warranty; Remove warranty from car.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-exceptions-2.webp" aria-label="Expand Exceptions: Remove confirmation"><img src="assets/cars24-screens/dealer-exceptions-2.webp" loading="lazy" width="720" height="1600" alt="Remove confirmation. The unit returns to the total count."></button><p><b>02 / Remove confirmation</b>The unit returns to the total count.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-exceptions-3.webp" aria-label="Expand Exceptions: Removed"><img src="assets/cars24-screens/dealer-exceptions-3.webp" loading="lazy" width="720" height="1600" alt="Removed. A toast confirms the unit is back in stock."></button><p><b>03 / Removed</b>A toast confirms the unit is back in stock.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-exceptions-4.webp" aria-label="Expand Exceptions: Inspection expired"><img src="assets/cars24-screens/dealer-exceptions-4.webp" loading="lazy" width="720" height="1600" alt="Inspection expired. The expiry date is flagged on the car card."></button><p><b>04 / Inspection expired</b>The expiry date is flagged on the car card.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-exceptions-5.webp" aria-label="Expand Exceptions: Re-inspection needed"><img src="assets/cars24-screens/dealer-exceptions-5.webp" loading="lazy" width="720" height="1600" alt="Re-inspection needed. Book Re Inspection replaces the first checklist step."></button><p><b>05 / Re-inspection needed</b>Book Re Inspection replaces the first checklist step.</p></li><li class="screen-tile"><button type="button" data-phone="assets/cars24-screens/dealer-exceptions-6.webp" aria-label="Expand Exceptions: Contact the RM"><img src="assets/cars24-screens/dealer-exceptions-6.webp" loading="lazy" width="720" height="1600" alt="Contact the RM. Inspection is arranged through the Relationship Manager."></button><p><b>06 / Contact the RM</b>Inspection is arranged through the Relationship Manager.</p></li></ol></div>
+        </section>
+        <section id="impact" data-section="impact" aria-labelledby="impactTitle"><div class="band" aria-hidden="true"><span class="band-tick"></span><span class="band-code">[ <b>06</b> / 06 ]</span><span class="band-name">Impact</span></div>
+          <h2 class="h2" id="impactTitle">What the released flow supported.</h2><div class="impact"><div class="impact__group"><p class="impact__label">Observed operational volume</p><div class="impact__metrics"><div class="impact__metric"><strong>500+</strong><p>Warranty sales supported in one month through the released dealer experience</p></div><div class="impact__metric"><strong class="sm">Purchase</strong><p>Dealers could buy plans in volume rather than reopen a purchase for each sold car</p></div><div class="impact__metric"><strong class="sm">Activation</strong><p>Each purchased unit could be applied to a car once eligibility and registration were complete</p></div></div></div></div>
+          <p class="impact-note">The 500+ figure measures operational volume, not lift. I don't have a pre-launch baseline or a controlled comparison for conversion, RM effort or activation speed.</p>
+          <h2 class="h2" style="margin-top:6rem">What I would measure next</h2><ul class="reflection"><li><strong>Stock utilisation.</strong> How many purchased units are assigned, activated, left unused or expired? The inventory model is only useful if stock turns into cover.</li><li><strong>Activation time and handoffs.</strong> Track the time from assigning a unit to an active policy, and count the status lookups and operations tickets that still need a person.</li></ul>
+        </section>
+      </article>
+    </div>
+    <section class="next" aria-labelledby="nextHeading">
+      <div class="full-band">
+        <span class="band-tick" aria-hidden="true"></span>
+        <span class="band-code" aria-hidden="true">[ <b>&rarr;</b> ]</span>
+        <h2 class="band-name" id="nextHeading" style="margin:0;font-size:inherit;font-weight:400">Next project</h2>
+      </div>
+      <a class="work-card" href="scaler-skill-test-case-study.html" aria-label="Open the Scaler Topics Skill Test case study">
+        <div class="mockup" aria-hidden="true">
+          <img src="assets/skill-test-hero-banner.webp" width="2400" height="1350" alt="" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <div class="work-meta">
+            <span class="project">Scaler Topics Skill Test</span>
+            <span class="year">Product Design, 2024</span>
+          </div>
+          <h2>A diagnosis sent <span class="work-title-number">46%</span> of test takers into a course.</h2>
+          <p>A timed assessment turned a learner’s result into a specific next course, with the failure branch designed as carefully as the pass.</p>
+          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">&rarr;</span></span>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer" id="contact" aria-label="Get in touch">
+      <div class="full-band">
+        <span class="band-tick" aria-hidden="true"></span>
+        <span class="band-code" aria-hidden="true">[ <b>//</b> ]</span>
+        <span class="band-name">Get in touch</span>
+      </div>
+      <div class="footer-contact">
+        <h2 class="footer-title">Let&rsquo;s build something <span>together.</span></h2>
+        <nav class="footer-links" aria-label="Contact links">
+          <a href="https://www.linkedin.com/in/prachi-pandey-506/" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><path d="M8 10v6M8 7.75v.1M11.5 16v-3.4a2.6 2.6 0 0 1 5.2 0V16M11.5 10v6"></path></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="mailto:prachipandey.506@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>
+            <span>Email</span>
+          </a>
+          <a href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.75h7.5L19 8.25v12H7z"></path><path d="M14.5 3.75v4.5H19M9.75 12h6.5M9.75 15.25h6.5"></path></svg>
+            <span>Resume</span>
+          </a>
         </nav>
       </div>
-      <p class="side-note">A dealer-commerce workflow for buying warranty plans in volume and activating them when needed.</p>
-    </aside>
-
-    <main class="content">
-      <header class="hero" data-reveal>
-        <p class="project-kicker">CARS24 DEALER PLATFORM · PRODUCT DESIGN</p>
-        <h1 class="hero-title">The dealer platform supported <span class="hero-number">500+</span> warranties a month with a flow designed for <span class="accent-title">bulk buying.</span></h1>
-        <p class="hero-copy">I redesigned warranty purchase around the way dealers operate: compare plans once, choose a useful quantity, understand the unit economics, and hold purchased plans until a vehicle is ready for activation. The product moved from a one-car checkout toward a repeatable inventory workflow.</p>
-
-        <section class="meta-grid" aria-label="Project details">
-          <div><span class="meta-label">Role</span><p>Product Designer</p></div>
-          <div><span class="meta-label">Timeline</span><p>2025</p></div>
-          <div><span class="meta-label">I owned</span><p>Product thinking, dealer journey, interaction design, final UI, and handoff</p></div>
-          <div><span class="meta-label">Team</span><p>Product, engineering, business, and dealer operations</p></div>
-          <div>
-            <span class="meta-label">Tool</span>
-            <span class="meta-tool-icon" aria-label="Figma"><img src="assets/figma.svg" alt=""></span>
-          </div>
-        </section>
-
-        <div class="hero-media">
-          <div class="hero-media-window hero-screen-grid" role="img" aria-label="Four CARS24 dealer app screens showing warranty plan comparison, quantity selection, bulk discount, and a cart containing five plans">
-            <div class="screen-crop screen-one" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
-            <div class="screen-crop screen-two" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
-            <div class="screen-crop screen-three" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
-            <div class="screen-crop screen-four" aria-hidden="true"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="" decoding="async" fetchpriority="high"></div>
-          </div>
+      <div class="footer-divider" aria-hidden="true"></div>
+      <div class="footer-signoff" aria-label="Portfolio credits">
+        <img class="footer-signature-image" src="assets/prachi-pandey-signature.png" width="1981" height="793" alt="Prachi Pandey signature" loading="lazy" decoding="async">
+        <div class="footer-credit-line">
+          <p>Built with <strong>Codex + Claude</strong></p>
+          <span class="footer-credit-dot" aria-hidden="true">●</span>
+          <p>Made with <strong>a lot of coffee</strong></p>
+          <span class="footer-credit-dot" aria-hidden="true">●</span>
+          <p>© 2026 Prachi Pandey</p>
         </div>
+      </div>
+    </footer>
+  </main>
 
-        <section class="impact-strip" aria-label="Product impact and design changes at a glance">
-          <div class="impact-intro">
-            <span class="meta-label">At a glance</span>
-            <p>One commerce flow designed around dealership scale.</p>
-            <a href="#outcome">See outcome ↓</a>
-          </div>
-          <div class="impact-item"><strong>500+</strong><span>warranties supported per month</span></div>
-          <div class="impact-item"><strong>Bulk</strong><span>quantity-based plan purchase</span></div>
-          <div class="impact-item"><strong>5+ packs</strong><span>discount threshold shown upfront</span></div>
-          <div class="impact-item"><strong>Flexible</strong><span>purchase now, activate when needed</span></div>
-        </section>
-      </header>
-
-      <section class="case-section" id="overview">
-        <span class="eyebrow">Overview</span>
-        <h2 class="section-title">Warranty became inventory a dealer could plan around.</h2>
-        <p class="section-copy">A dealership does not operate one vehicle at a time. It manages a changing stock of cars, multiple customer conversations, and recurring value-added-service demand. The warranty experience needed to reflect that operating model without making price, eligibility, or coverage harder to understand.</p>
-        <p class="section-copy">The redesigned flow lets dealers review compatible plans, purchase several units together, see the commercial benefit of quantity, and keep the order ready for later activation.</p>
-        <div class="context-line" data-reveal>
-          <span>Core product shift</span>
-          <p>Separate the moment a dealer purchases a plan from the moment a warranty is assigned to a car.</p>
-        </div>
-      </section>
-
-      <section class="case-section" id="problem">
-        <span class="eyebrow">The Problem</span>
-        <h2 class="section-title">A dealer buying for many cars still moved through a one-car mental model.</h2>
-        <p class="section-copy">Warranty products contain real complexity—coverage, vehicle eligibility, tenure, pricing, and activation rules. Repeating the same decision for each car added operational effort and made it difficult to turn volume into a clear commercial advantage.</p>
-        <div class="problem-list" data-reveal>
-          <article class="problem-item">
-            <span>01</span>
-            <h3>Repeated purchase effort</h3>
-            <p>Buying plan by plan forces a high-volume dealer to repeat selection and checkout instead of creating one useful stock of warranties.</p>
-          </article>
-          <article class="problem-item">
-            <span>02</span>
-            <h3>Price without scale</h3>
-            <p>A unit price is not enough for a bulk decision. Dealers need to understand quantity, total cost, savings, and effective unit price together.</p>
-          </article>
-          <article class="problem-item">
-            <span>03</span>
-            <h3>Activation too early</h3>
-            <p>Tying purchase to one known vehicle prevents the dealer from buying ahead and assigning plans as inventory moves.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="case-section" id="reframe">
-        <span class="eyebrow">Product Reframe</span>
-        <h2 class="section-title">Treat warranty plans as dealer inventory—not a checkout attached to one car.</h2>
-        <p class="section-copy">The key decision was structural rather than visual. Purchase and activation became two moments in the same service lifecycle. Dealers could commit when pricing and demand made sense, then consume each plan when the matching car was ready.</p>
-        <div class="model-shift" data-reveal>
-          <article class="model-side">
-            <span>One-car model</span>
-            <h3>Select car → choose plan → pay → activate</h3>
-            <p>Every warranty begins with a vehicle and repeats the complete purchase journey.</p>
-          </article>
-          <div class="model-arrow" aria-hidden="true">→</div>
-          <article class="model-side">
-            <span>Dealer-inventory model</span>
-            <h3>Choose plan → set quantity → pay → activate per car later</h3>
-            <p>One order creates a usable stock of plans without hiding the rules that make each plan valid.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="case-section" id="principles">
-        <span class="eyebrow">Design Principles</span>
-        <h2 class="section-title">Four principles kept a bulk transaction clear and controllable.</h2>
-        <div class="principle-list" data-reveal>
-          <article class="principle"><span>01</span><strong>Separate purchase from activation.</strong><p>Let dealers secure inventory without forcing them to identify the final vehicle at checkout.</p></article>
-          <article class="principle"><span>02</span><strong>Make unit economics obvious.</strong><p>Keep quantity, total price, effective unit price, original price, and discount visually connected.</p></article>
-          <article class="principle"><span>03</span><strong>Preserve eligibility confidence.</strong><p>Engine-capacity range, tenure, coverage, and applicability stay visible while the dealer makes a commercial decision.</p></article>
-          <article class="principle"><span>04</span><strong>Keep every bulk action reversible.</strong><p>Selection confirms before it changes the order; the added state and persistent cart make review and correction easy.</p></article>
-        </div>
-      </section>
-
-      <section class="case-section" id="flow">
-        <span class="eyebrow">Solution Flow</span>
-        <h2 class="section-title">One focused sequence moves from comparison to a reviewable bulk order.</h2>
-        <p class="section-copy">The interface reveals complexity at the moment it becomes useful. Dealers begin with the plan, choose quantity in a focused layer, see the resulting economics, and return to the catalogue with a persistent route to the cart.</p>
-
-        <div class="flow-gallery">
-          <article class="flow-step" data-reveal>
-            <div class="flow-copy">
-              <span class="flow-number">01 / Compare</span>
-              <h3>Start with coverage and fit.</h3>
-              <p>Budget and premium plans form the primary choice. Each product keeps its engine-capacity range, tenure, price, and coverage route visible before quantity enters the decision.</p>
-              <ul><li>Plan families remain easy to switch.</li><li>Coverage details are available without leaving the purchase context.</li></ul>
-            </div>
-            <div class="screen-shell"><div class="screen-crop screen-one"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Warranty plan list with budget and premium plan tabs, vehicle capacity ranges, tenure, and unit prices" loading="lazy"></div></div>
-          </article>
-
-          <article class="flow-step" data-reveal>
-            <div class="flow-copy">
-              <span class="flow-number">02 / Select quantity</span>
-              <h3>Isolate the one decision that changes the order.</h3>
-              <p>A bottom sheet holds the dealer in context while making quantity the only active choice. Confirmation remains unavailable until a quantity is selected.</p>
-              <ul><li>Large numeric targets make volume quick to scan.</li><li>A close action makes the step safe to abandon.</li></ul>
-            </div>
-            <div class="screen-shell"><div class="screen-crop screen-two"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Quantity selection bottom sheet for a CARS24 warranty plan" loading="lazy"></div></div>
-          </article>
-
-          <article class="flow-step" data-reveal>
-            <div class="flow-copy">
-              <span class="flow-number">03 / Understand value</span>
-              <h3>Translate quantity into unit economics.</h3>
-              <p>Once five units are selected, the interface connects total cost, effective per-unit price, original value, and discount. The dealer can evaluate the order before committing it to the cart.</p>
-              <ul><li>Selected quantity receives a clear active state.</li><li>The enabled confirmation action signals a complete choice.</li></ul>
-            </div>
-            <div class="screen-shell"><div class="screen-crop screen-three"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Selected quantity of five warranty plans showing total cost, per-unit price, and discount" loading="lazy"></div></div>
-          </article>
-
-          <article class="flow-step" data-reveal>
-            <div class="flow-copy">
-              <span class="flow-number">04 / Review order</span>
-              <h3>Return to the catalogue without losing purchase state.</h3>
-              <p>The selected plan becomes an editable added state. A persistent summary shows service count and order value, keeping the cart available while the dealer continues comparing plans.</p>
-              <ul><li>Inline quantity controls support quick correction.</li><li>The cart action remains anchored to the bottom of the screen.</li></ul>
-            </div>
-            <div class="screen-shell"><div class="screen-crop screen-four"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Warranty plan added state with quantity controls and a persistent view cart summary" loading="lazy"></div></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="case-section" id="decisions">
-        <span class="eyebrow">Design Decisions</span>
-        <h2 class="section-title">The interface shifts from transaction mechanics to dealer confidence.</h2>
-        <div class="decision-table" data-reveal>
-          <div class="decision-head" aria-hidden="true"><span></span><span>Before</span><span></span><span>Design shift</span><span>Why it mattered</span></div>
-          <article class="decision-row"><span class="decision-number">01</span><span class="decision-from">One warranty tied to one immediate vehicle need</span><span class="decision-arrow">→</span><strong class="decision-to">Purchase several plans before activation</strong><p class="decision-intent">Matches how dealerships plan stock and removes the need to repeat checkout for every car.</p></article>
-          <article class="decision-row"><span class="decision-number">02</span><span class="decision-from">Price shown as an isolated unit value</span><span class="decision-arrow">→</span><strong class="decision-to">Total, unit price, original value, and discount shown together</strong><p class="decision-intent">Lets the dealer verify the commercial logic instead of mentally calculating the order.</p></article>
-          <article class="decision-row"><span class="decision-number">03</span><span class="decision-from">Quantity treated as a small control inside the plan card</span><span class="decision-arrow">→</span><strong class="decision-to">A focused quantity-selection layer</strong><p class="decision-intent">Makes the highest-impact decision deliberate without sending the dealer to another page.</p></article>
-          <article class="decision-row"><span class="decision-number">04</span><span class="decision-from">Selection disappears into a later checkout</span><span class="decision-arrow">→</span><strong class="decision-to">Visible added state and persistent cart summary</strong><p class="decision-intent">Keeps purchase state legible while the dealer continues browsing or adjusts the order.</p></article>
-        </div>
-
-        <div class="pricing-proof" data-reveal>
-          <div class="pricing-visual"><div class="screen-crop screen-three"><img src="assets/cars24-new-car-vas-bulk-selling.webp" alt="Bulk warranty pricing breakdown showing five selected plans and the resulting discount" loading="lazy"></div></div>
-          <div class="proof-list">
-            <article class="proof-item"><span>Eligibility</span><strong>Plan for 0–1300cc</strong><p>The product remains tied to a recognizable vehicle category.</p></article>
-            <article class="proof-item"><span>Quantity</span><strong>5 plans selected</strong><p>The commercial decision is visible before confirmation.</p></article>
-            <article class="proof-item"><span>Economics</span><strong>₹10,000 total · ₹2,000 per unit</strong><p>Total and effective unit price reconcile in the same view.</p></article>
-            <article class="proof-item"><span>Value</span><strong>50% off</strong><p>The discount is attached to the price change it explains.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="case-section" id="outcome">
-        <span class="eyebrow">Outcome</span>
-        <h2 class="section-title">The workflow supported warranty commerce at dealership scale.</h2>
-        <p class="section-copy">The released dealer experience supported more than 500 warranty sales in a month. Beyond throughput, the design established a reusable commerce model: select a service in quantity, understand its unit economics, purchase it as inventory, and activate each unit when the operational need arrives.</p>
-        <div class="outcome-layout" data-reveal>
-          <div class="outcome-stat"><strong>500+</strong><span>warranties supported in a month through the dealer platform.</span></div>
-          <aside class="outcome-note">
-            <span class="eyebrow">Design outcome</span>
-            <h3>A scalable purchase model for value-added services.</h3>
-            <p>The product no longer assumes that every warranty purchase begins and ends with one car. This creates a clearer foundation for dealer inventory, repeat purchase, and later activation.</p>
-            <div class="measurement-boundary"><strong>Measurement boundary</strong><p>The available metric establishes live operational volume. Without a pre-launch baseline or controlled conversion data, it should not be read as incremental lift caused by the redesign alone.</p></div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="case-section" id="learnings">
-        <span class="eyebrow">Learnings</span>
-        <h2 class="section-title">Four principles from designing commerce for dealer operations.</h2>
-        <div class="learning-list" data-reveal>
-          <article class="learning-item"><span>01</span><strong>Product structure should follow the operating model.</strong><p>A one-customer checkout creates friction when the actual user manages inventory and repeated transactions.</p></article>
-          <article class="learning-item"><span>02</span><strong>Separate commercial commitment from fulfilment.</strong><p>Purchase and activation can happen at different times while remaining part of one understandable lifecycle.</p></article>
-          <article class="learning-item"><span>03</span><strong>Bulk pricing needs more clarity, not more decoration.</strong><p>Quantity, total, unit price, original value, and savings must remain mathematically and visually connected.</p></article>
-          <article class="learning-item"><span>04</span><strong>State visibility builds confidence.</strong><p>Selected, added, editable, and ready-to-review states help dealers trust a higher-value order before payment.</p></article>
-        </div>
-      </section>
-
-      <footer class="case-footer">
-        <span>Prachi · Product Design · CARS24 · 2025</span>
-        <a href="index.html#work">Back to selected work ↑</a>
-      </footer>
-    </main>
-  </div>
+  <dialog class="lightbox" id="lightbox" aria-label="Expanded image">
+    <button class="lightbox__close" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="lightbox__scroll"><img alt=""></div>
+  </dialog>
+  <dialog class="phone-viewer" id="phoneViewer" aria-label="Screen viewer">
+    <button class="phone-viewer__close" type="button" data-pv-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="phone-viewer__stage">
+      <button class="phone-viewer__nav phone-viewer__nav--prev" type="button" data-pv-prev aria-label="Previous screen"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <figure class="phone-viewer__device"><div class="phone-viewer__screen"><div class="phone-viewer__head" hidden></div><div class="phone-viewer__body" tabindex="0" aria-label="Screen, scrollable"><div class="phone-viewer__crop"><img alt=""></div></div><div class="phone-viewer__foot" hidden></div></div></figure>
+      <button class="phone-viewer__nav phone-viewer__nav--next" type="button" data-pv-next aria-label="Next screen"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+    <p class="phone-viewer__meta" aria-live="polite"><span data-pv-group></span><b data-pv-title></b> <span style="display:inline;margin:0;font:inherit;letter-spacing:0;text-transform:none;color:inherit" data-pv-cap></span><em class="phone-viewer__hint" data-pv-hint hidden>Scroll inside the phone</em></p>
+  </dialog>
 
   <script>
-    document.documentElement.classList.remove("no-js");
+    (() => {
+      // Section nav
+      const links = new Map([...document.querySelectorAll('[data-nav]')].map(a => [a.dataset.nav, a]));
+      const sections = [...document.querySelectorAll('[data-section]')];
+      const setActive = id => links.forEach((a, key) => {
+        const on = key === id;
+        a.classList.toggle('is-active', on);
+        if (on && window.innerWidth <= 1000) a.scrollIntoView({ block: 'nearest', inline: 'center' });
+      });
+      let lastActive = '';
+      const pickActive = () => {
+        const line = window.innerHeight * 0.35;
+        let current = sections[0].dataset.section;
+        for (const s of sections) if (s.getBoundingClientRect().top <= line) current = s.dataset.section;
+        if (current !== lastActive) { lastActive = current; setActive(current); }
+      };
+      pickActive();
+      window.addEventListener('scroll', pickActive, { passive: true });
 
-    const progress = document.querySelector(".reading-progress");
-    const sections = [...document.querySelectorAll("main section[id]")];
-    const navLinks = [...document.querySelectorAll(".toc a")];
-    const revealItems = [...document.querySelectorAll("[data-reveal]")];
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Hero video: load after the page is ready, play only while visible
+      (() => {
+        const v = document.querySelector('[data-hero-video]');
+        if (!v) return;
+        const start = () => {
+          v.querySelectorAll('source[data-src]').forEach(src => { src.src = src.dataset.src; });
+          v.load();
+          if ('IntersectionObserver' in window) {
+            new IntersectionObserver(([e]) => { e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }, { threshold: .2 }).observe(v);
+          } else { v.play().catch(() => {}); }
+        };
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const go = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 400));
+        document.readyState === 'complete' ? go() : window.addEventListener('load', go, { once: true });
+      })();
 
-    function updateProgress() {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const value = scrollable > 0 ? window.scrollY / scrollable : 0;
-      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value))})`;
-    }
+      // Shipped screens: show a scroll hint only when the image is taller than its frame
+      document.querySelectorAll('.shot__frame').forEach(f => {
+        const check = () => f.classList.toggle('is-scrollable', f.scrollHeight > f.clientHeight + 8);
+        f.addEventListener('scroll', () => f.classList.toggle('is-scrolled', f.scrollTop > 24), { passive: true });
+        const img = f.querySelector('img');
+        if (img.complete) check(); else img.addEventListener('load', check);
+        window.addEventListener('resize', check);
+      });
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
-      navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`));
-    }, { rootMargin: "-20% 0px -64%", threshold: [0, .2, .5] });
-    sections.forEach((section) => sectionObserver.observe(section));
-
-    if (reduceMotion) {
-      revealItems.forEach((item) => { item.style.opacity = "1"; item.style.transform = "none"; });
-    } else {
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.animate([
-            { opacity: 0, transform: "translateY(18px)" },
-            { opacity: 1, transform: "translateY(0)" }
-          ], { duration: 620, easing: "cubic-bezier(.22, 1, .36, 1)", fill: "forwards" });
-          observer.unobserve(entry.target);
-        });
-      }, { threshold: .08 });
-      revealItems.forEach((item) => revealObserver.observe(item));
-    }
-
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
+      // Lightbox
+      const box = document.getElementById('lightbox');
+      const boxImg = box.querySelector('img');
+      document.querySelectorAll('[data-zoom]').forEach(btn => btn.addEventListener('click', () => {
+        const img = btn.querySelector('img');
+        boxImg.src = btn.dataset.zoom;
+        boxImg.alt = img ? img.alt : (btn.dataset.alt || '');
+        box.showModal();
+      }));
+      box.addEventListener('click', e => { if (e.target === box || e.target.closest('[data-close]')) box.close(); });
+    })();
+  </script>
+  <script>
+    (() => {
+      const pv = document.getElementById('phoneViewer');
+      if (!pv) return;
+      const screen = pv.querySelector('.phone-viewer__body'), img = screen.querySelector('img'), crop = pv.querySelector('.phone-viewer__crop'), foot = pv.querySelector('.phone-viewer__foot'), head = pv.querySelector('.phone-viewer__head'), HB = 48;
+      const el = s => pv.querySelector(s);
+      let list = [], idx = 0, groupTitle = '';
+      const read = btn => { const p = btn.parentElement.querySelector('p'); const b = p.querySelector('b').textContent; return { src: btn.dataset.phone, alt: btn.querySelector('img').alt, title: b.replace(/^\d+\s*\/\s*/, ''), cap: p.textContent.slice(b.length).trim() }; };
+      const render = () => {
+        const it = read(list[idx]); el('[data-pv-hint]').hidden = true;
+        img.onload = () => { el('[data-pv-hint]').hidden = !(img.naturalHeight / img.naturalWidth > 2.3); };
+        const btn = list[idx], tImg = btn.querySelector('img'), W = +tImg.getAttribute('width') || 720, H = +tImg.getAttribute('height') || 1600, fh = +btn.dataset.footer || 0;
+        const tall = H / W > 1600 / 720 + .01, f2 = tall ? fh : 0, hb = tall ? HB : 0;
+        crop.style.aspectRatio = tall ? W + ' / ' + (H - f2 - hb) : '';
+        img.style.marginTop = tall ? (-hb / W * 100) + '%' : '';
+        head.hidden = !tall; head.style.aspectRatio = W + ' / ' + HB; head.style.backgroundImage = tall ? 'url("' + it.src + '")' : '';
+        foot.hidden = !f2; foot.style.aspectRatio = f2 ? W + ' / ' + f2 : ''; foot.style.backgroundImage = f2 ? 'url("' + it.src + '")' : '';
+        img.src = it.src; img.alt = it.alt; screen.scrollTop = 0; head.classList.remove('is-scrolled');
+        el('[data-pv-group]').textContent = groupTitle + '  ' + String(idx + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
+        el('[data-pv-title]').textContent = it.title + '.';
+        el('[data-pv-cap]').textContent = it.cap;
+        el('[data-pv-prev]').disabled = idx === 0; el('[data-pv-next]').disabled = idx === list.length - 1;
+        [idx - 1, idx + 1].forEach(i => { if (list[i]) { const pre = new Image(); pre.src = list[i].dataset.phone; } });
+      };
+      const go = d => { const n = idx + d; if (n >= 0 && n < list.length) { idx = n; render(); } };
+      document.querySelectorAll('[data-phone]').forEach(btn => btn.addEventListener('click', () => {
+        const group = btn.closest('.state-group');
+        list = [...group.querySelectorAll('[data-phone]')]; idx = list.indexOf(btn);
+        groupTitle = group.querySelector('h4').textContent;
+        render(); document.documentElement.style.overflow = 'hidden'; pv.showModal(); screen.focus({ preventScroll: true });
+      }));
+      screen.addEventListener('scroll', () => head.classList.toggle('is-scrolled', screen.scrollTop > 2), { passive: true });
+      el('[data-pv-prev]').addEventListener('click', () => go(-1));
+      el('[data-pv-next]').addEventListener('click', () => go(1));
+      el('[data-pv-close]').addEventListener('click', () => pv.close());
+      pv.addEventListener('click', e => { if (e.target === pv || e.target.classList.contains('phone-viewer__stage')) pv.close(); });
+      pv.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); } if (e.key === 'ArrowRight') { e.preventDefault(); go(1); } });
+      pv.addEventListener('close', () => { document.documentElement.style.overflow = ''; });
+    })();
   </script>
 </body>
 </html>
