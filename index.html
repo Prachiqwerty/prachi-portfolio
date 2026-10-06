@@ -208,6 +208,13 @@
       color: #d8d8d2;
     }
 
+    /* keep nav anchor targets clear of the 52px sticky bar */
+    #work,
+    #self-initiative,
+    #experience {
+      scroll-margin-top: 52px;
+    }
+
     .hero {
       position: relative;
       padding: clamp(3.5rem, 7vw, 6rem) 31px clamp(3.5rem, 7vw, 5rem);
@@ -4069,6 +4076,10 @@
         <a href="#home">Home</a>
         <span class="slash">/</span>
         <a href="#work">Work</a>
+        <span class="slash">/</span>
+        <a href="#self-initiative">Initiatives</a>
+        <span class="slash">/</span>
+        <a href="#experience">Experience</a>
       </div>
       <div class="nav-social">
         <a href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">Resume</a>
@@ -4399,7 +4410,7 @@
       </article>
     </section>
 
-    <section class="experience" aria-labelledby="experience-title">
+    <section id="experience" class="experience" aria-labelledby="experience-title">
       <div class="band-counter">
         <div class="fc-container band-counter-inner">
           <span class="band-tick" aria-hidden="true"></span>
