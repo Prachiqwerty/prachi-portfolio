@@ -3962,6 +3962,73 @@
       }
     }
 
+    /* Selected work: 2x2 grid so all four projects fit within the first
+       two screens. Preview on top, meta + headline + arrow below. The
+       card description is hidden at this width; the headline carries
+       the outcome. Below 901px the cards stack as before. */
+    @media (min-width: 901px) {
+      .landing-view .work {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .landing-view .work > .band-counter {
+        grid-column: 1 / -1;
+        margin-bottom: 0;
+      }
+      .landing-view .work > .work-card {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 28px 32px 32px;
+        border-top: 1px solid var(--line);
+      }
+      .landing-view .work > .work-card:nth-of-type(-n+2) {
+        border-top: 0;
+      }
+      .landing-view .work > .work-card:nth-of-type(odd) {
+        border-right: 1px solid var(--line);
+      }
+      .landing-view .work > .work-card .mockup {
+        width: 100%;
+        margin: 0;
+      }
+      .landing-view .work > .work-card .work-meta {
+        margin-bottom: 0;
+      }
+      .landing-view .work > .work-card .work-story {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: center;
+      }
+      .landing-view .work > .work-card .work-copy {
+        max-width: none;
+      }
+      .landing-view .work > .work-card h2 {
+        margin-bottom: 0;
+        font-size: clamp(1.125rem, 1.45vw, 1.3125rem);
+      }
+      .landing-view .work > .work-card p {
+        display: none;
+      }
+      .landing-view .work > .work-card .work-card-cta {
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        gap: 0;
+        font-size: 0;
+        justify-self: end;
+      }
+    }
+    /* Shorter hero on desktop so Selected work starts inside the first
+       screen. The blueprint grid still snaps the hero to whole rows. */
+    @media (min-width: 996px) {
+      .landing-view .hero {
+        padding-top: 56px;
+        padding-bottom: 48px;
+      }
+    }
+
     /* Selected work titles: lighter weight (was 750) at every width */
     .landing-view .work-card h2 {
       font-weight: 600;
@@ -4135,6 +4202,85 @@
       </div>
     </section>
 
+    <section id="work" class="work">
+      <div class="band-counter">
+        <div class="fc-container band-counter-inner">
+          <span class="band-tick" aria-hidden="true"></span>
+          <span class="band-code" aria-hidden="true">[ <b>01</b> / 03 ]</span>
+          <span class="band-name">Selected work</span>
+        </div>
+      </div>
+
+      <a class="work-card" href="scaler-ai-lms-case-study-editorial.html" aria-label="Open the Scaler AI LMS case study">
+        <div class="mockup scaler-lms">
+          <video class="scaler-lms-gif work-preview-video" width="1440" height="934" muted loop playsinline preload="none" poster="assets/scaler-ai-lms-case-study-preview-poster.webp" data-src="assets/scaler-ai-lms-case-study-preview-1080p.mp4" aria-hidden="true" tabindex="-1"></video>
+        </div>
+        <div class="work-meta">
+          <span class="project">Scaler AI LMS</span>
+          <span class="year">Product Design, 2026</span>
+        </div>
+        <div class="work-story">
+          <div class="work-copy">
+            <h2>Scaler’s LMS, rebuilt around one next action and used by <span class="work-title-number">700</span> learners a week.</h2>
+            <p>Across the first launch cohort, <strong>134 of 226 learners</strong> enabled the new LMS. The redesign channelled that early adoption across Path-maker, Inside Class, and Problem Solving into one connected experience.</p>
+          </div>
+          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="work-card" href="cars24-warranty-bulk-selling-case-study.html" aria-label="Open the CARS24 Warranty Selling case study">
+        <div class="mockup skill-test-shot cars24-shot" aria-hidden="true">
+          <img src="assets/cars24-hero-banner.webp" width="2400" height="1350" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="work-meta">
+          <span class="project">CARS24 Warranty Selling</span>
+          <span class="year">Product Design, 2025</span>
+        </div>
+        <div class="work-story">
+          <div class="work-copy">
+            <h2><span class="work-title-line">From per-car sales to dealer stock.</span><span class="work-title-line"><span class="work-title-number">500+</span> warranties in the first month.</span></h2>
+            <p>Dealers bought warranty one car at a time through a Relationship Manager, in a <strong>14-step workflow</strong>. I redesigned it so they buy plans in bulk, hold them as stock and activate one unit against each car.</p>
+          </div>
+          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="work-card" href="varsity-storyblok-launch-system-case-study.html" aria-label="Open the Varsity Program-Page System case study">
+        <div class="mockup case-image varsity-motion" aria-hidden="true">
+          <video class="varsity-preview-gif work-preview-video" width="1440" height="856" muted loop playsinline preload="none" poster="assets/varsity-case-study-preview-poster.webp" data-src="assets/varsity-case-study-preview-1080p.mp4" aria-hidden="true" tabindex="-1"></video>
+        </div>
+        <div class="work-meta">
+          <span class="project">Varsity Program-Page System</span>
+          <span class="year">Design Ops, 2026</span>
+        </div>
+        <div class="work-story">
+          <div class="work-copy">
+            <h2><span class="work-title-line">Every program page, one system.</span><span class="work-title-line">Six live pages reached <span class="work-title-number">9.05%</span> V2L.</span></h2>
+            <p>A governed Storyblok system enabled Marketing and SEO to launch independently while delivery moved from days to hours.</p>
+          </div>
+          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="work-card" href="scaler-skill-test-case-study.html" aria-label="Open the Scaler Topics Skill Test case study">
+        <div class="mockup skill-test-shot" aria-hidden="true">
+          <img src="assets/skill-test-hero-banner.webp" width="2400" height="1350" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="work-meta">
+          <span class="project">Scaler Topics Skill Test</span>
+          <span class="year">Product Design, 2024</span>
+        </div>
+        <div class="work-story">
+          <div class="work-copy">
+            <h2><span class="work-title-line">A diagnosis before a certificate.</span><span class="work-title-line"><span class="work-title-number">46%</span> of test takers opened a course.</span></h2>
+            <p>Scaler Topics drew <strong>1.1M readers a month</strong> with no way to tell any of them what the reading was worth. A 20-day build turned a free skill test into a diagnosis that routed learners into paid programs, converting signups at 7.59% against a 2% platform baseline.</p>
+          </div>
+          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+    </section>
+
     <section class="stack-strip" aria-labelledby="stack-strip-label">
       <div class="fc-rail content" aria-hidden="true"></div>
       <h2 class="stack-strip-label" id="stack-strip-label">Designed and shipped with a working stack</h2>
@@ -4199,85 +4345,6 @@
         </div>
       </div>
     </div>
-
-    <section id="work" class="work">
-      <div class="band-counter">
-        <div class="fc-container band-counter-inner">
-          <span class="band-tick" aria-hidden="true"></span>
-          <span class="band-code" aria-hidden="true">[ <b>01</b> / 03 ]</span>
-          <span class="band-name">Selected work</span>
-        </div>
-      </div>
-
-      <a class="work-card" href="scaler-ai-lms-case-study-editorial.html" aria-label="Open the Scaler AI LMS case study">
-        <div class="mockup scaler-lms">
-          <video class="scaler-lms-gif work-preview-video" width="1440" height="934" muted loop playsinline preload="none" poster="assets/scaler-ai-lms-case-study-preview-poster.webp" data-src="assets/scaler-ai-lms-case-study-preview-1080p.mp4" aria-hidden="true" tabindex="-1"></video>
-        </div>
-        <div class="work-meta">
-          <span class="project">Scaler AI LMS</span>
-          <span class="year">Product Design, 2026</span>
-        </div>
-        <div class="work-story">
-          <div class="work-copy">
-            <h2>Scaler’s LMS, rebuilt around one next action and used by <span class="work-title-number">700</span> learners a week.</h2>
-            <p>Across the first launch cohort, <strong>134 of 226 learners</strong> enabled the new LMS. The redesign channelled that early adoption across Path-maker, Inside Class, and Problem Solving into one connected experience.</p>
-          </div>
-          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
-        </div>
-      </a>
-
-      <a class="work-card" href="varsity-storyblok-launch-system-case-study.html" aria-label="Open the Varsity Program-Page System case study">
-        <div class="mockup case-image varsity-motion" aria-hidden="true">
-          <video class="varsity-preview-gif work-preview-video" width="1440" height="856" muted loop playsinline preload="none" poster="assets/varsity-case-study-preview-poster.webp" data-src="assets/varsity-case-study-preview-1080p.mp4" aria-hidden="true" tabindex="-1"></video>
-        </div>
-        <div class="work-meta">
-          <span class="project">Varsity Program-Page System</span>
-          <span class="year">Design Ops, 2026</span>
-        </div>
-        <div class="work-story">
-          <div class="work-copy">
-            <h2><span class="work-title-line">Every program page, one system.</span><span class="work-title-line">Six live pages reached <span class="work-title-number">9.05%</span> V2L.</span></h2>
-            <p>A governed Storyblok system enabled Marketing and SEO to launch independently while delivery moved from days to hours.</p>
-          </div>
-          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
-        </div>
-      </a>
-
-      <a class="work-card" href="cars24-warranty-bulk-selling-case-study.html" aria-label="Open the CARS24 Warranty Selling case study">
-        <div class="mockup skill-test-shot cars24-shot" aria-hidden="true">
-          <img src="assets/cars24-hero-banner.webp" width="2400" height="1350" alt="" loading="lazy" decoding="async">
-        </div>
-        <div class="work-meta">
-          <span class="project">CARS24 Warranty Selling</span>
-          <span class="year">Product Design, 2025</span>
-        </div>
-        <div class="work-story">
-          <div class="work-copy">
-            <h2><span class="work-title-line">From per-car sales to dealer stock.</span><span class="work-title-line"><span class="work-title-number">500+</span> warranties in the first month.</span></h2>
-            <p>Dealers bought warranty one car at a time through a Relationship Manager, in a <strong>14-step workflow</strong>. I redesigned it so they buy plans in bulk, hold them as stock and activate one unit against each car.</p>
-          </div>
-          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
-        </div>
-      </a>
-
-      <a class="work-card" href="scaler-skill-test-case-study.html" aria-label="Open the Scaler Topics Skill Test case study">
-        <div class="mockup skill-test-shot" aria-hidden="true">
-          <img src="assets/skill-test-hero-banner.webp" width="2400" height="1350" alt="" loading="lazy" decoding="async">
-        </div>
-        <div class="work-meta">
-          <span class="project">Scaler Topics Skill Test</span>
-          <span class="year">Product Design, 2024</span>
-        </div>
-        <div class="work-story">
-          <div class="work-copy">
-            <h2><span class="work-title-line">A diagnosis before a certificate.</span><span class="work-title-line"><span class="work-title-number">46%</span> of test takers opened a course.</span></h2>
-            <p>Scaler Topics drew <strong>1.1M readers a month</strong> with no way to tell any of them what the reading was worth. A 20-day build turned a free skill test into a diagnosis that routed learners into paid programs, converting signups at 7.59% against a 2% platform baseline.</p>
-          </div>
-          <span class="work-card-cta">Read Story <span class="work-card-arrow" aria-hidden="true">→</span></span>
-        </div>
-      </a>
-
-    </section>
 
     <section id="self-initiative" class="initiatives" aria-labelledby="initiatives-title">
       <div class="band-counter">
