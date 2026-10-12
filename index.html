@@ -4061,6 +4061,145 @@
       object-fit: cover;
       object-position: center;
     }
+
+    /* Brochure Studio: inline looping demo, click to open the player */
+    .initiative-shot.is-video {
+      aspect-ratio: 1664 / 1080;
+      background: #171310;
+    }
+    .initiative-video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .initiative-media-cover {
+      position: absolute;
+      inset: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+    }
+    .initiative-media-cover:focus-visible {
+      outline: 2px solid var(--accent, #2f5bea);
+      outline-offset: 3px;
+      border-radius: inherit;
+    }
+    .initiative-media-hint {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: rgba(23, 19, 16, 0.72);
+      color: #fff;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .initiative-media-cover:hover .initiative-media-hint {
+      transform: scale(1.06);
+      background: rgba(23, 19, 16, 0.86);
+    }
+    .initiative-media-hint svg,
+    .media-lightbox__close svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    @media (max-width: 900px) {
+      .initiative-shot.is-video {
+        aspect-ratio: 1664 / 1080;
+      }
+    }
+
+    .media-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 64px 36px 20px;
+      background: rgba(23, 19, 16, 0.94);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .media-lightbox.is-open {
+      opacity: 1;
+    }
+    .media-lightbox__frame {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+    }
+    .media-lightbox__video {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: min(100%, calc((100vh - 84px) * 1664 / 1080));
+      max-height: calc(100vh - 84px);
+      max-height: calc(100dvh - 84px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      background: #000;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+    }
+    .media-lightbox__close {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(23, 19, 16, 0.58);
+      color: #fff;
+      cursor: pointer;
+    }
+    .media-lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    @media (max-width: 760px) {
+      .media-lightbox {
+        padding: 72px 12px 16px;
+      }
+      .media-lightbox__video {
+        max-height: calc(100dvh - 88px);
+      }
+      .media-lightbox__close {
+        top: 16px;
+        right: 16px;
+      }
+    }
+    body.has-media-lightbox {
+      overflow: hidden;
+    }
+    /* Video player uses the normal system cursor, not the custom "You" cursor */
+    html.has-custom-cursor body.has-media-lightbox,
+    html.has-custom-cursor .media-lightbox,
+    html.has-custom-cursor .media-lightbox * {
+      cursor: default !important;
+    }
+    html.has-custom-cursor .media-lightbox .media-lightbox__close {
+      cursor: pointer !important;
+    }
+    body.has-media-lightbox .site-cursor {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
   </style>
   <!-- Vercel Web Analytics -->
   <script>
@@ -4372,8 +4511,11 @@
       </div>
 
       <article class="initiative-card">
-        <figure class="initiative-shot is-inset">
-          <img src="assets/brochure-studio-editor-preview.webp" width="2000" height="1250" loading="lazy" decoding="async" alt="Brochure Studio's editor showing the 20-page IIM Tiruchirappalli brochure draft, with page thumbnails on the left and the facts panel on the right.">
+        <figure class="initiative-shot is-video">
+          <video class="initiative-video" src="assets/brochure-studio-demo-preview.mp4" poster="assets/brochure-studio-demo-poster.webp" width="1664" height="1080" muted loop playsinline preload="none" aria-label="Brochure Studio walkthrough: a proposal doc goes in, the agent reads it, asks what the doc leaves out, and builds the brochure."></video>
+          <button type="button" class="initiative-media-cover" data-full-src="assets/brochure-studio-demo.mp4" data-poster="assets/brochure-studio-demo-poster.webp" aria-label="Expand the Brochure Studio walkthrough video">
+            <span class="initiative-media-hint" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M7.5 3.5h-4v4M12.5 3.5h4v4M7.5 16.5h-4v-4M12.5 16.5h4v-4"></path></svg></span>
+          </button>
         </figure>
         <div class="initiative-detail">
           <div class="initiative-meta">
@@ -6496,6 +6638,79 @@
       window.addEventListener("load", boot);
     }
   })();
+  </script>
+  <script>
+    /* Brochure Studio demo: autoplay the muted loop while in view,
+       open a full player on click (Escape, backdrop or X closes). */
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var inlineVideos = document.querySelectorAll('.initiative-video');
+
+      if ('IntersectionObserver' in window && !reduceMotion) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var v = entry.target;
+            if (entry.isIntersecting && !document.body.classList.contains('has-media-lightbox')) {
+              var p = v.play();
+              if (p && p.catch) p.catch(function () {});
+            } else {
+              v.pause();
+            }
+          });
+        }, { threshold: 0.35 });
+        inlineVideos.forEach(function (v) { io.observe(v); });
+      }
+
+      function openLightbox(trigger) {
+        var inline = trigger.parentElement.querySelector('.initiative-video');
+        if (inline) inline.pause();
+
+        var box = document.createElement('div');
+        box.className = 'media-lightbox';
+        box.setAttribute('role', 'dialog');
+        box.setAttribute('aria-modal', 'true');
+        box.setAttribute('aria-label', 'Brochure Studio walkthrough video');
+        box.innerHTML =
+          '<button type="button" class="media-lightbox__close" aria-label="Close video">' +
+          '<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="m5 5 10 10M15 5 5 15"></path></svg></button>' +
+          '<div class="media-lightbox__frame"><video class="media-lightbox__video" controls autoplay playsinline></video></div>';
+
+        var video = box.querySelector('video');
+        video.poster = trigger.getAttribute('data-poster') || '';
+        video.src = trigger.getAttribute('data-full-src');
+        if (inline && inline.currentTime) video.currentTime = inline.currentTime;
+
+        function close() {
+          video.pause();
+          document.removeEventListener('keydown', onKey);
+          document.body.classList.remove('has-media-lightbox');
+          box.remove();
+          trigger.focus({ preventScroll: true });
+          if (inline && !reduceMotion) {
+            var p = inline.play();
+            if (p && p.catch) p.catch(function () {});
+          }
+        }
+        function onKey(e) {
+          if (e.key === 'Escape') close();
+        }
+
+        box.querySelector('.media-lightbox__close').addEventListener('click', close);
+        box.addEventListener('click', function (e) {
+          if (e.target === box || e.target.classList.contains('media-lightbox__frame')) close();
+        });
+        document.addEventListener('keydown', onKey);
+
+        document.body.appendChild(box);
+        document.body.classList.add('has-media-lightbox');
+        requestAnimationFrame(function () { box.classList.add('is-open'); });
+        box.querySelector('.media-lightbox__close').focus({ preventScroll: true });
+      }
+
+      document.querySelectorAll('.initiative-media-cover').forEach(function (btn) {
+        btn.addEventListener('click', function () { openLightbox(btn); });
+      });
+    })();
   </script>
 </body>
 </html>
