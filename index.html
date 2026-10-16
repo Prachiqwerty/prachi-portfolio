@@ -4200,7 +4200,103 @@
       opacity: 0 !important;
       visibility: hidden !important;
     }
+
+    /* featured on Wall of Portfolios: a badge in the nav, a pop-up in the middle of the screen */
+    .wop-badge { position: relative; display: block; flex: 0 0 auto; padding: 0; border: 0; background: none; cursor: pointer;
+      filter: drop-shadow(0 4px 10px rgba(42, 36, 56, .16)); transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); -webkit-tap-highlight-color: transparent; }
+    .wop-badge:hover, .wop-badge:focus-visible { transform: translateY(-2px) scale(1.06) rotate(-1.5deg); }
+    .wop-badge:focus-visible { outline: 2px solid var(--home-accent-ink); outline-offset: 4px; border-radius: 6px; }
+    .wop-in { position: relative; display: block; overflow: hidden; border-radius: 4px; line-height: 0; box-shadow: 0 0 0 1px rgba(42, 36, 56, .14); }
+    .wop-in img { display: block; width: 100%; height: auto; max-width: none; }
+    .wop-shine { position: absolute; inset: -20%; pointer-events: none; transform: translateX(-130%); background: linear-gradient(100deg, transparent 38%, rgba(246, 36, 119, .55) 50%, transparent 62%); mix-blend-mode: multiply; animation: wopshine 5.2s ease-in-out 2.4s infinite; }
+    @keyframes wopshine { 0%, 62% { transform: translateX(-130%); } 82%, 100% { transform: translateX(130%); } }
+    .wop-sp { position: absolute; width: 11px; height: 11px; pointer-events: none; opacity: 0; background: var(--home-accent); clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: wopsp 5.2s ease-in-out infinite; }
+    .wop-sp.a { left: -7px; top: -6px; animation-delay: 3.3s; } .wop-sp.b { right: -8px; top: 8px; width: 9px; height: 9px; animation-delay: 3.55s; } .wop-sp.c { right: 22%; bottom: -7px; width: 8px; height: 8px; animation-delay: 3.8s; }
+    @keyframes wopsp { 0%, 14%, 100% { opacity: 0; transform: scale(.2) rotate(0); } 6% { opacity: 1; transform: scale(1.15) rotate(45deg); } }
+    .wop-ring { position: absolute; inset: -5px; border: 2px solid var(--home-accent); border-radius: 8px; opacity: 0; pointer-events: none; }
+    .wop-badge.new .wop-ring { animation: wopring 2.4s ease-out 4; }
+    @keyframes wopring { 0% { opacity: .9; transform: scale(.94); } 100% { opacity: 0; transform: scale(1.32); } }
+    .wop-hint { position: absolute; left: 50%; top: calc(100% + 12px); z-index: 2; white-space: nowrap; opacity: 0; pointer-events: none; transform: translateX(-50%); font: 500 13px/1 var(--sans); color: #fff; padding: 8px 12px; border-radius: 999px; background: #2a2438; transition: opacity .5s; }
+    .wop-hint::before { content: ""; position: absolute; left: 50%; top: -4px; width: 8px; height: 8px; background: inherit; transform: translateX(-50%) rotate(45deg); }
+    .wop-badge.new .wop-hint { opacity: 1; }
+    body.case-open .wop-badge { display: none; }
+    @media (max-width: 760px) { .wop-hint { display: none; } .nav-social { gap: 18px; } }
+    @media (prefers-reduced-motion: reduce) { .wop-shine, .wop-sp, .wop-tilt, .wop-glint { animation: none !important; } }
+
+    /* the pop-up */
+    .wop-modal { position: fixed; z-index: 90; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; padding: 20px; text-align: center; color: #f5f7fa;
+      background: radial-gradient(60% 50% at 50% 42%, rgba(70, 60, 110, .55), rgba(10, 8, 18, .9)); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      opacity: 0; visibility: hidden; transition: opacity .4s ease, visibility 0s .4s; }
+    .wop-modal.open { opacity: 1; visibility: visible; transition: opacity .4s ease, visibility 0s; }
+    .wop-card { position: relative; width: min(58vw, 270px, calc((100svh - 230px) * .529)); aspect-ratio: 640 / 1210; perspective: 900px; transform: translateY(30px) scale(.78) rotateY(-80deg); transition: transform .95s cubic-bezier(.34, 1.56, .64, 1); }
+    .wop-modal.open .wop-card { transform: none; }
+    .wop-tilt { position: absolute; inset: 0; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .25s ease-out; animation: wopfloat 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .55)); }
+    .wop-pill { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; user-select: none; -webkit-user-drag: none; }
+    .wop-glint { position: absolute; inset: 0; background: linear-gradient(108deg, transparent 38%, rgba(255, 255, 255, .95) 50%, transparent 62%) 130% 0 / 260% 100% no-repeat;
+      -webkit-mask: url("assets/wop/featured-pill.webp") center / 100% 100% no-repeat; mask: url("assets/wop/featured-pill.webp") center / 100% 100% no-repeat; mix-blend-mode: overlay; animation: wopglint 4.2s ease-in-out .9s infinite; }
+    @keyframes wopglint { 0%, 55% { background-position: 130% 0; } 85%, 100% { background-position: -30% 0; } }
+    @keyframes wopfloat { 50% { translate: 0 -7px; } }
+    .wop-cap { margin: 8px 0 0; font: 700 20px/1.25 var(--hero-display); letter-spacing: -.01em; color: rgba(245, 247, 250, .82); } .wop-cap b { color: #fff; }
+    .wop-sub { margin: 0; max-width: none; white-space: nowrap; font: 400 min(14px, 3.05vw)/1.45 var(--sans); color: rgba(245, 247, 250, .72); }
+    .wop-link { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 999px; background: rgba(255, 255, 255, .12); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .22); color: #fff; font: 600 14px/1 var(--sans); text-decoration: none; transition: background .25s, transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+    .wop-link:hover { background: rgba(255, 255, 255, .22); transform: translateY(-2px); color: #fff; }
+    .wop-x { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 16px); right: 16px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #fff; font: 400 26px/1 var(--sans); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .22); cursor: pointer; }
+    .wop-x:hover { background: rgba(255, 255, 255, .22); }
+    @media (min-width: 860px) {
+      .wop-modal { gap: 16px; }
+      .wop-card { width: min(36vw, 360px, calc((100svh - 290px) * .529)); }
+      .wop-cap { margin-top: 12px; font-size: clamp(26px, 2.3vw, 36px); }
+      .wop-sub { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.5; }
+      .wop-link { height: 52px; padding: 0 28px; font-size: 16px; }
+      .wop-x { width: 52px; height: 52px; top: 24px; right: 28px; font-size: 30px; }
+    }
+    .wop-cv { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 95; pointer-events: none; }
+    /* keep the custom cursor visible on the dark pop-up */
+    html.wop-open .site-cursor { --cursor-color: #ffffff; --cursor-label-color: #100e11; }
+
+    /* nav, after kishanvagale.com: name on the left, one right-aligned row of plain links,
+       then the special item (the official WOP badge used as an icon, with the profile views as
+       its label, like his "Ask me anything" and "Agent mode"), and one utility icon at the end.
+       The brand already links home, so Home and the slashes are dropped on the landing page. */
+    /* balance: name + WOP credential on the left, section links centred over the hero,
+       actions (Resume, LinkedIn) on the right */
+    body:not(.case-open) .shell > .nav { grid-template-columns: 1fr auto 1fr; column-gap: 30px; height: 60px; }
+    .nav-start { display: flex; align-items: center; gap: 26px; justify-self: start; min-width: 0; }
+    body:not(.case-open) .nav-links { justify-self: center; gap: 30px; }
+    body:not(.case-open) .nav-links .slash,
+    body:not(.case-open) .nav-links a[href="#home"] { display: none; }
+    body:not(.case-open) .nav-social { gap: 30px; justify-self: end; }
+    .nav-links a, .nav-social a, .wop-label { transition: color .2s; }
+    .wop-badge { display: flex; align-items: center; gap: 10px; filter: none; color: var(--text, #505054); font: inherit; font-size: 14px; }
+    .wop-badge .wop-in { width: 62px; flex: 0 0 62px; filter: drop-shadow(0 3px 8px rgba(42, 36, 56, .14)); transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+    .wop-badge:hover, .wop-badge:focus-visible { transform: none; }
+    .wop-badge:hover .wop-in, .wop-badge:focus-visible .wop-in { transform: translateY(-1px) rotate(-2deg) scale(1.05); }
+    .wop-badge:hover .wop-label { color: var(--home-accent-ink); }
+    .wop-label { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; line-height: 1; transition: color .2s, opacity .6s cubic-bezier(.22, 1, .36, 1), transform .6s cubic-bezier(.22, 1, .36, 1); }
+    /* live views, after jameschugh.com: hidden until the number arrives, then it slides in,
+       counts up from zero, and the green dot keeps blinking with a soft ring */
+    html.vc-js .wop-label:not(.in) { opacity: 0; transform: translateY(-6px); }
+    .wl-live { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: #34c759; animation: wopLive 2.2s ease-out infinite; }
+    @keyframes wopLive { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 199, 89, .55); } 45% { opacity: .35; } 70% { opacity: 1; box-shadow: 0 0 0 7px rgba(52, 199, 89, 0); } 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); } }
+    .wop-label b { display: inline-block; }
+    .wop-label .wl-w { margin-left: -3px; }
+    @media (prefers-reduced-motion: reduce) { .wl-live { animation: none; } .wop-label { transition: none; } }
+    .wop-label b { font-weight: 600; color: #171318; font-variant-numeric: tabular-nums; transition: color .2s; }
+    .wop-badge:hover .wop-label b { color: var(--home-accent-ink); }
+    .wop-badge .wop-ring { inset: -5px auto -5px -5px; width: 72px; }
+    .wop-badge .wop-sp.b { right: auto; left: 56px; }
+    .wop-badge .wop-sp.c { right: auto; left: 40px; }
+    .wop-badge .wop-hint { left: 31px; }
+    .nav-social .resume-link span { margin-left: 3px; color: #a3a0a6; transition: color .2s, transform .2s; display: inline-block; }
+    .nav-social .resume-link:hover span { color: currentColor; transform: translate(1px, -1px); }
+    .nav-social .linkedin-link { padding: 4px; margin: -4px; }
+    .nav-social .linkedin-link .linkedin-icon { width: 19px; height: 19px; transition: transform .2s; }
+    .nav-social .linkedin-link:hover .linkedin-icon { transform: translateY(-1px); }
+    @media (min-width: 761px) and (max-width: 1040px) { body:not(.case-open) .nav-links, body:not(.case-open) .nav-social { gap: 22px; } body:not(.case-open) .shell > .nav { column-gap: 22px; } }
+    @media (max-width: 760px) { body:not(.case-open) .shell > .nav { grid-template-columns: 1fr auto; height: 56px; } .nav-start { gap: 14px; } body:not(.case-open) .nav-social { gap: 18px; justify-self: end; } .wop-badge { gap: 8px; } .wop-badge .wop-in { width: 56px; flex-basis: 56px; } .wop-badge .wop-ring { width: 66px; } }
+    @media (max-width: 420px) { .wop-label .wl-w { display: none; } }
   </style>
+  <script>document.documentElement.classList.add("vc-js");</script>
   <!-- Vercel Web Analytics -->
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -4210,7 +4306,15 @@
 <body>
   <main class="shell">
     <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="#home">PRACHI</a>
+      <div class="nav-start">
+        <a class="brand" href="#home">PRACHI</a>
+        <button type="button" class="wop-badge" id="wopBadge" aria-haspopup="dialog" aria-label="Featured on Wall of Portfolios, 2,720 profile views. Open the badge">
+          <span class="wop-in"><img src="assets/wop/featured-white.svg" alt="" width="94" height="44"><i class="wop-shine"></i></span>
+          <span class="wop-label" id="viewCount" aria-hidden="true"><i class="wl-live"></i><b>2,720</b><span class="wl-w"> views</span></span>
+          <i class="wop-ring"></i><i class="wop-sp a"></i><i class="wop-sp b"></i><i class="wop-sp c"></i>
+          <span class="wop-hint" aria-hidden="true">I got featured. Tap it</span>
+        </button>
+      </div>
       <div class="nav-links">
         <a href="#home">Home</a>
         <span class="slash">/</span>
@@ -4221,13 +4325,12 @@
         <a href="#experience">Experience</a>
       </div>
       <div class="nav-social">
-        <a href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">Resume</a>
-        <a class="linkedin-link" href="https://www.linkedin.com/in/prachi-pandey-506/" target="_blank" rel="noreferrer">
+        <a class="resume-link" href="https://drive.google.com/file/d/148aKkYxEED7ilc-Go8YxFYl0k6I98seG/view?usp=drivesdk" target="_blank" rel="noreferrer">Resume<span aria-hidden="true">↗</span></a>
+        <a class="linkedin-link" href="https://www.linkedin.com/in/prachi-pandey-506/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
           <svg class="linkedin-icon" viewBox="0 0 24 24" aria-hidden="true">
             <rect width="24" height="24" rx="2.5" fill="currentColor"></rect>
             <path fill="#ffffff" d="M19.23 19.24h-3.04v-4.76c0-1.14-.02-2.6-1.59-2.6-1.58 0-1.83 1.24-1.83 2.52v4.84H9.73V9.45h2.92v1.34h.04c.41-.77 1.4-1.58 2.88-1.58 3.08 0 3.66 2.03 3.66 4.66v5.37ZM6.29 8.12a1.76 1.76 0 1 1 0-3.53 1.76 1.76 0 0 1 0 3.53Zm1.52 11.12H4.77V9.45h3.04v9.79Z"></path>
           </svg>
-          <span>LinkedIn</span>
         </a>
       </div>
     </nav>
@@ -6710,6 +6813,95 @@
       document.querySelectorAll('.initiative-media-cover').forEach(function (btn) {
         btn.addEventListener('click', function () { openLightbox(btn); });
       });
+    })();
+  </script>
+  <script>
+    /* featured on Wall of Portfolios: confetti, shimmer and the pop-up */
+    (() => {
+      const badge = document.getElementById("wopBadge"); if (!badge) return;
+      const $ = (s, r = document) => r.querySelector(s);
+      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const confetti = (x, y, n = 90) => { if (still) return;
+        const cv = document.createElement("canvas"); cv.className = "wop-cv"; const dpr = Math.min(2, devicePixelRatio || 1); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; document.body.appendChild(cv);
+        const g = cv.getContext("2d"); g.scale(dpr, dpr); const C = ["#f62477", "#c41457", "#d10056", "#0032f0", "#ffc2da", "#ffffff", "#c9d6e2"];
+        const P = Array.from({ length: n }, () => { const a = -Math.PI / 2 + (Math.random() - .5) * 2.3, v = 5 + Math.random() * 9;
+          return { x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2, w: 5 + Math.random() * 6, h: 3 + Math.random() * 4, r: Math.random() * 6, vr: (Math.random() - .5) * .45, c: C[(Math.random() * C.length) | 0], round: Math.random() < .25, life: 0, max: 110 + Math.random() * 70 }; });
+        const step = () => { g.clearRect(0, 0, innerWidth, innerHeight); let alive = 0;
+          for (const p of P) { p.life++; if (p.life > p.max) continue; alive++; p.vy += .26; p.vx *= .985; p.vy *= .985; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+            g.globalAlpha = Math.min(1, (p.max - p.life) / 30); g.fillStyle = p.c; g.save(); g.translate(p.x, p.y); g.rotate(p.r);
+            if (p.round) { g.beginPath(); g.arc(0, 0, p.w / 2.4, 0, 6.3); g.fill(); } else g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); g.restore(); }
+          if (alive) requestAnimationFrame(step); else cv.remove(); };
+        requestAnimationFrame(step); };
+      const mid = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+      // first visit: the badge gets a ring, a hint and one burst of confetti
+      let seen = false; try { seen = !!localStorage.getItem("pp-wop-seen"); } catch (_) {}
+      if (!seen) setTimeout(() => {
+        if (document.hidden || scrollY > 4 || document.body.classList.contains("case-open") || !badge.offsetWidth) return;
+        badge.classList.add("new"); confetti(...mid(badge), 70); try { localStorage.setItem("pp-wop-seen", "1"); } catch (_) {}
+        setTimeout(() => badge.classList.remove("new"), 14000); }, 3200);
+      // the pop-up
+      let m = null, last = null;
+      const build = () => { m = document.createElement("div"); m.className = "wop-modal"; m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); m.setAttribute("aria-labelledby", "wopT"); m.setAttribute("aria-hidden", "true");
+        m.innerHTML = `<button type="button" class="wop-x" aria-label="Close">&times;</button>
+          <div class="wop-card"><div class="wop-tilt"><img class="wop-pill" src="assets/wop/featured-pill.webp" alt="Silver badge: Featured on Wall of Portfolios 2026. Welcome to the wall. Keep growing and inspiring." draggable="false"><i class="wop-glint" aria-hidden="true"></i></div></div>
+          <p class="wop-cap" id="wopT">Featured on <b>Wall of Portfolios</b></p>
+          <p class="wop-sub">Only 30% of the portfolios they receive make it to the Wall.</p>
+          <a class="wop-link" href="https://www.wallofportfolios.in/portfolios/prachi-pandey/" target="_blank" rel="noopener">See my page on Wall of Portfolios ↗</a>`;
+        document.body.appendChild(m);
+        m.addEventListener("click", e => { if (e.target === m || e.target.closest(".wop-x")) close(); });
+        m.addEventListener("pointermove", e => { if (e.pointerType === "touch") return; const r = $(".wop-card", m).getBoundingClientRect(); const dx = (e.clientX - (r.left + r.width / 2)) / innerWidth, dy = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+          const t = $(".wop-tilt", m); t.style.setProperty("--ry", (dx * 36).toFixed(1) + "deg"); t.style.setProperty("--rx", (-dy * 28).toFixed(1) + "deg"); });
+        m.addEventListener("pointerleave", () => { const t = $(".wop-tilt", m); t.style.setProperty("--ry", "0deg"); t.style.setProperty("--rx", "0deg"); });
+        addEventListener("keydown", e => { if (e.key === "Escape" && m.classList.contains("open")) close(); }); };
+      const open = () => { if (!m) build(); last = document.activeElement; badge.classList.remove("new"); try { localStorage.setItem("pp-wop-seen", "1"); } catch (_) {}
+        document.documentElement.style.overflow = "hidden"; document.documentElement.classList.add("wop-open");
+        requestAnimationFrame(() => m.classList.add("open")); m.setAttribute("aria-hidden", "false"); setTimeout(() => $(".wop-x", m).focus({ preventScroll: true }), 80);
+        setTimeout(() => confetti(innerWidth / 2, innerHeight * .42, 110), 450); };
+      const close = () => { if (!m) return; m.classList.remove("open"); m.setAttribute("aria-hidden", "true"); document.documentElement.style.overflow = ""; document.documentElement.classList.remove("wop-open"); if (last && last.focus) last.focus({ preventScroll: true }); };
+      badge.addEventListener("click", e => { e.stopPropagation(); open(); });
+    })();
+  </script>
+  <script>
+    /* Wall of Portfolios profile views: starts from the 2,720 WOP views (90 days to 16 Oct 2026).
+       WOP shows this page in an iframe on her profile, so only those loads add a view,
+       once per browser session. Direct visits and local previews only read the number.
+       The reveal follows jameschugh.com: the label waits for the number, slides in and
+       counts up from zero over 1.2s, while the green dot blinks. */
+    (() => {
+      const el = document.getElementById("viewCount"); if (!el) return;
+      document.documentElement.classList.add("vc-js");
+      const num = el.querySelector("b"), base = 2720, key = "prachipandey.in/profile-views";
+      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const local = location.protocol === "file:" || /^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
+      let seen = false; try { seen = !!sessionStorage.getItem("pp-viewed"); } catch (_) {}
+      let framedByWop = false;
+      try { framedByWop = window.self !== window.top && /(^|\.)wallofportfolios\.in/.test(document.referrer + " " + [...(location.ancestorOrigins || [])].join(" ")); } catch (_) {}
+      const hit = !local && !seen && framedByWop;
+      const fmt = v => v.toLocaleString("en-US");
+      let shown = false;
+      const show = n => {
+        if (shown) return; shown = true;
+        if (!(n >= base)) n = base;
+        const final = fmt(n);
+        num.textContent = final; num.style.minWidth = num.getBoundingClientRect().width + "px";  // hold the width so nothing shifts while counting
+        const btn = document.getElementById("wopBadge"); if (btn) btn.setAttribute("aria-label", "Featured on Wall of Portfolios, " + final + " profile views. Open the badge");
+        const D = still ? 0 : 1200, t0 = performance.now();
+        if (D) num.textContent = "0";
+        el.classList.add("in");
+        const tick = now => { const k = D ? Math.min(1, (now - t0) / D) : 1, e = 1 - Math.pow(1 - k, 3);
+          num.textContent = fmt(Math.round(n * e)); if (k < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      };
+      const started = performance.now(), MIN_DELAY = 1400;
+      const later = n => setTimeout(() => show(n), Math.max(0, MIN_DELAY - (performance.now() - started)));
+      setTimeout(() => show(base), 4000);  // the counter service is slow or down: show the starting number anyway
+      fetch("https://abacus.jasoncameron.dev/" + (hit ? "hit/" : "get/") + key, { cache: "no-store" })
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          if (d && typeof d.value === "number" && hit) try { sessionStorage.setItem("pp-viewed", "1"); } catch (_) {}
+          later(d && typeof d.value === "number" ? d.value : base);
+        })
+        .catch(() => later(base));
     })();
   </script>
 </body>
