@@ -4308,9 +4308,9 @@
     <nav class="nav" aria-label="Primary navigation">
       <div class="nav-start">
         <a class="brand" href="#home">PRACHI</a>
-        <button type="button" class="wop-badge" id="wopBadge" aria-haspopup="dialog" aria-label="Featured on Wall of Portfolios, 2,720 profile views. Open the badge">
+        <button type="button" class="wop-badge" id="wopBadge" aria-haspopup="dialog" aria-label="Featured on Wall of Portfolios, 2,800 profile views. Open the badge">
           <span class="wop-in"><img src="assets/wop/featured-white.svg" alt="" width="94" height="44"><i class="wop-shine"></i></span>
-          <span class="wop-label" id="viewCount" aria-hidden="true"><i class="wl-live"></i><b>2,720</b><span class="wl-w"> views</span></span>
+          <span class="wop-label" id="viewCount" aria-hidden="true"><i class="wl-live"></i><b>2,800</b><span class="wl-w"> views</span></span>
           <i class="wop-ring"></i><i class="wop-sp a"></i><i class="wop-sp b"></i><i class="wop-sp c"></i>
           <span class="wop-hint" aria-hidden="true">I got featured. Tap it</span>
         </button>
@@ -6862,26 +6862,17 @@
     })();
   </script>
   <script>
-    /* Wall of Portfolios profile views: starts from the 2,720 WOP views (90 days to 16 Oct 2026).
-       WOP shows this page in an iframe on her profile, so only those loads add a view,
-       once per browser session. Direct visits and local previews only read the number.
-       The reveal follows jameschugh.com: the label waits for the number, slides in and
-       counts up from zero over 1.2s, while the green dot blinks. */
+    /* Wall of Portfolios profile views: a fixed figure, the 90-day WOP total on 21 Oct 2026.
+       Update `views` by hand when the WOP analytics number changes. No live counter.
+       The reveal follows jameschugh.com: the label slides in and counts up from zero
+       over 1.2s, while the green dot blinks. */
     (() => {
       const el = document.getElementById("viewCount"); if (!el) return;
       document.documentElement.classList.add("vc-js");
-      const num = el.querySelector("b"), base = 2720, key = "prachipandey.in/profile-views";
+      const num = el.querySelector("b"), views = 2800;
       const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const local = location.protocol === "file:" || /^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
-      let seen = false; try { seen = !!sessionStorage.getItem("pp-viewed"); } catch (_) {}
-      let framedByWop = false;
-      try { framedByWop = window.self !== window.top && /(^|\.)wallofportfolios\.in/.test(document.referrer + " " + [...(location.ancestorOrigins || [])].join(" ")); } catch (_) {}
-      const hit = !local && !seen && framedByWop;
       const fmt = v => v.toLocaleString("en-US");
-      let shown = false;
       const show = n => {
-        if (shown) return; shown = true;
-        if (!(n >= base)) n = base;
         const final = fmt(n);
         num.textContent = final; num.style.minWidth = num.getBoundingClientRect().width + "px";  // hold the width so nothing shifts while counting
         const btn = document.getElementById("wopBadge"); if (btn) btn.setAttribute("aria-label", "Featured on Wall of Portfolios, " + final + " profile views. Open the badge");
@@ -6892,16 +6883,7 @@
           num.textContent = fmt(Math.round(n * e)); if (k < 1) requestAnimationFrame(tick); };
         requestAnimationFrame(tick);
       };
-      const started = performance.now(), MIN_DELAY = 1400;
-      const later = n => setTimeout(() => show(n), Math.max(0, MIN_DELAY - (performance.now() - started)));
-      setTimeout(() => show(base), 4000);  // the counter service is slow or down: show the starting number anyway
-      fetch("https://abacus.jasoncameron.dev/" + (hit ? "hit/" : "get/") + key, { cache: "no-store" })
-        .then(r => r.ok ? r.json() : null)
-        .then(d => {
-          if (d && typeof d.value === "number" && hit) try { sessionStorage.setItem("pp-viewed", "1"); } catch (_) {}
-          later(d && typeof d.value === "number" ? d.value : base);
-        })
-        .catch(() => later(base));
+      setTimeout(() => show(views), 1400);
     })();
   </script>
 </body>
